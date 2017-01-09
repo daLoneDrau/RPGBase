@@ -1,0 +1,10 @@
+
+// test comment
+g
+§section0
+blah blah 
+§
+§section1
+// comment
+blah blah 
+§

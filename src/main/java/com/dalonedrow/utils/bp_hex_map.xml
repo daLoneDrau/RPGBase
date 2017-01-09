@@ -1,0 +1,2570 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Map>
+    <mapHex>
+        <x>01</x>
+        <y>01</y>
+        <type>0</type>
+        <name>The Free City of Ogon</name>
+    </mapHex>
+    <mapHex>
+        <x>01</x>
+        <y>02</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>01</x>
+        <y>03</y>
+        <type>4</type>  
+    </mapHex>
+    <mapHex>
+        <x>01</x>
+        <y>04</y>
+        <type>0</type>  
+    </mapHex>
+    <mapHex>
+        <x>01</x>
+        <y>05</y>
+        <type>3</type>
+    </mapHex>
+    <mapHex>
+        <x>01</x>
+        <y>06</y>
+        <type>5</type>
+        <name>Dead Plains</name>        
+    </mapHex>
+    <mapHex>
+        <x>01</x>
+        <y>07</y>
+        <type>3</type>
+    </mapHex>
+    <mapHex>
+        <x>01</x>
+        <y>08</y>
+        <type>0</type>  
+    </mapHex>
+    <mapHex>
+        <x>01</x>
+        <y>09</y>
+        <type>0</type>     
+        <name>Angleae</name>
+    </mapHex>
+    <mapHex>
+        <x>01</x>
+        <y>10</y>
+        <type>0</type>  
+    </mapHex>
+    <mapHex>
+        <x>01</x>
+        <y>11</y>
+        <type>2</type>
+    </mapHex>
+    <mapHex>
+        <x>01</x>
+        <y>12</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>01</x>
+        <y>13</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>01</x>
+        <y>14</y>
+        <type>6</type>
+        <name>Llewyla Moor</name>       
+    </mapHex>
+    <mapHex>
+        <x>01</x>
+        <y>15</y>
+        <type>6</type>
+        <name>Llewyla Moor</name>       
+    </mapHex>
+    <mapHex>
+        <x>01</x>
+        <y>16</y>
+        <type>2</type>
+    </mapHex>
+    <mapHex>
+        <x>01</x>
+        <y>17</y>
+        <type>2</type>
+    </mapHex>
+    <mapHex>
+        <x>01</x>
+        <y>18</y>
+        <type>2</type>
+    </mapHex>
+    <mapHex>
+        <x>01</x>
+        <y>19</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>01</x>
+        <y>20</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>01</x>
+        <y>21</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>01</x>
+        <y>22</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>01</x>
+        <y>23</y>
+        <type>2</type>
+    </mapHex>
+    <mapHex>
+        <x>02</x>
+        <y>01</y>
+        <type>4</type>
+    </mapHex>
+    <mapHex>
+        <x>02</x>
+        <y>02</y>
+        <type>2</type>
+    </mapHex>
+    <mapHex>
+        <x>02</x>
+        <y>03</y>
+        <type>2</type>
+    </mapHex>
+    <mapHex>
+        <x>02</x>
+        <y>04</y>
+        <type>3</type>
+    </mapHex>
+    <mapHex>
+        <x>02</x>
+        <y>05</y>
+        <type>3</type>
+    </mapHex>
+    <mapHex>
+        <x>02</x>
+        <y>06</y>
+        <type>5</type>
+        <name>Lost City</name>
+    </mapHex>
+    <mapHex>
+        <x>02</x>
+        <y>07</y>
+        <type>3</type>
+    </mapHex>
+    <mapHex>
+        <x>02</x>
+        <y>08</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>02</x>
+        <y>09</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>02</x>
+        <y>10</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>02</x>
+        <y>11</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>02</x>
+        <y>12</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>02</x>
+        <y>13</y>
+        <type>6</type>
+        <name>Llewyla Moor</name>
+    </mapHex>
+    <mapHex>
+        <x>02</x>
+        <y>14</y>
+        <type>6</type>
+        <name>Llewyla Moor</name>
+    </mapHex>
+    <mapHex>
+        <x>02</x>
+        <y>15</y>
+        <type>2</type>
+    </mapHex>
+    <mapHex>
+        <x>02</x>
+        <y>16</y>
+        <type>1</type>
+        <name>Galden</name>
+    </mapHex>
+    <mapHex>
+        <x>02</x>
+        <y>17</y>
+        <type>1</type>
+    </mapHex>
+    <mapHex>
+        <x>02</x>
+        <y>18</y>
+        <type>2</type>
+    </mapHex>
+    <mapHex>
+        <x>02</x>
+        <y>19</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>02</x>
+        <y>20</y>
+        <type>2</type>
+    </mapHex>
+    <mapHex>
+        <x>02</x>
+        <y>21</y>
+        <type>2</type>
+    </mapHex>
+    <mapHex>
+        <x>02</x>
+        <y>22</y>
+        <type>1</type>
+    </mapHex>
+    <mapHex>
+        <x>02</x>
+        <y>23</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>03</x>
+        <y>01</y>
+        <type>4</type>
+    </mapHex>
+    <mapHex>
+        <x>03</x>
+        <y>02</y>
+        <type>2</type>
+    </mapHex>
+    <mapHex>
+        <x>03</x>
+        <y>03</y>
+        <type>2</type>
+    </mapHex>
+    <mapHex>
+        <x>03</x>
+        <y>04</y>
+        <type>4</type>
+        <name>Barrier Peaks</name>
+    </mapHex>
+    <mapHex>
+        <x>03</x>
+        <y>05</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>03</x>
+        <y>06</y>
+        <type>5</type>
+        <name>Dead Plains</name>
+    </mapHex>
+    <mapHex>
+        <x>03</x>
+        <y>07</y>
+        <type>3</type>
+    </mapHex>
+    <mapHex>
+        <x>03</x>
+        <y>08</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>03</x>
+        <y>09</y>
+        <type>2</type>
+    </mapHex>
+    <mapHex>
+        <x>03</x>
+        <y>10</y>
+        <type>2</type>
+    </mapHex>
+    <mapHex>
+        <x>03</x>
+        <y>11</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>03</x>
+        <y>12</y>
+        <type>6</type>
+        <name>Llewyla Moor</name>
+    </mapHex>
+    <mapHex>
+        <x>03</x>
+        <y>13</y>
+        <type>6</type>
+        <name>Llewyla Moor</name>
+    </mapHex>
+    <mapHex>
+        <x>03</x>
+        <y>14</y>
+        <type>2</type>
+    </mapHex>
+    <mapHex>
+        <x>03</x>
+        <y>15</y>
+        <type>2</type>
+    </mapHex>
+    <mapHex>
+        <x>03</x>
+        <y>16</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>03</x>
+        <y>17</y>
+        <type>1</type>
+    </mapHex>
+    <mapHex>
+        <x>03</x>
+        <y>18</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>03</x>
+        <y>19</y>
+        <type>1</type>
+    </mapHex>
+    <mapHex>
+        <x>03</x>
+        <y>20</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>03</x>
+        <y>21</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>03</x>
+        <y>22</y>
+        <type>1</type>
+    </mapHex>
+    <mapHex>
+        <x>03</x>
+        <y>23</y>
+        <type>1</type>
+        <name>Drogat Castle</name>
+    </mapHex>
+    <mapHex>
+        <x>04</x>
+        <y>01</y>
+        <type>2</type>
+    </mapHex>
+    <mapHex>
+        <x>04</x>
+        <y>02</y>
+        <type>2</type>
+    </mapHex>
+    <mapHex>
+        <x>04</x>
+        <y>03</y>
+        <type>4</type>
+        <name>Barrier Peaks</name>
+    </mapHex>
+    <mapHex>
+        <x>04</x>
+        <y>04</y>
+        <type>4</type>
+        <name>Barrier Peaks</name>
+    </mapHex>
+    <mapHex>
+        <x>04</x>
+        <y>05</y>
+        <type>4</type>
+        <name>Barrier Peaks</name>
+    </mapHex>
+    <mapHex>
+        <x>04</x>
+        <y>06</y>
+        <type>3</type>
+    </mapHex>
+    <mapHex>
+        <x>04</x>
+        <y>07</y>
+        <type>5</type>
+    </mapHex>
+    <mapHex>
+        <x>04</x>
+        <y>08</y>
+        <type>2</type>
+    </mapHex>
+    <mapHex>
+        <x>04</x>
+        <y>09</y>
+        <type>2</type>
+    </mapHex>
+    <mapHex>
+        <x>04</x>
+        <y>10</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>04</x>
+        <y>11</y>
+        <type>6</type>
+        <name>Llewyla Moor</name>
+    </mapHex>
+    <mapHex>
+        <x>04</x>
+        <y>12</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>04</x>
+        <y>13</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>04</x>
+        <y>14</y>
+        <type>2</type>
+    </mapHex>
+    <mapHex>
+        <x>04</x>
+        <y>15</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>04</x>
+        <y>16</y>
+        <type>0</type>
+        <name>Plains of Datha</name>
+    </mapHex>
+    <mapHex>
+        <x>04</x>
+        <y>17</y>
+        <type>0</type>
+        <name>Plains of Datha</name>
+    </mapHex>
+    <mapHex>
+        <x>04</x>
+        <y>18</y>
+        <type>1</type>
+    </mapHex>
+    <mapHex>
+        <x>04</x>
+        <y>19</y>
+        <type>1</type>
+        <name>Halowich</name>
+    </mapHex>
+    <mapHex>
+        <x>04</x>
+        <y>20</y>
+        <type>1</type>
+    </mapHex>
+    <mapHex>
+        <x>04</x>
+        <y>21</y>
+        <type>2</type>
+    </mapHex>
+    <mapHex>
+        <x>04</x>
+        <y>22</y>
+        <type>1</type>
+        <name>Lower Drogat</name>
+    </mapHex>
+    <mapHex>
+        <x>04</x>
+        <y>23</y>
+        <type>1</type>
+    </mapHex>
+    <mapHex>
+        <x>05</x>
+        <y>01</y>
+        <type>2</type>
+    </mapHex>
+    <mapHex>
+        <x>05</x>
+        <y>02</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>05</x>
+        <y>03</y>
+        <type>4</type>
+        <name>Barrier Peaks</name>
+    </mapHex>
+    <mapHex>
+        <x>05</x>
+        <y>04</y>
+        <type>4</type>
+        <name>Barrier Peaks</name>
+    </mapHex>
+    <mapHex>
+        <x>05</x>
+        <y>05</y>
+        <type>2</type>
+    </mapHex>
+    <mapHex>
+        <x>05</x>
+        <y>06</y>
+        <type>3</type>
+    </mapHex>
+    <mapHex>
+        <x>05</x>
+        <y>07</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>05</x>
+        <y>08</y>
+        <type>2</type>
+    </mapHex>
+    <mapHex>
+        <x>05</x>
+        <y>09</y>
+        <type>2</type>
+    </mapHex>
+    <mapHex>
+        <x>05</x>
+        <y>10</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>05</x>
+        <y>11</y>
+        <type>6</type>
+        <name>Llewyla Moor</name>
+    </mapHex>
+    <mapHex>
+        <x>05</x>
+        <y>12</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>05</x>
+        <y>13</y>
+        <type>2</type>
+    </mapHex>
+    <mapHex>
+        <x>05</x>
+        <y>14</y>
+        <type>2</type>
+    </mapHex>
+    <mapHex>
+        <x>05</x>
+        <y>15</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>05</x>
+        <y>16</y>
+        <type>2</type>
+    </mapHex>
+    <mapHex>
+        <x>05</x>
+        <y>17</y>
+        <type>0</type>
+        <name>Plains of Datha</name>
+    </mapHex>
+    <mapHex>
+        <x>05</x>
+        <y>18</y>
+        <type>2</type>
+    </mapHex>
+    <mapHex>
+        <x>05</x>
+        <y>19</y>
+        <type>1</type>
+    </mapHex>
+    <mapHex>
+        <x>05</x>
+        <y>20</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>05</x>
+        <y>21</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>05</x>
+        <y>22</y>
+        <type>2</type>
+    </mapHex>
+    <mapHex>
+        <x>05</x>
+        <y>23</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>06</x>
+        <y>01</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>06</x>
+        <y>02</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>06</x>
+        <y>03</y>
+        <type>4</type>
+        <name>Barrier Peaks</name>
+    </mapHex>
+    <mapHex>
+        <x>06</x>
+        <y>04</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>06</x>
+        <y>05</y>
+        <type>3</type>
+    </mapHex>
+    <mapHex>
+        <x>06</x>
+        <y>06</y>
+        <type>2</type>
+    </mapHex>
+    <mapHex>
+        <x>06</x>
+        <y>07</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>06</x>
+        <y>08</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>06</x>
+        <y>09</y>
+        <type>6</type>
+    </mapHex>
+    <mapHex>
+        <x>06</x>
+        <y>10</y>
+        <type>2</type>
+    </mapHex>
+    <mapHex>
+        <x>06</x>
+        <y>11</y>
+        <type>6</type>
+        <name>Llewyla Moor</name>
+    </mapHex>
+    <mapHex>
+        <x>06</x>
+        <y>12</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>06</x>
+        <y>13</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>06</x>
+        <y>14</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>06</x>
+        <y>15</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>06</x>
+        <y>16</y>
+        <type>2</type>
+    </mapHex>
+    <mapHex>
+        <x>06</x>
+        <y>17</y>
+        <type>0</type>
+        <name>Plains of Datha</name>
+    </mapHex>
+    <mapHex>
+        <x>06</x>
+        <y>18</y>
+        <type>1</type>
+    </mapHex>
+    <mapHex>
+        <x>06</x>
+        <y>19</y>
+        <type>1</type>
+    </mapHex>
+    <mapHex>
+        <x>06</x>
+        <y>20</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>06</x>
+        <y>21</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>06</x>
+        <y>22</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>06</x>
+        <y>23</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>07</x>
+        <y>01</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>07</x>
+        <y>02</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>07</x>
+        <y>03</y>
+        <type>4</type>
+        <name>Barrier Peaks</name>
+    </mapHex>
+    <mapHex>
+        <x>07</x>
+        <y>04</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>07</x>
+        <y>05</y>
+        <type>2</type>
+    </mapHex>
+    <mapHex>
+        <x>07</x>
+        <y>06</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>07</x>
+        <y>07</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>07</x>
+        <y>08</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>07</x>
+        <y>09</y>
+        <type>2</type>
+    </mapHex>
+    <mapHex>
+        <x>07</x>
+        <y>10</y>
+        <type>6</type>
+    </mapHex>
+    <mapHex>
+        <x>07</x>
+        <y>11</y>
+        <type>2</type>
+        <name>Branwyn's Temple</name>
+    </mapHex>
+    <mapHex>
+        <x>07</x>
+        <y>12</y>
+        <type>2</type>
+    </mapHex>
+    <mapHex>
+        <x>07</x>
+        <y>13</y>
+        <type>6</type>
+    </mapHex>
+    <mapHex>
+        <x>07</x>
+        <y>14</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>07</x>
+        <y>15</y>
+        <type>2</type>
+    </mapHex>
+    <mapHex>
+        <x>07</x>
+        <y>16</y>
+        <type>2</type>
+    </mapHex>
+    <mapHex>
+        <x>07</x>
+        <y>17</y>
+        <type>0</type>
+        <name>Plains of Datha</name>
+    </mapHex>
+    <mapHex>
+        <x>07</x>
+        <y>18</y>
+        <type>0</type>
+        <name>Plains of Datha</name>
+    </mapHex>
+    <mapHex>
+        <x>07</x>
+        <y>19</y>
+        <type>1</type>
+        <name>Brigud</name>
+    </mapHex>
+    <mapHex>
+        <x>07</x>
+        <y>20</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>07</x>
+        <y>21</y>
+        <type>2</type>
+    </mapHex>
+    <mapHex>
+        <x>07</x>
+        <y>22</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>07</x>
+        <y>23</y>
+        <type>2</type>
+    </mapHex>
+    <mapHex>
+        <x>08</x>
+        <y>01</y>
+        <type>3</type>
+    </mapHex>
+    <mapHex>
+        <x>08</x>
+        <y>02</y>
+        <type>2</type>
+    </mapHex>
+    <mapHex>
+        <x>08</x>
+        <y>03</y>
+        <type>2</type>
+    </mapHex>
+    <mapHex>
+        <x>08</x>
+        <y>04</y>
+        <type>4</type>
+    </mapHex>
+    <mapHex>
+        <x>08</x>
+        <y>05</y>
+        <type>2</type>
+    </mapHex>
+    <mapHex>
+        <x>08</x>
+        <y>06</y>
+        <type>3</type>
+    </mapHex>
+    <mapHex>
+        <x>08</x>
+        <y>07</y>
+        <type>2</type>
+    </mapHex>
+    <mapHex>
+        <x>08</x>
+        <y>08</y>
+        <type>2</type>
+    </mapHex>
+    <mapHex>
+        <x>08</x>
+        <y>09</y>
+        <type>2</type>
+    </mapHex>
+    <mapHex>
+        <x>08</x>
+        <y>10</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>08</x>
+        <y>11</y>
+        <type>2</type>      
+    </mapHex>
+    <mapHex>
+        <x>08</x>
+        <y>12</y>
+        <type>2</type>
+    </mapHex>
+    <mapHex>
+        <x>08</x>
+        <y>13</y>
+        <type>2</type>
+    </mapHex>
+    <mapHex>
+        <x>08</x>
+        <y>14</y>
+        <type>2</type>
+    </mapHex>
+    <mapHex>
+        <x>08</x>
+        <y>15</y>
+        <type>2</type>
+    </mapHex>
+    <mapHex>
+        <x>08</x>
+        <y>16</y>
+        <type>1</type>
+    </mapHex>
+    <mapHex>
+        <x>08</x>
+        <y>17</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>08</x>
+        <y>18</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>08</x>
+        <y>19</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>08</x>
+        <y>20</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>08</x>
+        <y>21</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>08</x>
+        <y>22</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>08</x>
+        <y>23</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>09</x>
+        <y>01</y>
+        <type>4</type>
+        <name>Ruins of Jakor's Keep</name>
+    </mapHex>
+    <mapHex>
+        <x>09</x>
+        <y>02</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>09</x>
+        <y>03</y>
+        <type>2</type>
+    </mapHex>
+    <mapHex>
+        <x>09</x>
+        <y>04</y>
+        <type>3</type>
+    </mapHex>
+    <mapHex>
+        <x>09</x>
+        <y>05</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>09</x>
+        <y>06</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>09</x>
+        <y>07</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>09</x>
+        <y>08</y>
+        <type>2</type>
+    </mapHex>
+    <mapHex>
+        <x>09</x>
+        <y>09</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>09</x>
+        <y>10</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>09</x>
+        <y>11</y>
+        <type>2</type>
+    </mapHex>
+    <mapHex>
+        <x>09</x>
+        <y>12</y>
+        <type>3</type>
+    </mapHex>
+    <mapHex>
+        <x>09</x>
+        <y>13</y>
+        <type>2</type>
+    </mapHex>
+    <mapHex>
+        <x>09</x>
+        <y>14</y>
+        <type>6</type>
+    </mapHex>
+    <mapHex>
+        <x>09</x>
+        <y>15</y>
+        <type>2</type>
+    </mapHex>
+    <mapHex>
+        <x>09</x>
+        <y>16</y>
+        <type>1</type>
+        <name>Erwyn</name>
+    </mapHex>
+    <mapHex>
+        <x>09</x>
+        <y>17</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>09</x>
+        <y>18</y>
+        <type>2</type>
+    </mapHex>
+    <mapHex>
+        <x>09</x>
+        <y>19</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>09</x>
+        <y>20</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>09</x>
+        <y>21</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>09</x>
+        <y>22</y>
+        <type>3</type>
+    </mapHex>
+    <mapHex>
+        <x>09</x>
+        <y>23</y>
+        <type>3</type>
+    </mapHex>
+    <mapHex>
+        <x>10</x>
+        <y>01</y>
+        <type>3</type>
+    </mapHex>
+    <mapHex>
+        <x>10</x>
+        <y>02</y>
+        <type>2</type>
+        
+        
+    </mapHex>
+    <mapHex>
+        <x>10</x>
+        <y>03</y>
+        <type>3</type>  
+        
+    </mapHex>
+    <mapHex>
+        <x>10</x>
+        <y>04</y>
+        <type>0</type>
+        
+        
+        <name>Cumry</name>
+    </mapHex>
+    <mapHex>
+        <x>10</x>
+        <y>05</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>10</x>
+        <y>06</y>
+        <type>4</type>
+    </mapHex>
+    <mapHex>
+        <x>10</x>
+        <y>07</y>
+        <type>2</type>
+    </mapHex>
+    <mapHex>
+        <x>10</x>
+        <y>08</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>10</x>
+        <y>09</y>
+        <type>1</type>
+        <name>Cawther</name>
+    </mapHex>
+    <mapHex>
+        <x>10</x>
+        <y>10</y>
+        <type>3</type>
+    </mapHex>
+    <mapHex>
+        <x>10</x>
+        <y>11</y>
+        <type>3</type>
+    </mapHex>
+    <mapHex>
+        <x>10</x>
+        <y>12</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>10</x>
+        <y>13</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>10</x>
+        <y>14</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>10</x>
+        <y>15</y>
+        <type>6</type>
+    </mapHex>
+    <mapHex>
+        <x>10</x>
+        <y>16</y>
+        <type>6</type>
+    </mapHex>
+    <mapHex>
+        <x>10</x>
+        <y>17</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>10</x>
+        <y>18</y>
+        <type>2</type>
+    </mapHex>
+    <mapHex>
+        <x>10</x>
+        <y>19</y>
+        <type>3</type>
+    </mapHex>
+    <mapHex>
+        <x>10</x>
+        <y>20</y>
+        <type>4</type>
+    </mapHex>
+    <mapHex>
+        <x>10</x>
+        <y>21</y>
+        <type>4</type>
+        <name>Sulwyth Temple</name>
+    </mapHex>
+    <mapHex>
+        <x>10</x>
+        <y>22</y>
+        <type>4</type>
+    </mapHex>
+    <mapHex>
+        <x>10</x>
+        <y>23</y>
+        <type>3</type>
+    </mapHex>
+    <mapHex>
+        <x>11</x>
+        <y>01</y>
+        <type>3</type>
+    </mapHex>
+    <mapHex>
+        <x>11</x>
+        <y>02</y>
+        <type>3</type>
+    </mapHex>
+    <mapHex>
+        <x>11</x>
+        <y>03</y>
+        <type>6</type>
+    </mapHex>
+    <mapHex>
+        <x>11</x>
+        <y>04</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>11</x>
+        <y>05</y>
+        <type>4</type>
+    </mapHex>
+    <mapHex>
+        <x>11</x>
+        <y>06</y>
+        <type>4</type>
+    </mapHex>
+    <mapHex>
+        <x>11</x>
+        <y>07</y>
+        <type>3</type>
+    </mapHex>
+    <mapHex>
+        <x>11</x>
+        <y>08</y>
+        <type>3</type>
+    </mapHex>
+    <mapHex>
+        <x>11</x>
+        <y>09</y>
+        <type>3</type>
+    </mapHex>
+    <mapHex>
+        <x>11</x>
+        <y>10</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>11</x>
+        <y>11</y>
+        <type>4</type>
+    </mapHex>
+    <mapHex>
+        <x>11</x>
+        <y>12</y>
+        <type>3</type>
+    </mapHex>
+    <mapHex>
+        <x>11</x>
+        <y>13</y>
+        <type>3</type>
+    </mapHex>
+    <mapHex>
+        <x>11</x>
+        <y>14</y>
+        <type>4</type>
+    </mapHex>
+    <mapHex>
+        <x>11</x>
+        <y>15</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>11</x>
+        <y>16</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>11</x>
+        <y>17</y>
+        <type>2</type>
+    </mapHex>
+    <mapHex>
+        <x>11</x>
+        <y>18</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>11</x>
+        <y>19</y>
+        <type>6</type>
+    </mapHex>
+    <mapHex>
+        <x>11</x>
+        <y>20</y>
+        <type>2</type>
+    </mapHex>
+    <mapHex>
+        <x>11</x>
+        <y>21</y>
+        <type>4</type>
+    </mapHex>
+    <mapHex>
+        <x>11</x>
+        <y>22</y>
+        <type>4</type>
+    </mapHex>
+    <mapHex>
+        <x>11</x>
+        <y>23</y>
+        <type>4</type>
+    </mapHex>
+    <mapHex>
+        <x>12</x>
+        <y>01</y>
+        <type>2</type>
+    </mapHex>
+    <mapHex>
+        <x>12</x>
+        <y>02</y>
+        <type>2</type>
+    </mapHex>
+    <mapHex>
+        <x>12</x>
+        <y>03</y>
+        <type>3</type>
+    </mapHex>
+    <mapHex>
+        <x>12</x>
+        <y>04</y>
+        <type>4</type>
+    </mapHex>
+    <mapHex>
+        <x>12</x>
+        <y>05</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>12</x>
+        <y>06</y>
+        <type>4</type>
+    </mapHex>
+    <mapHex>
+        <x>12</x>
+        <y>07</y>
+        <type>4</type>
+    </mapHex>
+    <mapHex>
+        <x>12</x>
+        <y>08</y>
+        <type>3</type>
+    </mapHex>
+    <mapHex>
+        <x>12</x>
+        <y>09</y>
+        <type>3</type>
+    </mapHex>
+    <mapHex>
+        <x>12</x>
+        <y>10</y>
+        <type>3</type>
+    </mapHex>
+    <mapHex>
+        <x>12</x>
+        <y>11</y>
+        <type>4</type>
+    </mapHex>
+    <mapHex>
+        <x>12</x>
+        <y>12</y>
+        <type>4</type>
+        <name>Huldra Castle</name>
+    </mapHex>
+    <mapHex>
+        <x>12</x>
+        <y>13</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>12</x>
+        <y>14</y>
+        <type>4</type>
+    </mapHex>
+    <mapHex>
+        <x>12</x>
+        <y>15</y>
+        <type>3</type>
+    </mapHex>
+    <mapHex>
+        <x>12</x>
+        <y>16</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>12</x>
+        <y>17</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>12</x>
+        <y>18</y>
+        <type>2</type>
+    </mapHex>
+    <mapHex>
+        <x>12</x>
+        <y>19</y>
+        <type>2</type>
+    </mapHex>
+    <mapHex>
+        <x>12</x>
+        <y>20</y>
+        <type>2</type>
+    </mapHex>
+    <mapHex>
+        <x>12</x>
+        <y>21</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>12</x>
+        <y>22</y>
+        <type>2</type>
+    </mapHex>
+    <mapHex>
+        <x>12</x>
+        <y>23</y>
+        <type>4</type>
+        
+        
+    </mapHex>
+    <mapHex>
+        <x>13</x>
+        <y>01</y>
+        <type>0</type>
+        
+        
+    </mapHex>
+    <mapHex>
+        <x>13</x>
+        <y>02</y>
+        <type>6</type>
+        
+        
+    </mapHex>
+    <mapHex>
+        <x>13</x>
+        <y>03</y>
+        <type>0</type>
+        
+        
+    </mapHex>
+    <mapHex>
+        <x>13</x>
+        <y>04</y>
+        <type>2</type>
+        
+        
+    </mapHex>
+    <mapHex>
+        <x>13</x>
+        <y>05</y>
+        <type>0</type>
+        
+        
+    </mapHex>
+    <mapHex>
+        <x>13</x>
+        <y>06</y>
+        <type>3</type>
+        
+        
+    </mapHex>
+    <mapHex>
+        <x>13</x>
+        <y>07</y>
+        <type>4</type>
+    </mapHex>
+    <mapHex>
+        <x>13</x>
+        <y>08</y>
+        <type>5</type>
+        <name>The Kabir Desert</name>
+    </mapHex>
+    <mapHex>
+        <x>13</x>
+        <y>09</y>
+        <type>5</type>
+        <name>Donat's Temple</name>
+    </mapHex>
+    <mapHex>
+        <x>13</x>
+        <y>10</y>
+        <type>3</type>
+        <name>The Wredwrok Badlands</name>
+    </mapHex>
+    <mapHex>
+        <x>13</x>
+        <y>11</y>
+        <type>4</type>
+    </mapHex>
+    <mapHex>
+        <x>13</x>
+        <y>12</y>
+        <type>2</type>
+        
+        
+    </mapHex>
+    <mapHex>
+        <x>13</x>
+        <y>13</y>
+        <type>4</type>
+        
+        
+    </mapHex>
+    <mapHex>
+        <x>13</x>
+        <y>14</y>
+        <type>0</type>
+        
+        
+    </mapHex>
+    <mapHex>
+        <x>13</x>
+        <y>15</y>
+        <type>0</type>
+        
+        
+    </mapHex>
+    <mapHex>
+        <x>13</x>
+        <y>16</y>
+        <type>1</type>
+        
+        
+    </mapHex>
+    <mapHex>
+        <x>13</x>
+        <y>17</y>
+        <type>0</type>
+        
+        
+    </mapHex>
+    <mapHex>
+        <x>13</x>
+        <y>18</y>
+        <type>0</type>
+        
+        
+    </mapHex>
+    <mapHex>
+        <x>13</x>
+        <y>19</y>
+        <type>0</type>
+        
+        
+    </mapHex>
+    <mapHex>
+        <x>13</x>
+        <y>20</y>
+        <type>0</type>
+        
+        
+    </mapHex>
+    <mapHex>
+        <x>13</x>
+        <y>21</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>13</x>
+        <y>22</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>13</x>
+        <y>23</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>14</x>
+        <y>01</y>
+        <type>6</type>
+    </mapHex>
+    <mapHex>
+        <x>14</x>
+        <y>02</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>14</x>
+        <y>03</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>14</x>
+        <y>04</y>
+        <type>2</type>
+    </mapHex>
+    <mapHex>
+        <x>14</x>
+        <y>05</y>
+        <type>3</type>
+    </mapHex>
+    <mapHex>
+        <x>14</x>
+        <y>06</y>
+        <type>3</type>
+    </mapHex>
+    <mapHex>
+        <x>14</x>
+        <y>07</y>
+        <type>3</type>
+    </mapHex>
+    <mapHex>
+        <x>14</x>
+        <y>08</y>
+        <type>5</type>
+        <name>The Kabir Desert</name>
+    </mapHex>
+    <mapHex>
+        <x>14</x>
+        <y>09</y>
+        <type>5</type>
+        <name>The Kabir Desert</name>
+    </mapHex>
+    <mapHex>
+        <x>14</x>
+        <y>10</y>
+        <type>3</type>
+        <name>The Wredwrok Badlands</name>
+    </mapHex>
+    <mapHex>
+        <x>14</x>
+        <y>11</y>
+        <type>3</type>
+        <name>The Wredwrok Badlands</name>
+    </mapHex>
+    <mapHex>
+        <x>14</x>
+        <y>12</y>
+        <type>3</type>
+        <name>The Wredwrok Badlands</name>
+    </mapHex>
+    <mapHex>
+        <x>14</x>
+        <y>13</y>
+        <type>2</type>
+        
+        
+    </mapHex>
+    <mapHex>
+        <x>14</x>
+        <y>14</y>
+        <type>1</type>
+        
+        
+    </mapHex>
+    <mapHex>
+        <x>14</x>
+        <y>15</y>
+        <type>1</type>
+        
+        
+        <name>Tulith</name>
+    </mapHex>
+    <mapHex>
+        <x>14</x>
+        <y>16</y>
+        <type>0</type>
+        
+        
+    </mapHex>
+    <mapHex>
+        <x>14</x>
+        <y>17</y>
+        <type>2</type>
+        
+        
+    </mapHex>
+    <mapHex>
+        <x>14</x>
+        <y>18</y>
+        <type>0</type>
+        
+        
+    </mapHex>
+    <mapHex>
+        <x>14</x>
+        <y>19</y>
+        <type>2</type>
+        
+        
+    </mapHex>
+    <mapHex>
+        <x>14</x>
+        <y>20</y>
+        <type>0</type>
+        
+        
+    </mapHex>
+    <mapHex>
+        <x>14</x>
+        <y>21</y>
+        <type>6</type>
+        <name>Samain Marshes</name>
+        
+        
+    </mapHex>
+    <mapHex>
+        <x>14</x>
+        <y>22</y>
+        <type>6</type>
+        <name>Samain Marshes</name>
+        
+        
+    </mapHex>
+    <mapHex>
+        <x>14</x>
+        <y>23</y>
+        <type>6</type>
+        <name>Samain Marshes</name>
+        
+        
+    </mapHex>
+    <mapHex>
+        <x>15</x>
+        <y>01</y>
+        <type>1</type>
+        
+        
+        <name>Weshor</name>
+    </mapHex>
+    <mapHex>
+        <x>15</x>
+        <y>02</y>
+        <type>6</type>
+        
+        
+    </mapHex>
+    <mapHex>
+        <x>15</x>
+        <y>03</y>
+        <type>2</type>
+        
+        
+    </mapHex>
+    <mapHex>
+        <x>15</x>
+        <y>04</y>
+        <type>2</type>
+        
+        
+    </mapHex>
+    <mapHex>
+        <x>15</x>
+        <y>05</y>
+        <type>4</type>
+        <name>Mountains of Zhor</name>      
+    </mapHex>
+    <mapHex>
+        <x>15</x>
+        <y>06</y>
+        <type>4</type>
+        <name>Mountains of Zhor</name>  
+    </mapHex>
+    <mapHex>
+        <x>15</x>
+        <y>07</y>
+        <type>5</type>
+        <name>The Kabir Desert</name>
+    </mapHex>
+    <mapHex>
+        <x>15</x>
+        <y>08</y>
+        <type>5</type>
+        <name>The Kabir Desert</name>
+    </mapHex>
+    <mapHex>
+        <x>15</x>
+        <y>09</y>
+        <type>5</type>
+        <name>The Kabir Desert</name>
+    </mapHex>
+    <mapHex>
+        <x>15</x>
+        <y>10</y>
+        <type>5</type>
+        <name>The Kabir Desert</name>
+    </mapHex>
+    <mapHex>
+        <x>15</x>
+        <y>11</y>
+        <type>3</type>
+        <name>The Wredwrok Badlands</name>
+    </mapHex>
+    <mapHex>
+        <x>15</x>
+        <y>12</y>
+        <type>3</type>
+        <name>The Wredwrok Badlands</name>
+    </mapHex>
+    <mapHex>
+        <x>15</x>
+        <y>13</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>15</x>
+        <y>14</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>15</x>
+        <y>15</y>
+        <type>1</type>
+    </mapHex>
+    <mapHex>
+        <x>15</x>
+        <y>16</y>
+        <type>0</type>
+        
+        
+    </mapHex>
+    <mapHex>
+        <x>15</x>
+        <y>17</y>
+        <type>2</type>
+        
+        
+    </mapHex>
+    <mapHex>
+        <x>15</x>
+        <y>18</y>
+        <type>2</type>
+        
+        
+    </mapHex>
+    <mapHex>
+        <x>15</x>
+        <y>19</y>
+        <type>2</type>
+        
+        
+    </mapHex>
+    <mapHex>
+        <x>15</x>
+        <y>20</y>
+        <type>2</type>
+        
+        
+    </mapHex>
+    <mapHex>
+        <x>15</x>
+        <y>21</y>
+        <type>2</type>
+        
+        
+    </mapHex>
+    <mapHex>
+        <x>15</x>
+        <y>22</y>
+        <type>6</type>
+        <name>Samain Marshes</name>
+    </mapHex>
+    <mapHex>
+        <x>15</x>
+        <y>23</y>
+        <type>6</type>
+        <name>Samain Marshes</name>
+    </mapHex>
+    <mapHex>
+        <x>16</x>
+        <y>01</y>
+        <type>1</type>
+    </mapHex>
+    <mapHex>
+        <x>16</x>
+        <y>02</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>16</x>
+        <y>03</y>
+        <type>4</type>
+    </mapHex>
+    <mapHex>
+        <x>16</x>
+        <y>04</y>
+        <type>2</type>
+    </mapHex>
+    <mapHex>
+        <x>16</x>
+        <y>05</y>
+        <type>4</type>
+        <name>Mountains of Zhor</name>
+    </mapHex>
+    <mapHex>
+        <x>16</x>
+        <y>06</y>
+        <type>5</type>
+        <name>The Kabir Desert</name>
+    </mapHex>
+    <mapHex>
+        <x>16</x>
+        <y>07</y>
+        <type>5</type>
+        <name>The Kabir Desert</name>
+    </mapHex>
+    <mapHex>
+        <x>16</x>
+        <y>08</y>
+        <type>5</type>
+        <name>The Kabir Desert</name>
+    </mapHex>
+    <mapHex>
+        <x>16</x>
+        <y>09</y>
+        <type>5</type>
+        <name>The Kabir Desert</name>
+    </mapHex>
+    <mapHex>
+        <x>16</x>
+        <y>10</y>
+        <type>3</type>
+        <name>The Wredwrok Badlands</name>
+    </mapHex>
+    <mapHex>
+        <x>16</x>
+        <y>11</y>
+        <type>4</type>
+        <name>The Wredwrok Peaks</name>
+    </mapHex>
+    <mapHex>
+        <x>16</x>
+        <y>12</y>
+        <type>3</type>
+        <name>The Wredwrok Badlands</name>
+    </mapHex>
+    <mapHex>
+        <x>16</x>
+        <y>13</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>16</x>
+        <y>14</y>
+        <type>0</type>
+        
+        
+    </mapHex>
+    <mapHex>
+        <x>16</x>
+        <y>15</y>
+        <type>0</type>
+        
+        
+    </mapHex>
+    <mapHex>
+        <x>16</x>
+        <y>16</y>
+        <type>0</type>
+        
+        
+    </mapHex>
+    <mapHex>
+        <x>16</x>
+        <y>17</y>
+        <type>6</type>
+        
+        
+    </mapHex>
+    <mapHex>
+        <x>16</x>
+        <y>18</y>
+        <type>2</type>
+        
+        
+    </mapHex>
+    <mapHex>
+        <x>16</x>
+        <y>19</y>
+        <type>0</type>
+        
+        
+    </mapHex>
+    <mapHex>
+        <x>16</x>
+        <y>20</y>
+        <type>0</type>
+        
+        
+    </mapHex>
+    <mapHex>
+        <x>16</x>
+        <y>21</y>
+        <type>2</type>
+        
+        
+    </mapHex>
+    <mapHex>
+        <x>16</x>
+        <y>22</y>
+        <type>6</type>
+        <name>Samain Marshes</name>
+        
+        
+    </mapHex>
+    <mapHex>
+        <x>16</x>
+        <y>23</y>
+        <type>6</type>
+        <name>Samain Marshes</name>
+    </mapHex>
+    <mapHex>
+        <x>17</x>
+        <y>01</y>
+        <type>3</type>
+    </mapHex>
+    <mapHex>
+        <x>17</x>
+        <y>02</y>
+        <type>3</type>
+    </mapHex>
+    <mapHex>
+        <x>17</x>
+        <y>03</y>
+        <type>4</type>
+    </mapHex>
+    <mapHex>
+        <x>17</x>
+        <y>04</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>17</x>
+        <y>05</y>
+        <type>4</type>
+        <name>Mountains of Zhor</name>
+    </mapHex>
+    <mapHex>
+        <x>17</x>
+        <y>06</y>
+        <type>4</type>
+        <name>Mountains of Zhor</name>
+    </mapHex>
+    <mapHex>
+        <x>17</x>
+        <y>07</y>
+        <type>5</type>
+        <name>The Kabir Desert</name>
+    </mapHex>
+    <mapHex>
+        <x>17</x>
+        <y>08</y>
+        <type>5</type>
+        <name>The Kabir Desert</name>
+    </mapHex>
+    <mapHex>
+        <x>17</x>
+        <y>09</y>
+        <type>3</type>
+    </mapHex>
+    <mapHex>
+        <x>17</x>
+        <y>10</y>
+        <type>5</type>
+        <name>The Kabir Desert</name>
+    </mapHex>
+    <mapHex>
+        <x>17</x>
+        <y>11</y>
+        <type>3</type>
+        <name>The Wredwrok Badlands</name>
+    </mapHex>
+    <mapHex>
+        <x>17</x>
+        <y>12</y>
+        <type>4</type>
+        <name>The Wredwrok Peaks</name>
+    </mapHex>
+    <mapHex>
+        <x>17</x>
+        <y>13</y>
+        <type>3</type>
+        <name>The Wredwrok Badlands</name>
+    </mapHex>
+    <mapHex>
+        <x>17</x>
+        <y>14</y>
+        <type>0</type>
+        
+        
+    </mapHex>
+    <mapHex>
+        <x>17</x>
+        <y>15</y>
+        <type>3</type>
+        
+        
+    </mapHex>
+    <mapHex>
+        <x>17</x>
+        <y>16</y>
+        <type>2</type>
+        
+        
+    </mapHex>
+    <mapHex>
+        <x>17</x>
+        <y>17</y>
+        <type>2</type>
+        
+        
+    </mapHex>
+    <mapHex>
+        <x>17</x>
+        <y>18</y>
+        <type>0</type>
+        
+        
+    </mapHex>
+    <mapHex>
+        <x>17</x>
+        <y>19</y>
+        <type>3</type>
+        
+        
+    </mapHex>
+    <mapHex>
+        <x>17</x>
+        <y>20</y>
+        <type>0</type>
+        
+        
+        <name>Lullwyn</name>
+    </mapHex>
+    <mapHex>
+        <x>17</x>
+        <y>21</y>
+        <type>6</type>
+    </mapHex>
+    <mapHex>
+        <x>17</x>
+        <y>22</y>
+        <type>2</type>
+    </mapHex>
+    <mapHex>
+        <x>17</x>
+        <y>23</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>18</x>
+        <y>01</y>
+        <type>4</type>
+    </mapHex>
+    <mapHex>
+        <x>18</x>
+        <y>02</y>
+        <type>4</type>
+    </mapHex>
+    <mapHex>
+        <x>18</x>
+        <y>03</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>18</x>
+        <y>04</y>
+        <type>4</type>
+        <name>Mountains of Zhor</name>      
+    </mapHex>
+    <mapHex>
+        <x>18</x>
+        <y>05</y>
+        <type>4</type>     
+        <name>Temple of Zhor</name>
+    </mapHex>
+    <mapHex>
+        <x>18</x>
+        <y>06</y>
+        <type>4</type>
+        <name>Mountains of Zhor</name>  
+    </mapHex>
+    <mapHex>
+        <x>18</x>
+        <y>07</y>
+        <type>4</type>
+        <name>Mountains of Zhor</name>
+    </mapHex>
+    <mapHex>
+        <x>18</x>
+        <y>08</y>
+        <type>3</type>
+    </mapHex>
+    <mapHex>
+        <x>18</x>
+        <y>09</y>
+        <type>4</type>
+        <name>Mountains of Zhor</name>
+    </mapHex>
+    <mapHex>
+        <x>18</x>
+        <y>10</y>
+        <type>4</type>
+        <name>Mountains of Zhor</name>
+    </mapHex>
+    <mapHex>
+        <x>18</x>
+        <y>11</y>
+        <type>3</type>
+        <name>The Wredwrok Badlands</name>
+    </mapHex>
+    <mapHex>
+        <x>18</x>
+        <y>12</y>
+        <type>3</type>
+        <name>The South Pass</name>
+    </mapHex>
+    <mapHex>
+        <x>18</x>
+        <y>13</y>
+        <type>3</type>
+        <name>The South Pass</name>
+    </mapHex>
+    <mapHex>
+        <x>18</x>
+        <y>14</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>18</x>
+        <y>15</y>
+        <type>2</type>
+    </mapHex>
+    <mapHex>
+        <x>18</x>
+        <y>16</y>
+        <type>6</type>
+    </mapHex>
+    <mapHex>
+        <x>18</x>
+        <y>17</y>
+        <type>2</type>
+    </mapHex>
+    <mapHex>
+        <x>18</x>
+        <y>18</y>
+        <type>3</type>
+    </mapHex>
+    <mapHex>
+        <x>18</x>
+        <y>19</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>18</x>
+        <y>20</y>
+        <type>2</type>
+        
+        
+    </mapHex>
+    <mapHex>
+        <x>18</x>
+        <y>21</y>
+        <type>2</type>
+        
+        
+    </mapHex>
+    <mapHex>
+        <x>18</x>
+        <y>22</y>
+        <type>1</type>
+        
+        
+    </mapHex>
+    <mapHex>
+        <x>18</x>
+        <y>23</y>
+        <type>0</type>
+        
+        
+    </mapHex>
+    <mapHex>
+        <x>19</x>
+        <y>01</y>
+        <type>4</type>
+        
+        
+    </mapHex>
+    <mapHex>
+        <x>19</x>
+        <y>02</y>
+        <type>4</type>
+        
+        
+    </mapHex>
+    <mapHex>
+        <x>19</x>
+        <y>03</y>
+        <type>4</type>
+        
+        
+    </mapHex>
+    <mapHex>
+        <x>19</x>
+        <y>04</y>
+        <type>3</type>
+        
+        
+    </mapHex>
+    <mapHex>
+        <x>19</x>
+        <y>05</y>
+        <type>0</type>
+        
+        
+    </mapHex>
+    <mapHex>
+        <x>19</x>
+        <y>06</y>
+        <type>0</type>
+        
+        
+    </mapHex>
+    <mapHex>
+        <x>19</x>
+        <y>07</y>
+        <type>4</type>
+        <name>Mountains of Zhor</name>
+    </mapHex>
+    <mapHex>
+        <x>19</x>
+        <y>08</y>
+        <type>4</type>
+        <name>Mountains of Zhor</name>
+    </mapHex>
+    <mapHex>
+        <x>19</x>
+        <y>09</y>
+        <type>4</type>
+        <name>Mountains of Zhor</name>
+    </mapHex>
+    <mapHex>
+        <x>19</x>
+        <y>10</y>
+        <type>4</type>
+        <name>Mountains of Zhor</name>
+    </mapHex>
+    <mapHex>
+        <x>19</x>
+        <y>11</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>19</x>
+        <y>12</y>
+        <type>3</type>
+        <name>The South Pass</name>
+    </mapHex>
+    <mapHex>
+        <x>19</x>
+        <y>13</y>
+        <type>3</type>
+        <name>The South Pass</name>
+    </mapHex>
+    <mapHex>
+        <x>19</x>
+        <y>14</y>
+        <type>0</type>
+        
+        
+    </mapHex>
+    <mapHex>
+        <x>19</x>
+        <y>15</y>
+        <type>0</type>
+        
+        
+    </mapHex>
+    <mapHex>
+        <x>19</x>
+        <y>16</y>
+        <type>2</type>
+        
+        
+    </mapHex>
+    <mapHex>
+        <x>19</x>
+        <y>17</y>
+        <type>2</type>
+        
+        
+    </mapHex>
+    <mapHex>
+        <x>19</x>
+        <y>18</y>
+        <type>0</type>
+        
+        
+    </mapHex>
+    <mapHex>
+        <x>19</x>
+        <y>19</y>
+        <type>0</type>
+        
+        
+    </mapHex>
+    <mapHex>
+        <x>19</x>
+        <y>20</y>
+        <type>2</type>
+        
+        
+    </mapHex>
+    <mapHex>
+        <x>19</x>
+        <y>21</y>
+        <type>1</type>
+        
+        
+    </mapHex>
+    <mapHex>
+        <x>19</x>
+        <y>22</y>
+        <type>1</type>
+    </mapHex>
+    <mapHex>
+        <x>19</x>
+        <y>23</y>
+        <type>1</type>
+        <name>Aeravir Castle</name>
+    </mapHex>
+    <mapHex>
+        <x>20</x>
+        <y>01</y>
+        <type>4</type>
+    </mapHex>
+    <mapHex>
+        <x>20</x>
+        <y>02</y>
+        <type>4</type>
+    </mapHex>
+    <mapHex>
+        <x>20</x>
+        <y>03</y>
+        <type>3</type>
+    </mapHex>
+    <mapHex>
+        <x>20</x>
+        <y>04</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>20</x>
+        <y>05</y>
+        <type>3</type>
+    </mapHex>
+    <mapHex>
+        <x>20</x>
+        <y>06</y>
+        <type>4</type>
+        <name>Mountains of Zhor</name>
+    </mapHex>
+    <mapHex>
+        <x>20</x>
+        <y>07</y>
+        <type>3</type>
+        
+        
+    </mapHex>
+    <mapHex>
+        <x>20</x>
+        <y>08</y>
+        <type>4</type>
+        <name>Mountains of Zhor</name>
+    </mapHex>
+    <mapHex>
+        <x>20</x>
+        <y>09</y>
+        <type>3</type>
+        <name>Ruins of Pelgar</name>
+    </mapHex>
+    <mapHex>
+        <x>20</x>
+        <y>10</y>
+        <type>3</type>
+        
+        
+    </mapHex>
+    <mapHex>
+        <x>20</x>
+        <y>11</y>
+        <type>4</type>
+        
+        
+    </mapHex>
+    <mapHex>
+        <x>20</x>
+        <y>12</y>
+        <type>4</type>
+        
+        
+    </mapHex>
+    <mapHex>
+        <x>20</x>
+        <y>13</y>
+        <type>3</type>
+        
+        
+    </mapHex>
+    <mapHex>
+        <x>20</x>
+        <y>14</y>
+        <type>0</type>
+        
+        
+    </mapHex>
+    <mapHex>
+        <x>20</x>
+        <y>15</y>
+        <type>2</type>
+        
+        
+    </mapHex>
+    <mapHex>
+        <x>20</x>
+        <y>16</y>
+        <type>6</type>
+        
+        
+    </mapHex>
+    <mapHex>
+        <x>20</x>
+        <y>17</y>
+        <type>2</type>
+        
+        
+    </mapHex>
+    <mapHex>
+        <x>20</x>
+        <y>18</y>
+        <type>0</type>
+        <name>Temple of Duffyd</name>
+    </mapHex>
+    <mapHex>
+        <x>20</x>
+        <y>19</y>
+        <type>0</type>
+    </mapHex>
+    <mapHex>
+        <x>20</x>
+        <y>20</y>
+        <type>2</type>
+    </mapHex>
+    <mapHex>
+        <x>20</x>
+        <y>21</y>
+        <type>1</type>
+    </mapHex>
+    <mapHex>
+        <x>20</x>
+        <y>22</y>
+        <type>1</type>
+    </mapHex>
+    <mapHex>
+        <x>20</x>
+        <y>23</y>
+        <type>1</type>
+    </mapHex>
+</Map>
