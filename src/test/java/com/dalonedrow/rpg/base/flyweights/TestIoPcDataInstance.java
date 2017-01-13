@@ -14,11 +14,11 @@ public class TestIoPcDataInstance extends IoPcData {
 	protected void adjustMana(final float dmg) {
 		super.setBaseAttributeScore("MN",
 				super.getBaseAttributeScore("MN") + dmg);
-		if (super.getBaseAttributeScore(
-				"LF") > super.getFullAttributeScore("MMN")) {
-			super.setBaseAttributeScore("MN",
-					super.getFullAttributeScore("MMN"));
-		}
+        if (super.getBaseAttributeScore(
+        		"LF") > super.getFullAttributeScore("MMN")) {
+        	super.setBaseAttributeScore("MN",
+        			super.getFullAttributeScore("MMN"));
+        }
 		if (super.getBaseAttributeScore("MN") < 0f) {
 			super.setBaseAttributeScore("MN", 0f);
 		}

@@ -12,6 +12,7 @@ import org.junit.Test;
 
 import com.dalonedrow.engine.systems.base.Interactive;
 import com.dalonedrow.engine.systems.base.TestInteractiveInstance;
+import com.dalonedrow.engine.systems.base.TestProjectConstants;
 import com.dalonedrow.rpg.base.constants.IoGlobals;
 import com.dalonedrow.rpg.base.constants.ScriptConsts;
 import com.dalonedrow.rpg.base.flyweights.BaseInteractiveObject;
@@ -33,6 +34,7 @@ public final class ScriptTest {
 	protected int	invin	= -1;
 	@Before
 	public void before() {
+        new TestProjectConstants();
 		new TestScriptInstance();
 		new TestInteractiveInstance();
 		BaseInteractiveObject io =
@@ -140,12 +142,6 @@ public final class ScriptTest {
 			}
 
 			@Override
-			protected void defineAttributes() throws RPGException {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
 			public float getBaseLife() {
 				// TODO Auto-generated method stub
 				return 10;
@@ -187,6 +183,27 @@ public final class ScriptTest {
 
 			}
 
+            @Override
+            protected void applyRulesModifiers() throws RPGException {
+                // TODO Auto-generated method stub
+                
+            }
+
+            @Override
+            protected void applyRulesPercentModifiers() {
+                // TODO Auto-generated method stub
+                
+            }
+            @Override
+            protected Object[][] getAttributeMap() {
+                return new Object[][] {
+                    { "ST", "Strength", 0 },
+                    { "LF", "Life", 0 },
+                    { "MLF", "Max Life", 1 },
+                    { "MN", "Mana", 1 },
+                    { "MMN", "Max Mana", 1 }
+                };
+            }
 		});
 		Script.getInstance().stackSendMsgToAllNPCIO(
 				ScriptConsts.SM_017_DIE, null);
@@ -574,12 +591,6 @@ public final class ScriptTest {
 			}
 
 			@Override
-			protected void defineAttributes() throws RPGException {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
 			public float getBaseLife() {
 				// TODO Auto-generated method stub
 				return 0;
@@ -621,6 +632,27 @@ public final class ScriptTest {
 
 			}
 
+            @Override
+            protected void applyRulesModifiers() throws RPGException {
+                // TODO Auto-generated method stub
+                
+            }
+
+            @Override
+            protected void applyRulesPercentModifiers() {
+                // TODO Auto-generated method stub
+                
+            }
+            @Override
+            protected Object[][] getAttributeMap() {
+                return new Object[][] {
+                    { "ST", "Strength", 0 },
+                    { "LF", "Life", 0 },
+                    { "MLF", "Max Life", 1 },
+                    { "MN", "Mana", 1 },
+                    { "MMN", "Max Mana", 1 }
+                };
+            }
 		});
 		assertEquals(1, Script.getInstance().sendScriptEvent(
 				script, ScriptConsts.SM_41_LOAD, null, io, null));

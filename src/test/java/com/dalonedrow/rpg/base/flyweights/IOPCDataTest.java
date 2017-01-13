@@ -70,10 +70,6 @@ public class IOPCDataTest {
 				// TODO Auto-generated method stub
 			}
 			@Override
-			protected void defineAttributes() throws RPGException {
-				// TODO Auto-generated method stub
-			}
-			@Override
 			public float getBaseLife() {
 				// TODO Auto-generated method stub
 				return 10;
@@ -108,6 +104,26 @@ public class IOPCDataTest {
 				// TODO Auto-generated method stub
 
 			}
+            @Override
+            protected void applyRulesModifiers() throws RPGException {
+                // TODO Auto-generated method stub
+                
+            }
+            @Override
+            protected void applyRulesPercentModifiers() {
+                // TODO Auto-generated method stub
+                
+            }
+            @Override
+            protected Object[][] getAttributeMap() {
+                return new Object[][] {
+                    { "ST", "Strength", 0 },
+                    { "LF", "Life", 0 },
+                    { "MLF", "Max Life", 1 },
+                    { "MN", "Mana", 1 },
+                    { "MMN", "Max Mana", 1 }
+                };
+            }
 		});
 	}
 	public void beforeCreatePCIO() throws RPGException {
@@ -242,10 +258,6 @@ public class IOPCDataTest {
 				// TODO Auto-generated method stub
 			}
 			@Override
-			protected void defineAttributes() throws RPGException {
-				// TODO Auto-generated method stub
-			}
-			@Override
 			public float getBaseLife() {
 				// TODO Auto-generated method stub
 				return 0;
@@ -280,6 +292,26 @@ public class IOPCDataTest {
 				// TODO Auto-generated method stub
 
 			}
+            @Override
+            protected void applyRulesModifiers() throws RPGException {
+                // TODO Auto-generated method stub
+                
+            }
+            @Override
+            protected void applyRulesPercentModifiers() {
+                // TODO Auto-generated method stub
+                
+            }
+            @Override
+            protected Object[][] getAttributeMap() {
+                return new Object[][] {
+                    { "ST", "Strength", 0 },
+                    { "LF", "Life", 0 },
+                    { "MLF", "Max Life", 1 },
+                    { "MN", "Mana", 1 },
+                    { "MMN", "Max Mana", 1 }
+                };
+            }
 		});
 		psnCrtrIo.setPoisonCharges(5);
 		psnCrtrIo.setPoisonLevel(10);
@@ -789,18 +821,18 @@ public class IOPCDataTest {
 	}
 	@Test
 	public void canUnequipAll() throws RPGException {
-		data.ARX_EQUIPMENT_UnEquipAllPlayer();
+		data.ARX_EQUIPMENT_UnEquipAll();
 		data.setEquippedItem(EquipmentGlobals.EQUIP_SLOT_WEAPON, this.psnWpnIo);
 		assertEquals(psnWpnIo.getRefId(),
 				data.getEquippedItem(EquipmentGlobals.EQUIP_SLOT_WEAPON));
-		data.ARX_EQUIPMENT_UnEquipAllPlayer();
+		data.ARX_EQUIPMENT_UnEquipAll();
 		assertEquals(-1,
 				data.getEquippedItem(EquipmentGlobals.EQUIP_SLOT_WEAPON));
 	}
 	@Test(expected = RPGException.class)
 	public void willNotUnequipUnregistered() throws RPGException {
 		data.setEquippedItem(EquipmentGlobals.EQUIP_SLOT_WEAPON, 255);
-		data.ARX_EQUIPMENT_UnEquipAllPlayer();
+		data.ARX_EQUIPMENT_UnEquipAll();
 	}
 	@Test
 	public void willNotAddNullWatcher() {

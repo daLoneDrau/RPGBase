@@ -3,7 +3,15 @@ package com.dalonedrow.engine.systems.base;
 import com.dalonedrow.rpg.base.flyweights.RPGException;
 
 public class TestProjectConstants extends ProjectConstants {
-	public TestProjectConstants() {
+	/* (non-Javadoc)
+     * @see com.dalonedrow.engine.systems.base.ProjectConstants#getDamageElementIndex()
+     */
+    @Override
+    public int getDamageElementIndex() {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+    public TestProjectConstants() {
 		super.setInstance(this);
 	}
 	/* (non-Javadoc)
