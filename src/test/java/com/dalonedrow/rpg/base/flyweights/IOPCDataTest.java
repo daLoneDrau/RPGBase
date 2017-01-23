@@ -124,6 +124,11 @@ public class IOPCDataTest {
                     { "MMN", "Max Mana", 1 }
                 };
             }
+            @Override
+            public void ARX_EQUIPMENT_RecreatePlayerMesh() {
+                // TODO Auto-generated method stub
+                
+            }
 		});
 	}
 	public void beforeCreatePCIO() throws RPGException {
@@ -311,6 +316,11 @@ public class IOPCDataTest {
                     { "MN", "Mana", 1 },
                     { "MMN", "Max Mana", 1 }
                 };
+            }
+            @Override
+            public void ARX_EQUIPMENT_RecreatePlayerMesh() {
+                // TODO Auto-generated method stub
+                
             }
 		});
 		psnCrtrIo.setPoisonCharges(5);

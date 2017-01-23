@@ -204,6 +204,12 @@ public final class ScriptTest {
                     { "MMN", "Max Mana", 1 }
                 };
             }
+
+            @Override
+            public void ARX_EQUIPMENT_RecreatePlayerMesh() {
+                // TODO Auto-generated method stub
+                
+            }
 		});
 		Script.getInstance().stackSendMsgToAllNPCIO(
 				ScriptConsts.SM_017_DIE, null);
@@ -652,6 +658,12 @@ public final class ScriptTest {
                     { "MN", "Mana", 1 },
                     { "MMN", "Max Mana", 1 }
                 };
+            }
+
+            @Override
+            public void ARX_EQUIPMENT_RecreatePlayerMesh() {
+                // TODO Auto-generated method stub
+                
             }
 		});
 		assertEquals(1, Script.getInstance().sendScriptEvent(

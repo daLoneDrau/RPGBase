@@ -433,4 +433,5 @@ public abstract class IOCharacter<IO extends BaseInteractiveObject>
         }
         equippedItems[slot] = id;
     }
+    public abstract void ARX_EQUIPMENT_RecreatePlayerMesh();
 }

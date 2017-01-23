@@ -79,8 +79,14 @@ public abstract class IOItemData<IO extends BaseInteractiveObject> {
 			        "Cannot equip item with no IO data");
 		}
 		if (target != null) {
-			if (target.hasIOFlag(IoGlobals.IO_01_PC)) {
-				IoPcData player = target.getPCData();
+			if (target.hasIOFlag(IoGlobals.IO_01_PC)
+			        || target.hasIOFlag(IoGlobals.IO_03_NPC)) {
+			    IOCharacter charData;
+			    if (target.hasIOFlag(IoGlobals.IO_01_PC)) {
+			        charData = target.getPCData();
+			    } else {
+			        charData = target.getNPCData();
+			    }
 				int validid = -1;
 				int i = Interactive.getInstance().getMaxIORefId();
 				for (; i >= 0; i--) {
@@ -98,37 +104,37 @@ public abstract class IOItemData<IO extends BaseInteractiveObject> {
 					// if (toequip == DRAGINTER)
 					// Set_DragInter(NULL);
 					if (io.hasTypeFlag(EquipmentGlobals.OBJECT_TYPE_WEAPON)) {
-						equipWeapon(player);
+						equipWeapon(charData);
 					} else if (io
 					        .hasTypeFlag(EquipmentGlobals.OBJECT_TYPE_SHIELD)) {
-						equipShield(player);
+						equipShield(charData);
 					} else if (io
 					        .hasTypeFlag(EquipmentGlobals.OBJECT_TYPE_RING)) {
-						equipRing(player);
+						equipRing(charData);
 					} else if (io
 					        .hasTypeFlag(EquipmentGlobals.OBJECT_TYPE_ARMOR)) {
 						// unequip old armor
 						unequipItemInSlot(
-						        player, EquipmentGlobals.EQUIP_SLOT_TORSO);
+						        charData, EquipmentGlobals.EQUIP_SLOT_TORSO);
 						// equip new armor
-						player.setEquippedItem(
+						charData.setEquippedItem(
 						        EquipmentGlobals.EQUIP_SLOT_TORSO, validid);
 					} else if (io
 					        .hasTypeFlag(
 					                EquipmentGlobals.OBJECT_TYPE_LEGGINGS)) {
 						// unequip old leggings
 						unequipItemInSlot(
-						        player, EquipmentGlobals.EQUIP_SLOT_LEGGINGS);
+						        charData, EquipmentGlobals.EQUIP_SLOT_LEGGINGS);
 						// equip new leggings
-						player.setEquippedItem(
+						charData.setEquippedItem(
 						        EquipmentGlobals.EQUIP_SLOT_LEGGINGS, validid);
 					} else if (io
 					        .hasTypeFlag(EquipmentGlobals.OBJECT_TYPE_HELMET)) {
 						// unequip old helmet
 						unequipItemInSlot(
-						        player, EquipmentGlobals.EQUIP_SLOT_HELMET);
+						        charData, EquipmentGlobals.EQUIP_SLOT_HELMET);
 						// equip new helmet
-						player.setEquippedItem(
+						charData.setEquippedItem(
 						        EquipmentGlobals.EQUIP_SLOT_HELMET, validid);
 					}
 					if (io.hasTypeFlag(EquipmentGlobals.OBJECT_TYPE_HELMET)
@@ -136,9 +142,9 @@ public abstract class IOItemData<IO extends BaseInteractiveObject> {
 					                EquipmentGlobals.OBJECT_TYPE_ARMOR)
 					        || io.hasTypeFlag(
 					                EquipmentGlobals.OBJECT_TYPE_LEGGINGS)) {
-						target.getPCData().ARX_EQUIPMENT_RecreatePlayerMesh();
+					    charData.ARX_EQUIPMENT_RecreatePlayerMesh();
 					}
-					target.getPCData().computeFullStats();
+					charData.computeFullStats();
 				}
 			}
 		}
@@ -222,15 +228,15 @@ public abstract class IOItemData<IO extends BaseInteractiveObject> {
 		}
 	}
 	/**
-	 * Equips a ring on a player.
-	 * @param player the player data
+	 * Equips a ring on a character.
+	 * @param charData the character data
 	 * @throws RPGException if an error occurs
 	 */
-	private void equipRing(final IoPcData player) throws RPGException {
+	private void equipRing(final IOCharacter charData) throws RPGException {
 		// check left and right finger
 		// to see if it can be equipped
 		boolean canEquip = true;
-		int ioid = player.getEquippedItem(
+		int ioid = charData.getEquippedItem(
 		        EquipmentGlobals.EQUIP_SLOT_RING_LEFT);
 		if (Interactive.getInstance().hasIO(ioid)) {
 			IO oldRing = (IO) Interactive.getInstance().getIO(ioid);
@@ -242,7 +248,7 @@ public abstract class IOItemData<IO extends BaseInteractiveObject> {
 			oldRing = null;
 		}
 		if (canEquip) {
-			ioid = player.getEquippedItem(
+			ioid = charData.getEquippedItem(
 			        EquipmentGlobals.EQUIP_SLOT_RING_RIGHT);
 			if (Interactive.getInstance().hasIO(ioid)) {
 				IO oldRing = (IO) Interactive.getInstance().getIO(ioid);
@@ -256,22 +262,22 @@ public abstract class IOItemData<IO extends BaseInteractiveObject> {
 		}
 		if (canEquip) {
 			int equipSlot = -1;
-			if (player.getEquippedItem(
+			if (charData.getEquippedItem(
 			        EquipmentGlobals.EQUIP_SLOT_RING_LEFT) < 0) {
 				equipSlot = EquipmentGlobals.EQUIP_SLOT_RING_LEFT;
 			}
-			if (player.getEquippedItem(
+			if (charData.getEquippedItem(
 			        EquipmentGlobals.EQUIP_SLOT_RING_RIGHT) < 0) {
 				equipSlot = EquipmentGlobals.EQUIP_SLOT_RING_RIGHT;
 			}
 			if (equipSlot == -1) {
-				if (!player.getIo().getInventory().isLeftRing()) {
-					ioid = player.getEquippedItem(
+				if (!charData.getIo().getInventory().isLeftRing()) {
+					ioid = charData.getEquippedItem(
 					        EquipmentGlobals.EQUIP_SLOT_RING_RIGHT);
 					if (Interactive.getInstance().hasIO(ioid)) {
 						IO oldIO = (IO) Interactive.getInstance().getIO(ioid);
 						if (oldIO.hasIOFlag(IoGlobals.IO_02_ITEM)) {
-							unequipItemInSlot(player,
+							unequipItemInSlot(charData,
 							        EquipmentGlobals.EQUIP_SLOT_RING_RIGHT);
 						}
 						oldIO = null;
@@ -279,39 +285,39 @@ public abstract class IOItemData<IO extends BaseInteractiveObject> {
 					equipSlot =
 					        EquipmentGlobals.EQUIP_SLOT_RING_RIGHT;
 				} else {
-					ioid = player.getEquippedItem(
+					ioid = charData.getEquippedItem(
 					        EquipmentGlobals.EQUIP_SLOT_RING_LEFT);
 					if (Interactive.getInstance().hasIO(ioid)) {
 						IO oldIO = (IO) Interactive.getInstance().getIO(ioid);
 						if (oldIO.hasIOFlag(IoGlobals.IO_02_ITEM)) {
-							unequipItemInSlot(player,
+							unequipItemInSlot(charData,
 							        EquipmentGlobals.EQUIP_SLOT_RING_LEFT);
 						}
 						oldIO = null;
 					}
 					equipSlot = EquipmentGlobals.EQUIP_SLOT_RING_LEFT;
 				}
-				player.getIo().getInventory().setLeftRing(
-				        !player.getIo().getInventory().isLeftRing());
+				charData.getIo().getInventory().setLeftRing(
+				        !charData.getIo().getInventory().isLeftRing());
 			}
-			player.setEquippedItem(equipSlot, io.getRefId());
+			charData.setEquippedItem(equipSlot, io.getRefId());
 		}
 	}
 	/**
-	 * Equips a shield on a player.
-	 * @param player the player data
+	 * Equips a shield on a character.
+	 * @param charData the character data
 	 * @throws RPGException if an error occurs
 	 */
-	private void equipShield(final IoPcData player) throws RPGException {
+	private void equipShield(final IOCharacter charData) throws RPGException {
 		// unequip old shield
-		unequipItemInSlot(player, EquipmentGlobals.EQUIP_SLOT_SHIELD);
+		unequipItemInSlot(charData, EquipmentGlobals.EQUIP_SLOT_SHIELD);
 		// equip new shield
-		player.setEquippedItem(
+		charData.setEquippedItem(
 		        EquipmentGlobals.EQUIP_SLOT_SHIELD, io.getRefId());
 		// TODO - attach new shield to mesh
 		// EERIE_LINKEDOBJ_LinkObjectToObject(target->obj,
 		// io->obj, "SHIELD_ATTACH", "SHIELD_ATTACH", io);
-		int wpnID = player.getEquippedItem(EquipmentGlobals.EQUIP_SLOT_WEAPON);
+		int wpnID = charData.getEquippedItem(EquipmentGlobals.EQUIP_SLOT_WEAPON);
 		if (wpnID >= 0) {
 			if (Interactive.getInstance().hasIO(wpnID)) {
 				IO wpn = (IO) Interactive.getInstance().getIO(wpnID);
@@ -319,21 +325,21 @@ public abstract class IOItemData<IO extends BaseInteractiveObject> {
 				        || wpn.hasTypeFlag(EquipmentGlobals.OBJECT_TYPE_BOW)) {
 					// unequip old weapon
 					unequipItemInSlot(
-					        player, EquipmentGlobals.EQUIP_SLOT_WEAPON);
+					        charData, EquipmentGlobals.EQUIP_SLOT_WEAPON);
 				}
 			}
 		}
 	}
 	/**
-	 * Equips a weapon for a player.
-	 * @param player the player data
+	 * Equips a weapon for a character.
+	 * @param charData the character data
 	 * @throws RPGException if an error occurs
 	 */
-	private void equipWeapon(final IoPcData player) throws RPGException {
+	private void equipWeapon(final IOCharacter charData) throws RPGException {
 		// unequip old weapon
-		unequipItemInSlot(player, EquipmentGlobals.EQUIP_SLOT_WEAPON);
+		unequipItemInSlot(charData, EquipmentGlobals.EQUIP_SLOT_WEAPON);
 		// equip new weapon
-		player.setEquippedItem(
+		charData.setEquippedItem(
 		        EquipmentGlobals.EQUIP_SLOT_WEAPON, io.getRefId());
 		// attach it to player mesh
 		if (io.hasTypeFlag(EquipmentGlobals.OBJECT_TYPE_BOW)) {
@@ -349,7 +355,7 @@ public abstract class IOItemData<IO extends BaseInteractiveObject> {
 		if (io.hasTypeFlag(EquipmentGlobals.OBJECT_TYPE_2H)
 		        || io.hasTypeFlag(EquipmentGlobals.OBJECT_TYPE_BOW)) {
 			// for bows or 2-handed swords, unequip old shield
-			unequipItemInSlot(player, EquipmentGlobals.EQUIP_SLOT_SHIELD);
+			unequipItemInSlot(charData, EquipmentGlobals.EQUIP_SLOT_SHIELD);
 		}
 	}
 	/**
@@ -589,7 +595,7 @@ public abstract class IOItemData<IO extends BaseInteractiveObject> {
 	public final void setWeight(final float f) {
 		weight = f;
 	}
-	private void unequipItemInSlot(final IoPcData player, final int slot)
+	private void unequipItemInSlot(final IOCharacter player, final int slot)
 	        throws RPGException {
 		if (player.getEquippedItem(slot) >= 0) {
 			int slotioid = player.getEquippedItem(slot);

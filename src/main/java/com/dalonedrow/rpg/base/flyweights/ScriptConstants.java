@@ -4,7 +4,13 @@ package com.dalonedrow.rpg.base.flyweights;
  * @author Donald
  */
 public final class ScriptConstants {
-	public static final int	ACCEPT							= 1;
+    public static final int PATHFIND_ALWAYS                          = 1;
+    public static final int PATHFIND_ONCE                          = 2;
+    public static final int PATHFIND_NO_UPDATE                          = 4;
+    public static final int TARGET_PATH = -3;
+    public static final int TARGET_NONE = -2;
+    public static final int TARGET_PLAYER = 0;
+    public static final int ACCEPT                          = 1;
 	public static final int	BIGERROR						= -2;
 	public static final int	DISABLE_AGGRESSION				= 32;
 	public static final int	DISABLE_CHAT					= 2;

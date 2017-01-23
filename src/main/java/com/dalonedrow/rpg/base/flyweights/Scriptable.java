@@ -6,9 +6,14 @@ package com.dalonedrow.rpg.base.flyweights;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.dalonedrow.engine.sprite.base.SimpleVector2;
+import com.dalonedrow.engine.systems.base.Interactive;
+import com.dalonedrow.engine.systems.base.ProjectConstants;
 import com.dalonedrow.pooled.PooledException;
 import com.dalonedrow.pooled.PooledStringBuilder;
 import com.dalonedrow.pooled.StringBuilderPool;
+import com.dalonedrow.rpg.base.constants.Behaviour;
+import com.dalonedrow.rpg.base.constants.IoGlobals;
 import com.dalonedrow.utils.ArrayUtilities;
 
 /**
@@ -82,6 +87,33 @@ public class Scriptable<IO extends BaseInteractiveObject> {
      */
     public final void assignDisallowedEvent(final int event) {
         allowedEvent |= event;
+    }
+    /**
+     * Changes the IO's behavior.
+     * @param params the behavior parameters
+     */
+    public final void behavior(final BehaviorParameters params) {
+        if (io.hasIOFlag(IoGlobals.IO_03_NPC)) {
+            if ("STACK".equalsIgnoreCase(params.getAction())) {
+                io.getNPCData().ARX_NPC_Behaviour_Stack();
+            } else if ("UNSTACK".equalsIgnoreCase(params.getAction())) {
+                io.getNPCData().ARX_NPC_Behaviour_UnStack();
+            } else if ("UNSTACKALL".equalsIgnoreCase(params.getAction())) {
+                io.getNPCData().resetBehavior();
+            } else {
+                io.getNPCData().ARX_NPC_Behaviour_Change(params.getFlags(),
+                        (long) params.getBehaviorParam());
+                if (params.getMovemode() > -1) {
+                    io.getNPCData().setMovemode(params.getMovemode());
+                }
+                if (params.getTactics() > -1) {
+                    io.getNPCData().setTactics(params.getTactics());
+                }
+                if (params.getTargetInfo() != -1) {
+                    io.setTargetinfo(params.getTargetInfo());
+                }
+            }
+        }
     }
     /** Clears the bit flags for allowed events. */
     public final void clearDisallowedEvents() {
@@ -258,18 +290,21 @@ public class Scriptable<IO extends BaseInteractiveObject> {
      * @param name the variable name
      * @return {@link String}
      * @throws PooledException if one occurs
-     * @throws RPGException if no such variable was assigned
      */
     public final long getLocalLongVariableValue(final String name)
-            throws PooledException, RPGException {
+            throws RPGException {
         ScriptVariable svar = getLocalVariable(name);
         if (svar == null
                 || svar.getType() != ScriptConstants.TYPE_L_14_LONG) {
             PooledStringBuilder sb =
                     StringBuilderPool.getInstance().getStringBuilder();
-            sb.append("Local floating-point variable ");
-            sb.append(name);
-            sb.append(" was never set.");
+            try {
+                sb.append("Local floating-point variable ");
+                sb.append(name);
+                sb.append(" was never set.");
+            } catch (PooledException e) {
+                throw new RPGException(ErrorMessage.INTERNAL_ERROR, e);
+            }
             RPGException ex = new RPGException(ErrorMessage.INVALID_PARAM,
                     sb.toString());
             sb.returnToPool();
@@ -375,6 +410,125 @@ public class Scriptable<IO extends BaseInteractiveObject> {
     public final Scriptable<IO> getMaster() {
         return master;
     }
+    public final void getTargetPos(IO io, long smoothing) throws RPGException {
+        if (io == null) {
+            return;
+        }
+
+        if (io.hasIOFlag(IoGlobals.IO_03_NPC)) {
+            if (io.getNPCData().hasBehavior(Behaviour.BEHAVIOUR_NONE)) {
+                io.getTarget().setX(io.getPosition().getX());
+                io.getTarget().setY(io.getPosition().getY());
+                io.getTarget().setZ(0);
+                return;
+            }
+            if (io.getNPCData().hasBehavior(Behaviour.BEHAVIOUR_GO_HOME)) {
+                if (io.getNPCData().getPathfinding().getListPosition() < io
+                        .getNPCData().getPathfinding().getListnb()) {
+                    long pos = io.getNPCData().getPathfinding().getListItem(
+                            io.getNPCData().getPathfinding().getListPosition());
+                    // io.getTarget().setX(ACTIVEBKG->anchors[pos].pos.x;
+                    // io.getTarget().setY(ACTIVEBKG->anchors[pos].pos.y;
+                    // io.getTarget().setZ(ACTIVEBKG->anchors[pos].pos.z;
+                    return;
+                }
+                io.getTarget().setX(io.getInitPosition().getX());
+                io.getTarget().setY(io.getInitPosition().getY());
+                io.getTarget().setZ(0);
+                return;
+            }
+            if (io.hasIOFlag(IoGlobals.IO_03_NPC)
+                    && io.getNPCData().getPathfinding().getListnb() != -1
+                    && io.getNPCData().getPathfinding().hasList()
+                    && !io.getNPCData()
+                            .hasBehavior(Behaviour.BEHAVIOUR_FRIENDLY)) {
+                // Targeting Anchors !
+                if (io.getNPCData().getPathfinding().getListPosition() < io
+                        .getNPCData().getPathfinding().getListnb()) {
+                    long pos = io.getNPCData().getPathfinding().getListItem(
+                            io.getNPCData().getPathfinding().getListPosition());
+                    // io.getTarget().setX(ACTIVEBKG->anchors[pos].pos.x;
+                    // io.getTarget().setY(ACTIVEBKG->anchors[pos].pos.y;
+                    // io.getTarget().setZ(ACTIVEBKG->anchors[pos].pos.z;
+                } else if (Interactive.getInstance().hasIO(
+                        io.getNPCData().getPathfinding().getTruetarget())) {
+                    IO ioo = (IO) Interactive.getInstance().getIO(
+                            io.getNPCData().getPathfinding()
+                                    .getTruetarget());
+                    io.getTarget().setX(ioo.getPosition().getX());
+                    io.getTarget().setY(ioo.getPosition().getY());
+                    io.getTarget().setZ(0);
+                }
+                return;
+            }
+        }
+        if (io.getTargetinfo() == ScriptConstants.TARGET_PATH) {
+            // if (io->usepath == NULL)
+            // {
+            // io->target.x = io->pos.x;
+            // io->target.y = io->pos.y;
+            // io->target.z = io->pos.z;
+            // return;
+            // }
+
+            // ARX_USE_PATH * aup = (ARX_USE_PATH *)io->usepath;
+            // aup->_curtime += smoothing + 100;
+            // EERIE_3D tp;
+            // long wp = ARX_PATHS_Interpolate(aup, &tp);
+
+            // if (wp < 0)
+            // {
+            // if (io->ioflags & IO_CAMERA)
+            // io->_camdata->cam.lastinfovalid = FALSE;
+            // }
+            // else
+            // {
+
+            // io->target.x = tp.x;
+            // io->target.y = tp.y;
+            // io->target.z = tp.z;
+
+            // }
+
+            // return;
+        }
+
+        if (io.getTargetinfo() == ScriptConstants.TARGET_NONE) {
+            io.getTarget().setX(io.getPosition().getX());
+            io.getTarget().setY(io.getPosition().getY());
+            io.getTarget().setZ(0);
+            return;
+        }
+        if (io.getTargetinfo() == ScriptConstants.TARGET_PLAYER
+                || io.getTargetinfo() == -1) {
+            IO player = (IO) Interactive.getInstance().getIO(
+                    ProjectConstants.getInstance().getPlayer());
+            io.getTarget().setX(player.getPosition().getX());
+            io.getTarget().setY(player.getPosition().getY());
+            io.getTarget().setZ(0);
+            player = null;
+            return;
+        } else {
+            if (Interactive.getInstance().hasIO(io.getTargetinfo())) {
+                IO tio = (IO) Interactive.getInstance()
+                        .getIO(io.getTargetinfo());
+                SimpleVector2 pos = new SimpleVector2();
+                if (Interactive.getInstance().GetItemWorldPosition(tio, pos)) {
+                    io.getTarget().setX(pos.getX());
+                    io.getTarget().setY(pos.getY());
+                    io.getTarget().setZ(0);
+                    return;
+                }
+                io.getTarget().setX(tio.getPosition().getX());
+                io.getTarget().setY(tio.getPosition().getY());
+                io.getTarget().setZ(0);
+                return;
+            }
+        }
+        io.getTarget().setX(io.getPosition().getX());
+        io.getTarget().setY(io.getPosition().getY());
+        io.getTarget().setZ(0);
+    }
     /**
      * Gets a specific script timer's reference id.
      * @param index the timer's index
@@ -382,6 +536,14 @@ public class Scriptable<IO extends BaseInteractiveObject> {
      */
     public final int getTimer(final int index) {
         return timers[index];
+    }
+    /**
+     * Shorthand method to get the type variable.
+     * @return {@link String}
+     * @throws RPGException if an error occurs
+     */
+    protected final String getType() throws RPGException {
+        return getLocalStringVariableValue("type");
     }
     /**
      * Determines if the {@link InteractiveObject} allows a specific event.
@@ -417,6 +579,16 @@ public class Scriptable<IO extends BaseInteractiveObject> {
         return has;
     }
     /**
+     * Shorthand method to determine if the type variable matches a specific
+     * type.
+     * @param type the type
+     * @return {@link boolean}
+     * @throws RPGException if an error occurs
+     */
+    protected final boolean isType(final String type) throws RPGException {
+        return getLocalStringVariableValue("type").equalsIgnoreCase(type);
+    }
+    /**
      * Script run when the {@link Scriptable} is added to a party.
      * @return {@link int}
      * @throws RPGException when an error occurs
@@ -432,12 +604,44 @@ public class Scriptable<IO extends BaseInteractiveObject> {
     public int onAggression() throws RPGException {
         return ScriptConstants.ACCEPT;
     }
+    public int onAttackPlayer() throws RPGException {
+        return ScriptConstants.ACCEPT;
+    }
+    /**
+     * On IO chat start.
+     * @return <code>int</code>
+     * @throws RPGException if an error occurs
+     */
+    public int onChat() throws RPGException {
+        return ScriptConstants.ACCEPT;
+    }
+    public int onCheatDie() throws RPGException {
+        return ScriptConstants.ACCEPT;
+    }
+    public int onCollideDoor() throws RPGException {
+        return ScriptConstants.ACCEPT;
+    }
+    public int onCollideNPC() throws RPGException {
+        return ScriptConstants.ACCEPT;
+    }
+    public int onCollisionError() throws RPGException {
+        return ScriptConstants.ACCEPT;
+    }
     /**
      * On IO combine.
      * @return <code>int</code>
      * @throws RPGException if an error occurs
      */
     public int onCombine() throws RPGException {
+        return ScriptConstants.ACCEPT;
+    }
+    public int onControlsOff() throws RPGException {
+        return ScriptConstants.ACCEPT;
+    }
+    public int onControlsOn() throws RPGException {
+        return ScriptConstants.ACCEPT;
+    }
+    public int onDetectPlayer() throws RPGException {
         return ScriptConstants.ACCEPT;
     }
     /**
@@ -448,12 +652,21 @@ public class Scriptable<IO extends BaseInteractiveObject> {
     public int onDie() throws RPGException {
         return ScriptConstants.ACCEPT;
     }
+    public int onDoorLocked() throws RPGException {
+        return ScriptConstants.ACCEPT;
+    }
     /**
      * On IO equipped.
      * @return <code>int</code>
      * @throws RPGException if an error occurs
      */
     public int onEquip() throws RPGException {
+        return ScriptConstants.ACCEPT;
+    }
+    public int onGameReady() throws RPGException {
+        return ScriptConstants.ACCEPT;
+    }
+    public int onHear() throws RPGException {
         return ScriptConstants.ACCEPT;
     }
     /**
@@ -531,6 +744,9 @@ public class Scriptable<IO extends BaseInteractiveObject> {
     public int onLoad() throws RPGException {
         return ScriptConstants.ACCEPT;
     }
+    public int onLookFor() throws RPGException {
+        return ScriptConstants.ACCEPT;
+    }
     /**
      * On IO traveling on the game map.
      * @return <code>int</code>
@@ -547,10 +763,35 @@ public class Scriptable<IO extends BaseInteractiveObject> {
     public int onOuch() throws RPGException {
         return ScriptConstants.ACCEPT;
     }
+    public int onPlayerEnemy() throws RPGException {
+        return ScriptConstants.ACCEPT;
+    }
+    public int onReachedTarget() throws RPGException {
+        return ScriptConstants.ACCEPT;
+    }
     public int onReload() throws RPGException {
         return ScriptConstants.ACCEPT;
     }
+    /**
+     * Causes an NPC to
+     * @return
+     * @throws RPGException
+     */
+    public int onSpeakNoRepeat() throws RPGException {
+        return ScriptConstants.ACCEPT;
+    }
     public int onSpellcast() throws RPGException {
+        return ScriptConstants.ACCEPT;
+    }
+    /**
+     * On IO successfully strikes a target.
+     * @return {@link int}
+     * @throws RPGException if an error occurs
+     */
+    public int onStrike() throws RPGException {
+        return ScriptConstants.ACCEPT;
+    }
+    public int onUndetectPlayer() throws RPGException {
         return ScriptConstants.ACCEPT;
     }
     /**
@@ -725,6 +966,66 @@ public class Scriptable<IO extends BaseInteractiveObject> {
      */
     public final void setMaster(final Scriptable<IO> script) {
         master = script;
+    }
+    public final void setTarget(final TargetParameters params)
+            throws RPGException {
+        if (io.hasIOFlag(IoGlobals.IO_03_NPC)) {
+            io.getNPCData().getPathfinding()
+                    .removeFlag(ScriptConstants.PATHFIND_ALWAYS);
+            io.getNPCData().getPathfinding()
+                    .removeFlag(ScriptConstants.PATHFIND_ONCE);
+            io.getNPCData().getPathfinding()
+                    .removeFlag(ScriptConstants.PATHFIND_NO_UPDATE);
+            if (params.hasFlag(ScriptConstants.PATHFIND_ALWAYS)) {
+                io.getNPCData().getPathfinding()
+                        .addFlag(ScriptConstants.PATHFIND_ALWAYS);
+            }
+            if (params.hasFlag(ScriptConstants.PATHFIND_ONCE)) {
+                io.getNPCData().getPathfinding()
+                        .addFlag(ScriptConstants.PATHFIND_ONCE);
+            }
+            if (params.hasFlag(ScriptConstants.PATHFIND_NO_UPDATE)) {
+                io.getNPCData().getPathfinding()
+                        .addFlag(ScriptConstants.PATHFIND_NO_UPDATE);
+            }
+            int old_target = -12;
+            if (io.getNPCData().hasReachedtarget()) {
+                old_target = io.getTargetinfo();
+            }
+            if (io.getNPCData().hasBehavior(Behaviour.BEHAVIOUR_FLEE)
+                    || io.getNPCData()
+                            .hasBehavior(Behaviour.BEHAVIOUR_WANDER_AROUND)) {
+                old_target = -12;
+            }
+            int t = params.getTargetInfo();
+
+            if (t == -2) {
+                t = Interactive.getInstance().GetInterNum(io);
+            }
+            // if (io.hasIOFlag(ioglobals.io_camera)) {
+            // EERIE_CAMERA * cam = (EERIE_CAMERA *)io->_camdata;
+            // cam->translatetarget.x = 0.f;
+            // cam->translatetarget.y = 0.f;
+            // cam->translatetarget.z = 0.f;
+            // }
+            if (t == ScriptConstants.TARGET_PATH) {
+                io.setTargetinfo(t); // TARGET_PATH;
+                getTargetPos(io, 0);
+            } else if (t == ScriptConstants.TARGET_NONE) {
+                io.setTargetinfo(ScriptConstants.TARGET_NONE);
+            } else {
+                if (Interactive.getInstance().hasIO(t)) {
+                    io.setTargetinfo(t); // TARGET_PATH;
+                    getTargetPos(io, 0);
+                }
+            }
+
+            if (old_target != t) {
+                io.getNPCData().setReachedtarget(false);
+
+                // ARX_NPC_LaunchPathfind(io, t);
+            }
+        }
     }
     /**
      * Sets the reference id of the {@link ScriptTimer} found at a specific

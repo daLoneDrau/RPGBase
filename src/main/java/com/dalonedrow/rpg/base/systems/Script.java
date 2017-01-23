@@ -6,7 +6,9 @@ package com.dalonedrow.rpg.base.systems;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+import com.dalonedrow.engine.sprite.base.SimpleVector2;
 import com.dalonedrow.engine.systems.base.Interactive;
+import com.dalonedrow.engine.systems.base.ProjectConstants;
 import com.dalonedrow.engine.systems.base.Time;
 import com.dalonedrow.pooled.PooledException;
 import com.dalonedrow.pooled.PooledStringBuilder;
@@ -21,6 +23,8 @@ import com.dalonedrow.rpg.base.flyweights.ScriptTimerAction;
 import com.dalonedrow.rpg.base.flyweights.ScriptTimerInitializationParameters;
 import com.dalonedrow.rpg.base.flyweights.ScriptVariable;
 import com.dalonedrow.rpg.base.flyweights.Scriptable;
+import com.dalonedrow.rpg.base.flyweights.SendParameters;
+import com.dalonedrow.rpg.base.flyweights.SpeechParameters;
 import com.dalonedrow.rpg.base.flyweights.StackedEvent;
 import com.dalonedrow.utils.ArrayUtilities;
 
@@ -36,6 +40,9 @@ import com.dalonedrow.utils.ArrayUtilities;
 public abstract class Script<IO extends BaseInteractiveObject,
         TIMER extends ScriptTimer<IO>, SCRIPTABLE extends Scriptable<IO>,
         STACKED extends StackedEvent<IO>> {
+    private static final long ANIM_TALK_ANGRY = 0;
+    private static final long ANIM_TALK_HAPPY = 0;
+    private static final long ANIM_TALK_NEUTRAL = 0;
     /** the one and only instance of the <tt>Script</tt> class. */
     private static Script instance;
     /** the maximum number of system parameters. */
@@ -297,6 +304,25 @@ public abstract class Script<IO extends BaseInteractiveObject,
     }
     public abstract void eventStackInit();
     protected abstract void executeAdditionalStacks();
+    public final void forceDeath(final IO io, final String target)
+            throws RPGException {
+        int tioid = -1;
+        if (target.equalsIgnoreCase("me")
+                || target.equalsIgnoreCase("self")) {
+            tioid = Interactive.getInstance().GetInterNum(io);
+        } else {
+            tioid = Interactive.getInstance().getTargetByNameTarget(target);
+            if (tioid == -2) {
+                tioid = Interactive.getInstance().GetInterNum(io);
+            }
+        }
+        if (tioid >= 0) {
+            IO tio = (IO) Interactive.getInstance().getIO(tioid);
+            if (tio.hasIOFlag(IoGlobals.IO_03_NPC)) {
+                tio.getNPCData().forceDeath(io);
+            }
+        }
+    }
     public final void freeAllGlobalVariables() throws RPGException {
         if (gvars != null) {
             for (int i = gvars.length - 1; i >= 0; i--) {
@@ -646,6 +672,9 @@ public abstract class Script<IO extends BaseInteractiveObject,
         }
         return gvars[index].getText();
     }
+    public int getGlobalTargetParam(final IO io) {
+        return io.getTargetinfo();
+    }
     /**
      * Gets a global {@link Scriptable} variable.
      * @param name the name of the variable
@@ -799,6 +828,13 @@ public abstract class Script<IO extends BaseInteractiveObject,
         }
         return val;
     }
+    public boolean isPlayerInvisible(IO io) {
+        boolean invisible = false;
+        // if (inter.iobj[0]->invisibility > 0.3f) {
+        // invisible = true;
+        // }
+        return invisible;
+    }
     private void MakeSSEPARAMS(String params) {
         for (int i = MAX_SYSTEM_PARAMS - 1; i >= 0; i--) {
             SYSTEM_PARAMS[i] = null;
@@ -841,6 +877,46 @@ public abstract class Script<IO extends BaseInteractiveObject,
             acceptance = ScriptConsts.ACCEPT;
         }
         return acceptance;
+    }
+    /**
+     * Hides a target IO.
+     * @param io the IO sending the event.
+     * @param megahide if true, the target IO is "mega-hidden"
+     * @param targetName the target's name
+     * @param hideOn if true, the hidden flags are set; otherwise all hidden
+     *            flags are removed
+     * @throws RPGException if an error occurs
+     */
+    public final void objectHide(final IO io, final boolean megahide,
+            final String targetName, final boolean hideOn) throws RPGException {
+        int targetId =
+                Interactive.getInstance().getTargetByNameTarget(targetName);
+        if (targetId == -2) {
+            targetId = io.getRefId();
+        }
+        if (Interactive.getInstance().hasIO(targetId)) {
+            IO tio = (IO) Interactive.getInstance().getIO(targetId);
+            tio.removeGameFlag(IoGlobals.GFLAG_MEGAHIDE);
+            if (hideOn) {
+                if (megahide) {
+                    tio.addGameFlag(IoGlobals.GFLAG_MEGAHIDE);
+                    tio.setShow(IoGlobals.SHOW_FLAG_MEGAHIDE);
+                } else {
+                    tio.setShow(IoGlobals.SHOW_FLAG_HIDDEN);
+                }
+            } else if (tio.getShow() == IoGlobals.SHOW_FLAG_MEGAHIDE
+                    || tio.getShow() == IoGlobals.SHOW_FLAG_HIDDEN) {
+                tio.setShow(IoGlobals.SHOW_FLAG_IN_SCENE);
+                if (tio.hasIOFlag(IoGlobals.IO_03_NPC)
+                        && tio.getNPCData().getBaseLife() <= 0f) {
+                    // tio.animlayer[0].cur_anim =
+                    // inter.iobj[t]->anims[ANIM_DIE];
+                    // tio.animlayer[1].cur_anim = NULL;
+                    // tio.animlayer[2].cur_anim = NULL;
+                    // tio.animlayer[0].ctime = 9999999;
+                }
+            }
+        }
     }
     /**
      * Removes an IO from all groups to which it was assigned.
@@ -1070,6 +1146,138 @@ public abstract class Script<IO extends BaseInteractiveObject,
             throw new RPGException(ErrorMessage.INVALID_PARAM,
                     "No action defined for message " + msg);
         }
+    }
+    public final void sendEvent(final IO io, final SendParameters params)
+            throws RPGException {
+        IO oes = eventSender;
+        eventSender = io;
+        if (params.hasFlag(SendParameters.RADIUS)) {
+            // SEND EVENT TO ALL OBJECTS IN A RADIUS
+
+            // LOOP THROUGH ALL IOs.
+            int i = Interactive.getInstance().getMaxIORefId();
+            for (; i >= 0; i--) {
+                if (Interactive.getInstance().hasIO(i)) {
+                    IO iio = (IO) Interactive.getInstance().getIO(i);
+                    // skip cameras and markers
+                    // if (iio.hasIOFlag(IoGlobals.io_camera)
+                    // || iio.hasIOFlag(IoGlobals.io_marker)) {
+                    // continue;
+                    // }
+                    // skip IOs not in required group
+                    if (params.hasFlag(SendParameters.GROUP)) {
+                        if (!this.isIOInGroup(iio, params.getGroupName())) {
+                            continue;
+                        }
+                    }
+                    // if send event is for NPCs, send to NPCs,
+                    // if for Items, send to Items, etc...
+                    if ((params.hasFlag(SendParameters.NPC)
+                            && iio.hasIOFlag(IoGlobals.IO_03_NPC))
+                            // || (params.hasFlag(SendParameters.FIX)
+                            // && iio.hasIOFlag(IoGlobals.IO_FIX))
+                            || (params.hasFlag(SendParameters.ITEM)
+                                    && iio.hasIOFlag(IoGlobals.IO_02_ITEM))) {
+                        SimpleVector2 senderPos = new SimpleVector2(),
+                                ioPos = new SimpleVector2();
+                        Interactive.getInstance().GetItemWorldPosition(io,
+                                senderPos);
+                        Interactive.getInstance().GetItemWorldPosition(iio,
+                                ioPos);
+                        // IF IO IS IN SENDER RADIUS, SEND EVENT
+                        io.setStatSent(io.getStatSent() + 1);
+                        this.stackSendIOScriptEvent(
+                                iio,
+                                0,
+                                params.getEventParameters(),
+                                params.getEventName());
+                    }
+                }
+            }
+        }
+        if (params.hasFlag(SendParameters.ZONE)) {
+            // SEND EVENT TO ALL OBJECTS IN A ZONE
+            // ARX_PATH * ap = ARX_PATH_GetAddressByName(zonename);
+
+            // if (ap != NULL) {
+            // LOOP THROUGH ALL IOs.
+            int i = Interactive.getInstance().getMaxIORefId();
+            for (; i >= 0; i--) {
+                if (Interactive.getInstance().hasIO(i)) {
+                    IO iio = (IO) Interactive.getInstance().getIO(i);
+                    // skip cameras and markers
+                    // if (iio.hasIOFlag(IoGlobals.io_camera)
+                    // || iio.hasIOFlag(IoGlobals.io_marker)) {
+                    // continue;
+                    // }
+                    // skip IOs not in required group
+                    if (params.hasFlag(SendParameters.GROUP)) {
+                        if (!this.isIOInGroup(iio, params.getGroupName())) {
+                            continue;
+                        }
+                    }
+                    // if send event is for NPCs, send to NPCs,
+                    // if for Items, send to Items, etc...
+                    if ((params.hasFlag(SendParameters.NPC)
+                            && iio.hasIOFlag(IoGlobals.IO_03_NPC))
+                            // || (params.hasFlag(SendParameters.FIX)
+                            // && iio.hasIOFlag(IoGlobals.IO_FIX))
+                            || (params.hasFlag(SendParameters.ITEM)
+                                    && iio.hasIOFlag(IoGlobals.IO_02_ITEM))) {
+                        SimpleVector2 ioPos = new SimpleVector2();
+                        Interactive.getInstance().GetItemWorldPosition(iio,
+                                ioPos);
+                        // IF IO IS IN ZONE, SEND EVENT
+                        // if (ARX_PATH_IsPosInZone(ap, _pos.x, _pos.y, _pos.z))
+                        // {
+                        io.setStatSent(io.getStatSent() + 1);
+                        this.stackSendIOScriptEvent(
+                                iio,
+                                0,
+                                params.getEventParameters(),
+                                params.getEventName());
+                        // }
+                    }
+                }
+            }
+        }
+        if (params.hasFlag(SendParameters.GROUP)) {
+            // sends an event to all members of a group
+            // LOOP THROUGH ALL IOs.
+            int i = Interactive.getInstance().getMaxIORefId();
+            for (; i >= 0; i--) {
+                if (Interactive.getInstance().hasIO(i)) {
+                    IO iio = (IO) Interactive.getInstance().getIO(i);
+                    // skip IOs not in required group
+                    if (!this.isIOInGroup(iio, params.getGroupName())) {
+                        continue;
+                    }
+                    iio.setStatSent(io.getStatSent() + 1);
+                    this.stackSendIOScriptEvent(
+                            iio,
+                            0,
+                            params.getEventParameters(),
+                            params.getEventName());
+                }
+            }
+        } else {
+            // SINGLE OBJECT EVENT
+            int tioid = Interactive.getInstance().getTargetByNameTarget(
+                    params.getTargetName());
+
+            if (tioid == -2) {
+                tioid = Interactive.getInstance().GetInterNum(io);
+            }
+            if (Interactive.getInstance().hasIO(tioid)) {
+                io.setStatSent(io.getStatSent() + 1);
+                this.stackSendIOScriptEvent(
+                        (IO) Interactive.getInstance().getIO(tioid),
+                        0,
+                        params.getEventParameters(),
+                        params.getEventName());
+            }
+        }
+        this.eventSender = oes;
     }
     /**
      * Sends an initialization event to an IO. The initialization event runs the
@@ -1390,6 +1598,82 @@ public abstract class Script<IO extends BaseInteractiveObject,
     public final void setDebug(final boolean val) {
         this.debug = val;
     }
+    public final void setEvent(final IO io, final String event,
+            final boolean isOn) {
+        if (event.equalsIgnoreCase("COLLIDE_NPC")) {
+            if (isOn) {
+                io.getScript().removeDisallowedEvent(
+                        ScriptConsts.DISABLE_COLLIDE_NPC);
+            } else {
+                io.getScript().assignDisallowedEvent(
+                        ScriptConsts.DISABLE_COLLIDE_NPC);
+            }
+        } else if (event.equalsIgnoreCase("CHAT")) {
+            if (isOn) {
+                io.getScript().removeDisallowedEvent(ScriptConsts.DISABLE_CHAT);
+            } else {
+                io.getScript().assignDisallowedEvent(ScriptConsts.DISABLE_CHAT);
+            }
+        } else if (event.equalsIgnoreCase("HIT")) {
+            if (isOn) {
+                io.getScript().removeDisallowedEvent(ScriptConsts.DISABLE_HIT);
+            } else {
+                io.getScript().assignDisallowedEvent(ScriptConsts.DISABLE_HIT);
+            }
+        } else if (event.equalsIgnoreCase("INVENTORY2_OPEN")) {
+            if (isOn) {
+                io.getScript().removeDisallowedEvent(
+                        ScriptConsts.DISABLE_INVENTORY2_OPEN);
+            } else {
+                io.getScript().assignDisallowedEvent(
+                        ScriptConsts.DISABLE_INVENTORY2_OPEN);
+            }
+        } else if (event.equalsIgnoreCase("DETECTPLAYER")) {
+            if (isOn) {
+                io.getScript()
+                        .removeDisallowedEvent(ScriptConsts.DISABLE_DETECT);
+            } else {
+                io.getScript()
+                        .assignDisallowedEvent(ScriptConsts.DISABLE_DETECT);
+            }
+        } else if (event.equalsIgnoreCase("HEAR")) {
+            if (isOn) {
+                io.getScript().removeDisallowedEvent(ScriptConsts.DISABLE_HEAR);
+            } else {
+                io.getScript().assignDisallowedEvent(ScriptConsts.DISABLE_HEAR);
+            }
+        } else if (event.equalsIgnoreCase("AGGRESSION")) {
+            if (isOn) {
+                io.getScript()
+                        .removeDisallowedEvent(ScriptConsts.DISABLE_AGGRESSION);
+            } else {
+                io.getScript()
+                        .assignDisallowedEvent(ScriptConsts.DISABLE_AGGRESSION);
+            }
+        } else if (event.equalsIgnoreCase("MAIN")) {
+            if (isOn) {
+                io.getScript().removeDisallowedEvent(ScriptConsts.DISABLE_MAIN);
+            } else {
+                io.getScript().assignDisallowedEvent(ScriptConsts.DISABLE_MAIN);
+            }
+        } else if (event.equalsIgnoreCase("CURSORMODE")) {
+            if (isOn) {
+                io.getScript()
+                        .removeDisallowedEvent(ScriptConsts.DISABLE_CURSORMODE);
+            } else {
+                io.getScript()
+                        .assignDisallowedEvent(ScriptConsts.DISABLE_CURSORMODE);
+            }
+        } else if (event.equalsIgnoreCase("EXPLORATIONMODE")) {
+            if (isOn) {
+                io.getScript().removeDisallowedEvent(
+                        ScriptConsts.DISABLE_EXPLORATIONMODE);
+            } else {
+                io.getScript().assignDisallowedEvent(
+                        ScriptConsts.DISABLE_EXPLORATIONMODE);
+            }
+        }
+    }
     /**
      * Sets the value of the eventSender.
      * @param val the new value to set
@@ -1497,6 +1781,204 @@ public abstract class Script<IO extends BaseInteractiveObject,
         maxTimerScript = val;
     }
     protected abstract void setScriptTimer(int index, TIMER timer);
+    public final void speak(final IO io, final SpeechParameters params) {
+        // speech variables
+        // ARX_CINEMATIC_SPEECH acs;
+        // acs.type = ARX_CINE_SPEECH_NONE;
+        long voixoff = 0;
+        long mood = ANIM_TALK_NEUTRAL;
+        if (params.isKillAllSpeech()) {
+            // ARX_SPEECH_Reset();
+        } else {
+            if (params.hasFlag(SpeechParameters.HAPPY)) {
+                mood = ANIM_TALK_HAPPY;
+            }
+            if (params.hasFlag(SpeechParameters.ANGRY)) {
+                mood = ANIM_TALK_ANGRY;
+            }
+            if (params.hasFlag(SpeechParameters.OFF_VOICE)) {
+                voixoff = 2;
+            }
+            if (params.hasFlag(SpeechParameters.KEEP_SPEECH)
+                    || params.hasFlag(SpeechParameters.ZOOM_SPEECH)
+                    || params.hasFlag(SpeechParameters.SPEECH_CCCTALKER_L)
+                    || params.hasFlag(SpeechParameters.SPEECH_CCCTALKER_R)
+                    || params.hasFlag(SpeechParameters.SPEECH_CCCLISTENER_L)
+                    || params.hasFlag(SpeechParameters.SPEECH_CCCLISTENER_R)
+                    || params.hasFlag(SpeechParameters.SIDE_L)
+                    || params.hasFlag(SpeechParameters.SIDE_R)) {
+                // FRAME_COUNT = 0;
+                if (params.hasFlag(SpeechParameters.KEEP_SPEECH)) {
+                    // acs.type = ARX_CINE_SPEECH_KEEP;
+                    // acs.pos1.x = LASTCAMPOS.x;
+                    // acs.pos1.y = LASTCAMPOS.y;
+                    // acs.pos1.z = LASTCAMPOS.z;
+                    // acs.pos2.a = LASTCAMANGLE.a;
+                    // acs.pos2.b = LASTCAMANGLE.b;
+                    // acs.pos2.g = LASTCAMANGLE.g;
+                }
+                if (params.hasFlag(SpeechParameters.ZOOM_SPEECH)) {
+                    // acs.type = ARX_CINE_SPEECH_ZOOM;
+                    // pos = GetNextWord(es, pos, temp2);
+                    // acs.startangle.a = GetVarValueInterpretedAsFloat(temp2,
+                    // esss, io);
+                    // pos = GetNextWord(es, pos, temp2);
+                    // acs.startangle.b = GetVarValueInterpretedAsFloat(temp2,
+                    // esss, io);
+                    // pos = GetNextWord(es, pos, temp2);
+                    // acs.endangle.a = GetVarValueInterpretedAsFloat(temp2,
+                    // esss, io);
+                    // pos = GetNextWord(es, pos, temp2);
+                    // acs.endangle.b = GetVarValueInterpretedAsFloat(temp2,
+                    // esss, io);
+                    // pos = GetNextWord(es, pos, temp2);
+                    // acs.startpos = GetVarValueInterpretedAsFloat(temp2, esss,
+                    // io);
+                    // pos = GetNextWord(es, pos, temp2);
+                    // acs.endpos = GetVarValueInterpretedAsFloat(temp2, esss,
+                    // io);
+
+                    // ARX_CHECK_NO_ENTRY(); //ARX: xrichter (2010-07-20) -
+                    // temp2 is often (always?) a string number and
+                    // GetTargetByNameTarget return -1. To be careful if temp2
+                    // is not a string number, we choose to test
+                    // GetTargetByNameTarget return value.
+                    // acs.ionum = GetTargetByNameTarget(temp2);
+
+                    // if (acs.ionum == -2) //means temp2 is "me" or "self"
+                    // acs.ionum = GetInterNum(io);
+
+                    if (params.hasFlag(SpeechParameters.PLAYER)) {
+                        // ComputeACSPos(&acs, inter.iobj[0], acs.ionum);
+                    } else {
+                        // ComputeACSPos(&acs, io, -1);
+                    }
+                }
+                if (params.hasFlag(SpeechParameters.SPEECH_CCCTALKER_L)
+                        || params
+                                .hasFlag(SpeechParameters.SPEECH_CCCTALKER_R)) {
+                    if (params.hasFlag(SpeechParameters.SPEECH_CCCTALKER_L)) {
+                        // acs.type = ARX_CINE_SPEECH_CCCTALKER_R;
+                    } else {
+                        // acs.type = ARX_CINE_SPEECH_CCCTALKER_L;
+                    }
+                    // pos = GetNextWord(es, pos, temp2);
+                    // acs.ionum = GetTargetByNameTarget(temp2);
+
+                    // if (acs.ionum == -2) acs.ionum = GetInterNum(io);
+
+                    // pos = GetNextWord(es, pos, temp2);
+                    // acs.startpos = GetVarValueInterpretedAsFloat(temp2, esss,
+                    // io);
+                    // pos = GetNextWord(es, pos, temp2);
+                    // acs.endpos = GetVarValueInterpretedAsFloat(temp2, esss,
+                    // io);
+
+                    if (params.hasFlag(SpeechParameters.PLAYER)) {
+                        // ComputeACSPos(&acs, inter.iobj[0], acs.ionum);
+                    } else {
+                        // ComputeACSPos(&acs, io, acs.ionum);
+                    }
+                }
+                if (params.hasFlag(SpeechParameters.SPEECH_CCCLISTENER_L)
+                        || params.hasFlag(
+                                SpeechParameters.SPEECH_CCCLISTENER_R)) {
+                    if (params.hasFlag(SpeechParameters.SPEECH_CCCLISTENER_L)) {
+                        // acs.type = ARX_CINE_SPEECH_CCCLISTENER_L;
+                    } else {
+                        // acs.type = ARX_CINE_SPEECH_CCCLISTENER_R;
+                    }
+                    // pos = GetNextWord(es, pos, temp2);
+                    // acs.ionum = GetTargetByNameTarget(temp2);
+
+                    // if (acs.ionum == -2) acs.ionum = GetInterNum(io);
+
+                    // pos = GetNextWord(es, pos, temp2);
+                    // acs.startpos = GetVarValueInterpretedAsFloat(temp2, esss,
+                    // io);
+                    // pos = GetNextWord(es, pos, temp2);
+                    // acs.endpos = GetVarValueInterpretedAsFloat(temp2, esss,
+                    // io);
+
+                    if (params.hasFlag(SpeechParameters.PLAYER)) {
+                        // ComputeACSPos(&acs, inter.iobj[0], acs.ionum);
+                    } else {
+                        // ComputeACSPos(&acs, io, acs.ionum);
+                    }
+                }
+                if (params.hasFlag(SpeechParameters.SIDE_L)
+                        || params.hasFlag(SpeechParameters.SIDE_R)) {
+                    if (params.hasFlag(SpeechParameters.SIDE_L)) {
+                        // acs.type = ARX_CINE_SPEECH_SIDE_LEFT;
+                    } else {
+                        // acs.type = ARX_CINE_SPEECH_SIDE;
+                    }
+                    // pos = GetNextWord(es, pos, temp2);
+                    // acs.ionum = GetTargetByNameTarget(temp2);
+
+                    // if (acs.ionum == -2) acs.ionum = GetInterNum(io);
+
+                    // pos = GetNextWord(es, pos, temp2);
+                    // acs.startpos = GetVarValueInterpretedAsFloat(temp2, esss,
+                    // io);
+                    // pos = GetNextWord(es, pos, temp2);
+                    // acs.endpos = GetVarValueInterpretedAsFloat(temp2, esss,
+                    // io);
+                    // startdist
+                    // pos = GetNextWord(es, pos, temp2);
+                    // acs.f0 = GetVarValueInterpretedAsFloat(temp2, esss, io);
+                    // enddist
+                    // pos = GetNextWord(es, pos, temp2);
+                    // acs.f1 = GetVarValueInterpretedAsFloat(temp2, esss, io);
+                    // height modifier
+                    // pos = GetNextWord(es, pos, temp2);
+                    // acs.f2 = GetVarValueInterpretedAsFloat(temp2, esss, io);
+
+                    if (params.hasFlag(SpeechParameters.PLAYER)) {
+                        // ComputeACSPos(&acs, inter.iobj[0], acs.ionum);
+                    } else {
+                        // ComputeACSPos(&acs, io, acs.ionum);
+                    }
+                }
+            }
+
+            long speechnum = 0;
+
+            if (params.getSpeechName() == null
+                    || params.getSpeechName().length() == 0) {
+                // ARX_SPEECH_ClearIOSpeech(io);
+            } else {
+                if (params.hasFlag(SpeechParameters.NO_TEXT)) {
+                    // voixoff |= ARX_SPEECH_FLAG_NOTEXT;
+                }
+
+                // if (!CINEMASCOPE) voixoff |= ARX_SPEECH_FLAG_NOTEXT;
+                if (params.hasFlag(SpeechParameters.PLAYER)) {
+                    // speechnum = ARX_SPEECH_AddSpeech(inter.iobj[0], temp1,
+                    // PARAM_LOCALISED, mood, voixoff);
+                } else {
+                    // speechnum = ARX_SPEECH_AddSpeech(io, temp1,
+                    // PARAM_LOCALISED, mood, voixoff);
+                }
+
+                if (speechnum >= 0) {
+                    // ARX_SCRIPT_Timer_GetDefaultName(timername2);
+                    // sprintf(timername, "SPEAK_%s", timername2);
+                    // aspeech[speechnum].scrpos = pos;
+                    // aspeech[speechnum].es = es;
+                    // aspeech[speechnum].ioscript = io;
+                    if (params.hasFlag(SpeechParameters.UNBREAKABLE)) {
+                        // aspeech[speechnum].flags |=
+                        // ARX_SPEECH_FLAG_UNBREAKABLE;
+                    }
+
+                    // memcpy(&aspeech[speechnum].cine, &acs,
+                    // sizeof(ARX_CINEMATIC_SPEECH));
+                    // pos = GotoNextLine(es, pos);
+                }
+            }
+        }
+    }
     /**
      * Sends a scripted event to the event stack for all members of a group, to
      * be fired during the game cycle.
@@ -1598,6 +2080,111 @@ public abstract class Script<IO extends BaseInteractiveObject,
         timer.setRepeatTimes(params.getRepeatTimes());
         timer.clearFlags();
         timer.addFlag(params.getFlagValues());
+    }
+    /**
+     * Teleports an IO to a target location.
+     * @param io the io calling for the teleport event
+     * @param behind flag indicating the target teleports behind
+     * @param isPlayer flag indicating object being teleported is the player
+     * @param initPosition flag indicating the object being teleported goes to
+     *            its initial position
+     * @param target the name of teleport destination
+     * @throws RPGException if an error occurs
+     */
+    public final void teleport(final IO io, final boolean behind,
+            final boolean isPlayer, final boolean initPosition,
+            final String target) throws RPGException {
+        if (behind) {
+            Interactive.getInstance().ARX_INTERACTIVE_TeleportBehindTarget(io);
+        } else {
+            if (!initPosition) {
+                int ioid =
+                        Interactive.getInstance().getTargetByNameTarget(target);
+
+                if (ioid == -2) {
+                    ioid = Interactive.getInstance().GetInterNum(io);
+                }
+                if (ioid != -1
+                        && ioid != -2) {
+                    if (ioid == -3) {
+                        if (io.getShow() != IoGlobals.SHOW_FLAG_LINKED
+                                && io.getShow() != IoGlobals.SHOW_FLAG_HIDDEN
+                                && io.getShow() != IoGlobals.SHOW_FLAG_MEGAHIDE
+                                && io.getShow() != IoGlobals.SHOW_FLAG_DESTROYED
+                                && io.getShow() != IoGlobals.SHOW_FLAG_KILLED) {
+                            io.setShow(IoGlobals.SHOW_FLAG_IN_SCENE);
+                        }
+                        IO pio = (IO) Interactive.getInstance().getIO(
+                                ProjectConstants.getInstance().getPlayer());
+                        Interactive.getInstance().ARX_INTERACTIVE_Teleport(
+                                io, pio.getPosition());
+                        pio = null;
+                    } else {
+                        if (Interactive.getInstance().hasIO(ioid)) {
+                            IO tio = (IO) Interactive.getInstance().getIO(ioid);
+                            SimpleVector2 pos = new SimpleVector2();
+
+                            if (Interactive.getInstance()
+                                    .GetItemWorldPosition(tio, pos)) {
+                                if (isPlayer) {
+                                    IO pio = (IO) Interactive.getInstance()
+                                            .getIO(
+                                                    ProjectConstants
+                                                            .getInstance()
+                                                            .getPlayer());
+                                    Interactive.getInstance()
+                                            .ARX_INTERACTIVE_Teleport(
+                                                    pio, pos);
+                                    pio = null;
+                                } else {
+                                    if (io.hasIOFlag(IoGlobals.IO_03_NPC)
+                                            && io.getNPCData()
+                                                    .getBaseLife() <= 0) {
+                                        // do nothing
+                                    } else {
+                                        if (io.getShow() != IoGlobals.SHOW_FLAG_HIDDEN
+                                                && io.getShow() != IoGlobals.SHOW_FLAG_MEGAHIDE) {
+                                            io.setShow(
+                                                    IoGlobals.SHOW_FLAG_IN_SCENE);
+                                        }
+                                        Interactive.getInstance()
+                                                .ARX_INTERACTIVE_Teleport(
+                                                        io, pos);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            } else {
+                if (io != null) {
+                    if (isPlayer) {
+                        SimpleVector2 pos = new SimpleVector2();
+                        if (Interactive.getInstance().GetItemWorldPosition(io,
+                                pos)) {
+                            IO pio = (IO) Interactive.getInstance().getIO(
+                                    ProjectConstants.getInstance().getPlayer());
+                            Interactive.getInstance().ARX_INTERACTIVE_Teleport(
+                                    pio, pos);
+                            pio = null;
+
+                        }
+                    } else {
+                        if (io.hasIOFlag(IoGlobals.IO_03_NPC)
+                                && io.getNPCData().getBaseLife() <= 0) {
+                            // do nothing
+                        } else {
+                            if (io.getShow() != IoGlobals.SHOW_FLAG_HIDDEN
+                                    && io.getShow() != IoGlobals.SHOW_FLAG_MEGAHIDE) {
+                                io.setShow(IoGlobals.SHOW_FLAG_IN_SCENE);
+                            }
+                            Interactive.getInstance().ARX_INTERACTIVE_Teleport(
+                                    io, io.getInitPosition());
+                        }
+                    }
+                }
+            }
+        }
     }
     public final void timerCheck() throws RPGException {
         if (countTimers() > 0) {
@@ -1798,5 +2385,27 @@ public abstract class Script<IO extends BaseInteractiveObject,
             }
         }
         return index;
+    }
+    /**
+     * Determines if an IO is speaking.
+     * @param io the IO
+     * @return <tt>true</tt> if the IO is speaking; <tt>false</tt> otherwise
+     */
+    public boolean amISpeaking(final IO io) {
+        // TODO Auto-generated method stub
+        // GO THROUGH ALL SPEECH INSTANCES.  IF THE IO IS SPEAKING
+        // RETURN FALSE.  OTHERWISE TRUE
+        //for (long i = 0; i < MAX_ASPEECH; i++) {
+            //if (aspeech[i].exist) {
+                //if (io == aspeech[i].io) {
+                    //*lcontent = 1;
+                    //return TYPE_LONG;
+                //}
+            //}
+        //}
+        return false;
+    }
+    public long getGameSeconds() {
+        return Time.getInstance().getGameTime(false);
     }
 }

@@ -63,7 +63,7 @@ public abstract class IoNpcData<IO extends BaseInteractiveObject>
     // IO_BEHAVIOR_DATA stacked[MAX_STACKED_BEHAVIOR];
     float poisonned;
     float reach;
-    private long reachedtarget; // Is
+    private boolean reachedtarget; // Is
     // target
     // in
     // REACHZONE ?
@@ -97,6 +97,7 @@ public abstract class IoNpcData<IO extends BaseInteractiveObject>
     char[] weaponname = new char[256];
     long weapontype;
     private int xpvalue;
+    private IOPathfind pathfinder;
     /**
      * Creates a new instance of {@link IoNpcData}.
      * @throws RPGException if there is an error defining attributes
@@ -105,6 +106,7 @@ public abstract class IoNpcData<IO extends BaseInteractiveObject>
         super();
         name = new char[0];
         stacked = new BehaviourData[MAX_STACKED_BEHAVIOR];
+        pathfinder = new IOPathfind();
     }
     /**
      * Adds a behavior flag.
@@ -523,10 +525,8 @@ public abstract class IoNpcData<IO extends BaseInteractiveObject>
      * Forces the NPC to die.
      * @param killerIO the IO that killed the NPC
      * @throws RPGException if an error occurs
-     * @throws PooledException if an error occurs
      */
-    public final void forceDeath(final IO killerIO)
-            throws RPGException, PooledException {
+    public final void forceDeath(final IO killerIO) throws RPGException {
         if (io.getMainevent().equalsIgnoreCase("DEAD")) {
             IO oldSender = (IO) Script.getInstance().getEventSender();
             Script.getInstance().setEventSender(killerIO);
@@ -617,7 +617,7 @@ public abstract class IoNpcData<IO extends BaseInteractiveObject>
                                         new Object[] { "killer", killer },
                                         "TARGET_DEATH");
                                 ioo.setTargetinfo(IoGlobals.TARGET_NONE);
-                                ioo.getNPCData().setReachedtarget(0);
+                                ioo.getNPCData().setReachedtarget(false);
                             }
                         }
                         // TODO - handle pathfinding target cleanup
@@ -715,7 +715,7 @@ public abstract class IoNpcData<IO extends BaseInteractiveObject>
      * Gets the value for the reachedtarget.
      * @return {@link long}
      */
-    public long getReachedtarget() {
+    public boolean hasReachedtarget() {
         return reachedtarget;
     }
     /**
@@ -912,7 +912,7 @@ public abstract class IoNpcData<IO extends BaseInteractiveObject>
      * Sets the value of the reachedtarget.
      * @param val the new value to set
      */
-    public void setReachedtarget(final long val) {
+    public void setReachedtarget(final boolean val) {
         this.reachedtarget = val;
     }
     /**
@@ -988,4 +988,7 @@ public abstract class IoNpcData<IO extends BaseInteractiveObject>
     protected abstract void stopActiveAnimation();
     /** Restores the NPC to their maximum life. */
     protected abstract void stopIdleAnimation();
+    public IOPathfind getPathfinding() {
+        return pathfinder;
+    }
 }
