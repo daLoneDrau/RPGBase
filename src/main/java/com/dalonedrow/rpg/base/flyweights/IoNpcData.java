@@ -60,6 +60,7 @@ public abstract class IoNpcData<IO extends BaseInteractiveObject>
     // EERIE_EXTRA_ROTATE * ex_rotate;
     // D3DCOLOR blood_color;
     char padd;
+    private IOPathfind pathfinder;
     // IO_BEHAVIOR_DATA stacked[MAX_STACKED_BEHAVIOR];
     float poisonned;
     float reach;
@@ -89,15 +90,14 @@ public abstract class IoNpcData<IO extends BaseInteractiveObject>
     short unused;
     // EERIE_3D last_splat_pos;
     float vvpos;
-    short walk_start_time;
 
+    short walk_start_time;
     /** the NPC's weapon. */
     private IO weapon;
     private int weaponInHand;
     char[] weaponname = new char[256];
     long weapontype;
     private int xpvalue;
-    private IOPathfind pathfinder;
     /**
      * Creates a new instance of {@link IoNpcData}.
      * @throws RPGException if there is an error defining attributes
@@ -711,13 +711,10 @@ public abstract class IoNpcData<IO extends BaseInteractiveObject>
     public final char[] getName() {
         return name;
     }
-    /**
-     * Gets the value for the reachedtarget.
-     * @return {@link long}
-     */
-    public boolean hasReachedtarget() {
-        return reachedtarget;
+    public IOPathfind getPathfinding() {
+        return pathfinder;
     }
+    public abstract int getPoisonned();
     /**
      * Gets the splatDamages
      * @return {@link int}
@@ -803,6 +800,13 @@ public abstract class IoNpcData<IO extends BaseInteractiveObject>
      */
     public final boolean hasNPCFlag(final long flag) {
         return (npcFlags & flag) == flag;
+    }
+    /**
+     * Gets the value for the reachedtarget.
+     * @return {@link long}
+     */
+    public boolean hasReachedtarget() {
+        return reachedtarget;
     }
     /**
      * Heals an NPC for a specific amount.
@@ -988,7 +992,4 @@ public abstract class IoNpcData<IO extends BaseInteractiveObject>
     protected abstract void stopActiveAnimation();
     /** Restores the NPC to their maximum life. */
     protected abstract void stopIdleAnimation();
-    public IOPathfind getPathfinding() {
-        return pathfinder;
-    }
 }

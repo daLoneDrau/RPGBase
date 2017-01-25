@@ -194,18 +194,23 @@ public class Scriptable<IO extends BaseInteractiveObject> {
      * @throws RPGException if no such variable was assigned
      */
     public final float getLocalFloatVariableValue(final String name)
-            throws PooledException, RPGException {
+            throws RPGException {
         ScriptVariable svar = getLocalVariable(name);
         if (svar == null
                 || svar.getType() != ScriptConstants.TYPE_L_10_FLOAT) {
             PooledStringBuilder sb =
                     StringBuilderPool.getInstance().getStringBuilder();
-            sb.append("Local floating-point variable ");
-            sb.append(name);
-            sb.append(" was never set.");
+            try {
+                sb.append("Local floating-point variable ");
+                sb.append(name);
+                sb.append(" was never set.");
+            } catch (PooledException e) {
+                throw new RPGException(ErrorMessage.INTERNAL_ERROR, e);
+            }
             RPGException ex = new RPGException(ErrorMessage.INVALID_PARAM,
                     sb.toString());
             sb.returnToPool();
+            sb = null;
             throw ex;
         }
         return svar.getFloatVal();
@@ -607,6 +612,9 @@ public class Scriptable<IO extends BaseInteractiveObject> {
     public int onAttackPlayer() throws RPGException {
         return ScriptConstants.ACCEPT;
     }
+    public int onCallHelp() throws RPGException {
+        return ScriptConstants.ACCEPT;
+    }
     /**
      * On IO chat start.
      * @return <code>int</code>
@@ -641,6 +649,9 @@ public class Scriptable<IO extends BaseInteractiveObject> {
     public int onControlsOn() throws RPGException {
         return ScriptConstants.ACCEPT;
     }
+    public int onDelation() throws RPGException {
+        return ScriptConstants.ACCEPT;
+    }
     public int onDetectPlayer() throws RPGException {
         return ScriptConstants.ACCEPT;
     }
@@ -661,6 +672,9 @@ public class Scriptable<IO extends BaseInteractiveObject> {
      * @throws RPGException if an error occurs
      */
     public int onEquip() throws RPGException {
+        return ScriptConstants.ACCEPT;
+    }
+    public int onFleeEnd() throws RPGException {
         return ScriptConstants.ACCEPT;
     }
     public int onGameReady() throws RPGException {
@@ -747,6 +761,9 @@ public class Scriptable<IO extends BaseInteractiveObject> {
     public int onLookFor() throws RPGException {
         return ScriptConstants.ACCEPT;
     }
+    public int onLookMe() throws RPGException {
+        return ScriptConstants.ACCEPT;
+    }
     /**
      * On IO traveling on the game map.
      * @return <code>int</code>
@@ -783,12 +800,18 @@ public class Scriptable<IO extends BaseInteractiveObject> {
     public int onSpellcast() throws RPGException {
         return ScriptConstants.ACCEPT;
     }
+    public int onSteal() throws RPGException {
+        return ScriptConstants.ACCEPT;
+    }
     /**
      * On IO successfully strikes a target.
      * @return {@link int}
      * @throws RPGException if an error occurs
      */
     public int onStrike() throws RPGException {
+        return ScriptConstants.ACCEPT;
+    }
+    public int onTargetDeath() throws RPGException {
         return ScriptConstants.ACCEPT;
     }
     public int onUndetectPlayer() throws RPGException {
@@ -1035,5 +1058,17 @@ public class Scriptable<IO extends BaseInteractiveObject> {
      */
     public final void setTimer(final int index, final int refId) {
         timers[index] = refId;
+    }
+    public int onOtherReflection() throws RPGException {
+        return ScriptConstants.ACCEPT;
+    }
+    public int onMiscReflection() throws RPGException {
+        return ScriptConstants.ACCEPT;
+    }
+    public int onPathfinderFailure() throws RPGException {
+        return ScriptConstants.ACCEPT;
+    }
+    public int onSpellEnd() throws RPGException {
+        return ScriptConstants.ACCEPT;
     }
 }
