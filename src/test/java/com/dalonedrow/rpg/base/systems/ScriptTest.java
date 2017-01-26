@@ -210,6 +210,12 @@ public final class ScriptTest {
                 // TODO Auto-generated method stub
                 
             }
+
+            @Override
+            public int getPoisonned() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
 		});
 		Script.getInstance().stackSendMsgToAllNPCIO(
 				ScriptConsts.SM_017_DIE, null);
@@ -664,6 +670,12 @@ public final class ScriptTest {
             public void ARX_EQUIPMENT_RecreatePlayerMesh() {
                 // TODO Auto-generated method stub
                 
+            }
+
+            @Override
+            public int getPoisonned() {
+                // TODO Auto-generated method stub
+                return 0;
             }
 		});
 		assertEquals(1, Script.getInstance().sendScriptEvent(

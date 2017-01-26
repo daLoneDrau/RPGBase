@@ -54,5 +54,15 @@ public class TestProjectConstants extends ProjectConstants {
 		// TODO Auto-generated method stub
 		return 2;
 	}
+    @Override
+    public int getConsoleHeight() {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+    @Override
+    public int getConsoleWidth() {
+        // TODO Auto-generated method stub
+        return 0;
+    }
 
 }

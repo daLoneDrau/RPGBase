@@ -26,6 +26,16 @@ public abstract class ProjectConstants<IO extends BaseInteractiveObject> {
      */
     protected ProjectConstants() {}
     /**
+     * Gets the height of a console.
+     * @return {@link int}
+     */
+    public abstract int getConsoleHeight();
+    /**
+     * Gets the width of a console.
+     * @return {@link int}
+     */
+    public abstract int getConsoleWidth();
+    /**
      * Gets the index of the equipment element for damage.
      * @return {@link int}
      */

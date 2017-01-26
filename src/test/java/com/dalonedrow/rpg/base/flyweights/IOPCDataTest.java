@@ -129,6 +129,11 @@ public class IOPCDataTest {
                 // TODO Auto-generated method stub
                 
             }
+            @Override
+            public int getPoisonned() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
 		});
 	}
 	public void beforeCreatePCIO() throws RPGException {
@@ -321,6 +326,11 @@ public class IOPCDataTest {
             public void ARX_EQUIPMENT_RecreatePlayerMesh() {
                 // TODO Auto-generated method stub
                 
+            }
+            @Override
+            public int getPoisonned() {
+                // TODO Auto-generated method stub
+                return 0;
             }
 		});
 		psnCrtrIo.setPoisonCharges(5);
