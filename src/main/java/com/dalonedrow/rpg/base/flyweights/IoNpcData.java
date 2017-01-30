@@ -4,8 +4,6 @@
 package com.dalonedrow.rpg.base.flyweights;
 
 import com.dalonedrow.engine.systems.base.Interactive;
-import com.dalonedrow.engine.systems.base.ProjectConstants;
-import com.dalonedrow.pooled.PooledException;
 import com.dalonedrow.rpg.base.constants.Behaviour;
 import com.dalonedrow.rpg.base.constants.EquipmentGlobals;
 import com.dalonedrow.rpg.base.constants.IoGlobals;
@@ -139,6 +137,67 @@ public abstract class IoNpcData<IO extends BaseInteractiveObject>
      * @param dmg the amount
      */
     protected abstract void adjustMana(float dmg);
+    /**
+     * Applies extra damage from a poisoned attack.
+     * @param srcIoid the source of the damage
+     * @param isSpellDamage flag indicating whether the damage is from a spell
+     * @throws RPGException if an error occurs
+     */
+    private void applyPoisonDamage(final int srcIoid,
+            final boolean isSpellDamage) throws RPGException {
+        if (Interactive.getInstance().hasIO(srcIoid)) {
+            IO poisonWeaponIO = null;
+            IO sourceIO = (IO) Interactive.getInstance().getIO(
+                    srcIoid);
+            if (sourceIO.hasIOFlag(IoGlobals.IO_01_PC)) {
+                IoPcData player = sourceIO.getPCData();
+                if (player.getEquippedItem(
+                        EquipmentGlobals.EQUIP_SLOT_WEAPON) > 0
+                        && Interactive.getInstance().hasIO(
+                                player.getEquippedItem(
+                                        EquipmentGlobals.EQUIP_SLOT_WEAPON))) {
+                    poisonWeaponIO = (IO) Interactive.getInstance()
+                            .getIO(player.getEquippedItem(
+                                    EquipmentGlobals.EQUIP_SLOT_WEAPON));
+
+                    if (poisonWeaponIO != null
+                            && (poisonWeaponIO.getPoisonLevel() == 0
+                                    || poisonWeaponIO
+                                            .getPoisonCharges() == 0)
+                            || isSpellDamage) {
+                        poisonWeaponIO = null;
+                    }
+                }
+            } else {
+                if (sourceIO.hasIOFlag(IoGlobals.IO_03_NPC)) {
+                    poisonWeaponIO =
+                            (IO) sourceIO.getNPCData().getWeapon();
+                    if (poisonWeaponIO != null
+                            && (poisonWeaponIO.getPoisonLevel() == 0
+                                    || poisonWeaponIO
+                                            .getPoisonCharges() == 0)) {
+                        poisonWeaponIO = null;
+                    }
+                }
+            }
+            if (poisonWeaponIO == null) {
+                poisonWeaponIO = sourceIO;
+            }
+            if (poisonWeaponIO != null
+                    && poisonWeaponIO.getPoisonLevel() > 0
+                    && poisonWeaponIO.getPoisonCharges() > 0) {
+                // TODO - apply poison damage
+
+                // reduce poison level on attacking weapon
+                if (poisonWeaponIO.getPoisonCharges() > 0) {
+                    poisonWeaponIO.setPoisonCharges(
+                            poisonWeaponIO.getPoisonCharges() - 1);
+                }
+            }
+            sourceIO = null;
+            poisonWeaponIO = null;
+        }
+    }
     /**
      * Drains mana from the NPC, returning the full amount drained.
      * @param dmg the attempted amount of mana to be drained
@@ -302,6 +361,11 @@ public abstract class IoNpcData<IO extends BaseInteractiveObject>
 
         cuts = 0;
     }
+    /**
+     * @param xp
+     * @param killerIO
+     */
+    protected abstract void awardXpForNpcDeath(final int xp, final IO killerIO);
     /** Clears all behavior flags that were set. */
     public void clearBehavior() {
         behavior = 0;
@@ -311,210 +375,44 @@ public abstract class IoNpcData<IO extends BaseInteractiveObject>
         npcFlags = 0;
     }
     /**
+     * Handles a non-living NPC being damaged.
+     * @param dmg the amount of damage
+     * @param srcIoid the source of the damage
+     * @param isSpellDamage flag indicating whether the damage is from a spell
+     * @throws RPGException if an error occurs
+     */
+    protected abstract void damageNonLivingNPC(float dmg, int srcIoid,
+            boolean isSpellDamage) throws RPGException;
+    /**
      * Damages an NPC.
      * @param dmg the amount of damage
-     * @param source the source of the damage
+     * @param srcIoid the source of the damage
      * @param isSpellDamage flag indicating whether the damage is from a spell
      * @return {@link float}
      * @throws RPGException if an error occurs
-     * @throws PooledException if an error occurs
      */
-    public final float damageNPC(final float dmg, final int source,
-            final boolean isSpellDamage) throws PooledException, RPGException {
+    public final float damageNPC(final float dmg, final int srcIoid,
+            final boolean isSpellDamage) throws RPGException {
         float damagesdone = 0.f;
         if (io.getShow() > 0
                 && !io.hasIOFlag(IoGlobals.IO_08_INVULNERABILITY)) {
             if (getBaseLife() <= 0f) {
-                if (Interactive.getInstance().hasIO(source)) {
-                    IO sourceIO = (IO) Interactive.getInstance().getIO(source);
-                    if (sourceIO.hasIOFlag(IoGlobals.IO_01_PC)) {
-                        // handle PC trying to damage non-living NPC
-                    } else {
-                        // handle NPC trying to damage non-living NPC
-                    }
-                    sourceIO = null;
-                }
+                damageNonLivingNPC(dmg, srcIoid, isSpellDamage);
             } else {
-                io.setDamageSum(io.getDamageSum() + dmg);
-                if (Interactive.getInstance().hasIO(source)) {
-                    Script.getInstance().setEventSender(
-                            Interactive.getInstance().getIO(source));
-                } else {
-                    Script.getInstance().setEventSender(null);
-                }
-                Object[] params;
-                if (Script.getInstance().getEventSender() != null
-                        && Script.getInstance().getEventSender()
-                                .getSummoner() == ProjectConstants.getInstance()
-                                        .getPlayer()) {
-                    IO playerIO = (IO) Interactive.getInstance().getIO(
-                            ProjectConstants.getInstance().getPlayer());
-                    Script.getInstance().setEventSender(playerIO);
-                    playerIO = null;
-                    params = new Object[] {
-                            "SUMMONED_OUCH", io.getDamageSum(),
-                            "OUCH", 0f };
-                } else {
-                    params = new Object[] {
-                            "SUMMONED_OUCH", 0f,
-                            "OUCH", io.getDamageSum() };
-                }
-                Script.getInstance().sendIOScriptEvent(io,
-                        ScriptConsts.SM_045_OUCH, params, null);
-                io.setDamageSum(0f);
+                // send OUCH event
+                sendOuchEvent(dmg, srcIoid);
                 // TODO - remove Confusion spell when hit
 
                 if (dmg >= 0.f) {
-                    if (Interactive.getInstance().hasIO(source)) {
-                        IO poisonWeaponIO = null;
-                        IO sourceIO = (IO) Interactive.getInstance().getIO(
-                                source);
-
-                        if (sourceIO.hasIOFlag(IoGlobals.IO_01_PC)) {
-                            IoPcData player = sourceIO.getPCData();
-                            if (player.getEquippedItem(
-                                    EquipmentGlobals.EQUIP_SLOT_WEAPON) > 0
-                                    && Interactive.getInstance().hasIO(
-                                            player.getEquippedItem(
-                                                    EquipmentGlobals.EQUIP_SLOT_WEAPON))) {
-                                poisonWeaponIO = (IO) Interactive.getInstance()
-                                        .getIO(player.getEquippedItem(
-                                                EquipmentGlobals.EQUIP_SLOT_WEAPON));
-
-                                if (poisonWeaponIO != null
-                                        && (poisonWeaponIO.getPoisonLevel() == 0
-                                                || poisonWeaponIO
-                                                        .getPoisonCharges() == 0)
-                                        || isSpellDamage) {
-                                    poisonWeaponIO = null;
-                                }
-                            }
-                        } else {
-                            if (sourceIO.hasIOFlag(IoGlobals.IO_03_NPC)) {
-                                poisonWeaponIO =
-                                        (IO) sourceIO.getNPCData().getWeapon();
-                                if (poisonWeaponIO != null
-                                        && (poisonWeaponIO.getPoisonLevel() == 0
-                                                || poisonWeaponIO
-                                                        .getPoisonCharges() == 0)) {
-                                    poisonWeaponIO = null;
-                                }
-                            }
-                        }
-
-                        if (poisonWeaponIO == null) {
-                            poisonWeaponIO = sourceIO;
-                        }
-
-                        if (poisonWeaponIO != null
-                                && poisonWeaponIO.getPoisonLevel() > 0
-                                && poisonWeaponIO.getPoisonCharges() > 0) {
-                            // TODO - apply poison damage
-
-                            if (poisonWeaponIO.getPoisonCharges() > 0) {
-                                poisonWeaponIO.setPoisonCharges(
-                                        poisonWeaponIO.getPoisonCharges() - 1);
-                            }
-                        }
-                        sourceIO = null;
-                        poisonWeaponIO = null;
-                    }
-
+                    this.applyPoisonDamage(srcIoid, isSpellDamage);
+                    int accepted = ScriptConstants.ACCEPT;
+                    // if IO has a script, send HIT event
                     if (io.getScript() != null) {
-                        if (Interactive.getInstance().hasIO(source)) {
-                            Script.getInstance().setEventSender(
-                                    Interactive
-                                            .getInstance().getIO(source));
-                        } else {
-                            Script.getInstance().setEventSender(null);
-                        }
-
-                        if (Script.getInstance().getEventSender() != null
-                                && Script.getInstance().getEventSender()
-                                        .hasIOFlag(IoGlobals.IO_01_PC)) {
-                            if (isSpellDamage) {
-                                params = new Object[] { "SPELL_DMG", dmg };
-                            } else {
-                                IO wpnIO =
-                                        (IO) Interactive
-                                                .getInstance().getIO(
-                                                        Script.getInstance()
-                                                                .getEventSender()
-                                                                .getPCData()
-                                                                .getEquippedItem(
-                                                                        EquipmentGlobals.EQUIP_SLOT_WEAPON));
-                                int wpnType = EquipmentGlobals.WEAPON_BARE;
-                                if (wpnIO != null) {
-                                    wpnType =
-                                            wpnIO.getItemData()
-                                                    .getWeaponType();
-                                }
-                                switch (wpnType) {
-                                case EquipmentGlobals.WEAPON_BARE:
-                                    params = new Object[] { "BARE_DMG", dmg };
-                                    break;
-                                case EquipmentGlobals.WEAPON_DAGGER:
-                                    params = new Object[] { "DAGGER_DMG", dmg };
-                                    break;
-                                case EquipmentGlobals.WEAPON_1H:
-                                    params = new Object[] { "1H_DMG", dmg };
-                                    break;
-                                case EquipmentGlobals.WEAPON_2H:
-                                    params = new Object[] { "2H_DMG", dmg };
-                                    break;
-                                case EquipmentGlobals.WEAPON_BOW:
-                                    params = new Object[] { "ARROW_DMG", dmg };
-                                    break;
-                                default:
-                                    params = new Object[] { "DMG", dmg };
-                                    break;
-                                }
-                                wpnIO = null;
-                            }
-                        } else {
-                            params = new Object[] { "DMG", dmg };
-                        }
-                        if (Script.getInstance().getEventSender() != null
-                                && Script.getInstance().getEventSender()
-                                        .getSummoner() == ProjectConstants
-                                                .getInstance().getPlayer()) {
-                            IO playerIO = (IO) Interactive.getInstance().getIO(
-                                    ProjectConstants.getInstance().getPlayer());
-                            Script.getInstance().setEventSender(playerIO);
-                            playerIO = null;
-                            params = new Object[] { "SUMMONED_DMG", dmg };
-                        }
-
-                        if (Script.getInstance().sendIOScriptEvent(
-                                io, ScriptConsts.SM_016_HIT, params,
-                                null) != ScriptConsts.ACCEPT) {
-                            return damagesdone;
-                        }
+                        accepted = sendHitEvent(dmg, srcIoid, isSpellDamage);
                     }
-
-                    damagesdone = Math.min(dmg, getBaseLife());
-                    adjustLife(-dmg);
-
-                    if (getBaseAttributeScore("ST") <= 0.f) {
-                        // base life should be 0
-
-                        if (Interactive.getInstance().hasIO(source)) {
-                            int xp = xpvalue;
-                            forceDeath(
-                                    (IO) Interactive
-                                            .getInstance().getIO(source));
-
-                            if (source == ProjectConstants.getInstance()
-                                    .getPlayer()) {
-                                IO playerIO =
-                                        (IO) Interactive.getInstance().getIO(
-                                                ProjectConstants.getInstance()
-                                                        .getPlayer());
-                                playerIO.getPCData().adjustXp(xp);
-                            }
-                        } else {
-                            forceDeath(null);
-                        }
+                    // if HIT event doesn't handle damage, handle it here
+                    if (accepted == ScriptConstants.ACCEPT) {
+                        damagesdone = processDamage(dmg, srcIoid);
                     }
                 }
             }
@@ -838,6 +736,31 @@ public abstract class IoNpcData<IO extends BaseInteractiveObject>
     /** Moves the NPC to their initial position. */
     protected abstract void moveToInitialPosition();
     /**
+     * @param dmg
+     * @param srcIoid
+     * @return
+     * @throws RPGException
+     */
+    private float processDamage(final float dmg, final int srcIoid)
+            throws RPGException {
+        float damagesdone = Math.min(dmg, getBaseLife());
+        adjustLife(-dmg);
+        if (getBaseLife() <= 0.f) { // NPC is dead
+            // base life should be 0
+            if (Interactive.getInstance().hasIO(srcIoid)) {
+                int xp = xpvalue;
+                IO srcIO = (IO) Interactive.getInstance().getIO(srcIoid);
+                forceDeath(srcIO);
+                if (srcIO.hasIOFlag(IoGlobals.IO_01_PC)) {
+                    awardXpForNpcDeath(xp, srcIO);
+                }
+            } else {
+                forceDeath(null);
+            }
+        }
+        return damagesdone;
+    }
+    /**
      * Removes a behavior flag.
      * @param flag the flag
      */
@@ -867,6 +790,110 @@ public abstract class IoNpcData<IO extends BaseInteractiveObject>
     }
     /** Restores the NPC to their maximum life. */
     protected abstract void restoreLifeToMax();
+    /**
+     * Sends the NPC IO a 'Hit' event.
+     * @param dmg the amount of damage
+     * @param srcIoid the source of the damage
+     * @param isSpellDamage flag indicating whether the damage is from a spell
+     * @throws RPGException if an error occurs
+     */
+    private int sendHitEvent(final float dmg, final int srcIoid,
+            final boolean isSpellDamage) throws RPGException {
+        if (Interactive.getInstance().hasIO(srcIoid)) {
+            Script.getInstance().setEventSender(
+                    Interactive.getInstance().getIO(srcIoid));
+        } else {
+            Script.getInstance().setEventSender(null);
+        }
+
+        Object[] params;
+        if (Script.getInstance().getEventSender() != null
+                && Script.getInstance().getEventSender().hasIOFlag(
+                        IoGlobals.IO_01_PC)) {
+            IO plrIO = (IO) Script.getInstance().getEventSender();
+            if (isSpellDamage) {
+                params = new Object[] { "SPELL_DMG", dmg };
+            } else {
+                int wpnId = plrIO.getPCData().getEquippedItem(
+                        EquipmentGlobals.EQUIP_SLOT_WEAPON);
+                IO wpnIO = (IO) Interactive.getInstance().getIO(wpnId);
+                int wpnType = EquipmentGlobals.WEAPON_BARE;
+                if (wpnIO != null) {
+                    wpnType = wpnIO.getItemData().getWeaponType();
+                }
+                switch (wpnType) {
+                case EquipmentGlobals.WEAPON_BARE:
+                    params = new Object[] { "BARE_DMG", dmg };
+                    break;
+                case EquipmentGlobals.WEAPON_DAGGER:
+                    params = new Object[] { "DAGGER_DMG", dmg };
+                    break;
+                case EquipmentGlobals.WEAPON_1H:
+                    params = new Object[] { "1H_DMG", dmg };
+                    break;
+                case EquipmentGlobals.WEAPON_2H:
+                    params = new Object[] { "2H_DMG", dmg };
+                    break;
+                case EquipmentGlobals.WEAPON_BOW:
+                    params = new Object[] { "ARROW_DMG", dmg };
+                    break;
+                default:
+                    params = new Object[] { "DMG", dmg };
+                    break;
+                }
+                wpnIO = null;
+            }
+            plrIO = null;
+        } else {
+            params = new Object[] { "DMG", dmg };
+        }
+        // if player summoned object causing damage,
+        // change event sender to player
+        if (summonerIsPlayer((IO) Script.getInstance().getEventSender())) {
+            IO summonerIO = (IO) Interactive.getInstance().getIO(
+                    Script.getInstance().getEventSender().getSummoner());
+            Script.getInstance().setEventSender(summonerIO);
+            summonerIO = null;
+            params = new Object[] { "SUMMONED_DMG", dmg };
+        } else {
+            params = new Object[] {
+                    "SUMMONED_OUCH", 0f,
+                    "OUCH", io.getDamageSum() };
+        }
+        return Script.getInstance().sendIOScriptEvent(
+                io, ScriptConsts.SM_016_HIT, params, null);
+    }
+    /**
+     * Sends the NPC IO an 'Ouch' event.
+     * @param dmg the amount of damage
+     * @param srcIoid the source of the damage
+     * @throws RPGException if an error occurs
+     */
+    private void sendOuchEvent(final float dmg, final int srcIoid)
+            throws RPGException {
+        io.setDamageSum(io.getDamageSum() + dmg);
+        // set the event sender
+        if (Interactive.getInstance().hasIO(srcIoid)) {
+            Script.getInstance().setEventSender(
+                    Interactive.getInstance().getIO(srcIoid));
+        } else {
+            Script.getInstance().setEventSender(null);
+        }
+        // check to see if the damage is coming from a summoned object
+        Object[] params;
+        if (summonerIsPlayer((IO) Script.getInstance().getEventSender())) {
+            params = new Object[] {
+                    "SUMMONED_OUCH", io.getDamageSum(),
+                    "OUCH", 0f };
+        } else {
+            params = new Object[] {
+                    "SUMMONED_OUCH", 0f,
+                    "OUCH", io.getDamageSum() };
+        }
+        Script.getInstance().sendIOScriptEvent(io,
+                ScriptConsts.SM_045_OUCH, params, null);
+        io.setDamageSum(0f);
+    }
     /**
      * Sets the armorClass
      * @param val the armorClass to set
@@ -992,4 +1019,25 @@ public abstract class IoNpcData<IO extends BaseInteractiveObject>
     protected abstract void stopActiveAnimation();
     /** Restores the NPC to their maximum life. */
     protected abstract void stopIdleAnimation();
+    /**
+     * Determines if a summoned IO's summoner is a PC.
+     * @param io the IO
+     * @return <tt>true</tt> if the summoner is a player; <tt>false</tt>
+     *         otherwise
+     * @throws RPGException if an error occurs
+     */
+    private boolean summonerIsPlayer(IO io) throws RPGException {
+        boolean isPlayer = false;
+        if (io != null) {
+            int summonerId = io.getSummoner();
+            if (Interactive.getInstance().hasIO(summonerId)) {
+                IO summoner = (IO) Interactive.getInstance().getIO(summonerId);
+                if (summoner.hasIOFlag(IoGlobals.IO_01_PC)) {
+                    isPlayer = true;
+                }
+                summoner = null;
+            }
+        }
+        return isPlayer;
+    }
 }
