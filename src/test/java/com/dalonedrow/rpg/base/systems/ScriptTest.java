@@ -216,6 +216,20 @@ public final class ScriptTest {
                 // TODO Auto-generated method stub
                 return 0;
             }
+
+            @Override
+            protected void awardXpForNpcDeath(int xp,
+                    BaseInteractiveObject killerIO) {
+                // TODO Auto-generated method stub
+                
+            }
+
+            @Override
+            protected void damageNonLivingNPC(float dmg, int srcIoid,
+                    boolean isSpellDamage) throws RPGException {
+                // TODO Auto-generated method stub
+                
+            }
 		});
 		Script.getInstance().stackSendMsgToAllNPCIO(
 				ScriptConsts.SM_017_DIE, null);
@@ -676,6 +690,20 @@ public final class ScriptTest {
             public int getPoisonned() {
                 // TODO Auto-generated method stub
                 return 0;
+            }
+
+            @Override
+            protected void awardXpForNpcDeath(int xp,
+                    BaseInteractiveObject killerIO) {
+                // TODO Auto-generated method stub
+                
+            }
+
+            @Override
+            protected void damageNonLivingNPC(float dmg, int srcIoid,
+                    boolean isSpellDamage) throws RPGException {
+                // TODO Auto-generated method stub
+                
             }
 		});
 		assertEquals(1, Script.getInstance().sendScriptEvent(

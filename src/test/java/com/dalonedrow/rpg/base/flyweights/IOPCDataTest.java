@@ -134,6 +134,18 @@ public class IOPCDataTest {
                 // TODO Auto-generated method stub
                 return 0;
             }
+            @Override
+            protected void awardXpForNpcDeath(int xp,
+                    BaseInteractiveObject killerIO) {
+                // TODO Auto-generated method stub
+                
+            }
+            @Override
+            protected void damageNonLivingNPC(float dmg, int srcIoid,
+                    boolean isSpellDamage) throws RPGException {
+                // TODO Auto-generated method stub
+                
+            }
 		});
 	}
 	public void beforeCreatePCIO() throws RPGException {
@@ -331,6 +343,18 @@ public class IOPCDataTest {
             public int getPoisonned() {
                 // TODO Auto-generated method stub
                 return 0;
+            }
+            @Override
+            protected void awardXpForNpcDeath(int xp,
+                    BaseInteractiveObject killerIO) {
+                // TODO Auto-generated method stub
+                
+            }
+            @Override
+            protected void damageNonLivingNPC(float dmg, int srcIoid,
+                    boolean isSpellDamage) throws RPGException {
+                // TODO Auto-generated method stub
+                
             }
 		});
 		psnCrtrIo.setPoisonCharges(5);

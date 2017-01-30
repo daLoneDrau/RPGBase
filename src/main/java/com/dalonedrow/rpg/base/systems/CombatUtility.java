@@ -17,6 +17,13 @@ import com.dalonedrow.rpg.base.flyweights.RPGException;
  */
 @SuppressWarnings({ "rawtypes", "unchecked" })
 public abstract class CombatUtility<IO extends BaseInteractiveObject> {
+    public void tryToHit() {
+        // manage attempts to hit.
+        
+        // 1. check to see if IO has a weapon
+        
+        // 2. if IO has weapon and hits, call IO weapon compute damages
+    }
     public float ARX_DAMAGES_DealDamages(final int target, final float dmg,
             final int source, final int flags)
             throws RPGException, PooledException {
