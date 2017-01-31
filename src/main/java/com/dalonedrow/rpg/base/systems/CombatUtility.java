@@ -17,13 +17,18 @@ import com.dalonedrow.rpg.base.flyweights.RPGException;
  */
 @SuppressWarnings({ "rawtypes", "unchecked" })
 public abstract class CombatUtility<IO extends BaseInteractiveObject> {
-    public void tryToHit() {
-        // manage attempts to hit.
-        
-        // 1. check to see if IO has a weapon
-        
-        // 2. if IO has weapon and hits, call IO weapon compute damages
-    }
+    public abstract void doRound() throws RPGException;
+    protected abstract void tryToHit() ;
+    /**
+     * Deals damage caused by fire, spell, poison, etc...
+     * @param target
+     * @param dmg
+     * @param source
+     * @param flags
+     * @return
+     * @throws RPGException
+     * @throws PooledException
+     */
     public float ARX_DAMAGES_DealDamages(final int target, final float dmg,
             final int source, final int flags)
             throws RPGException, PooledException {
@@ -42,6 +47,7 @@ public abstract class CombatUtility<IO extends BaseInteractiveObject> {
                 flags);
     }
     /**
+     * Deals damage caused by fire, spell, poison, etc...
      * @param targetIO
      * @param dmg
      * @param sourceIO

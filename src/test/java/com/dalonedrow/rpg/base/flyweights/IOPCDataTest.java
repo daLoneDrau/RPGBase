@@ -146,6 +146,21 @@ public class IOPCDataTest {
                 // TODO Auto-generated method stub
                 
             }
+            @Override
+            public boolean calculateBackstab() {
+                // TODO Auto-generated method stub
+                return false;
+            }
+            @Override
+            public boolean calculateCriticalHit() {
+                // TODO Auto-generated method stub
+                return false;
+            }
+            @Override
+            public float getFullDamage() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
 		});
 	}
 	public void beforeCreatePCIO() throws RPGException {
@@ -210,6 +225,21 @@ public class IOPCDataTest {
 					{ "MMN", "Max Mana", 1 }
 				};
 			}
+            @Override
+            public boolean calculateBackstab() {
+                // TODO Auto-generated method stub
+                return false;
+            }
+            @Override
+            public boolean calculateCriticalHit() {
+                // TODO Auto-generated method stub
+                return false;
+            }
+            @Override
+            public float getFullDamage() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
 		};
 		watcher0 = new Watcher() {
 			@Override
@@ -356,6 +386,21 @@ public class IOPCDataTest {
                 // TODO Auto-generated method stub
                 
             }
+            @Override
+            public boolean calculateBackstab() {
+                // TODO Auto-generated method stub
+                return false;
+            }
+            @Override
+            public boolean calculateCriticalHit() {
+                // TODO Auto-generated method stub
+                return false;
+            }
+            @Override
+            public float getFullDamage() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
 		});
 		psnCrtrIo.setPoisonCharges(5);
 		psnCrtrIo.setPoisonLevel(10);
@@ -365,6 +410,24 @@ public class IOPCDataTest {
 		psnWpnIo.addIOFlag(IoGlobals.IO_02_ITEM);
 		psnWpnIo.addTypeFlag(EquipmentGlobals.OBJECT_TYPE_DAGGER);
 		psnWpnIo.setItemData(new IOItemData() {
+
+            @Override
+            protected float applyCriticalModifier() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
+
+            @Override
+            protected float calculateArmorDeflection() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
+
+            @Override
+            protected float getBackstabModifier() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
 
 		});
 		psnWpnIo.setPoisonCharges(5);
@@ -376,6 +439,24 @@ public class IOPCDataTest {
 		wpnIo.addIOFlag(IoGlobals.IO_02_ITEM);
 		wpnIo.addTypeFlag(EquipmentGlobals.OBJECT_TYPE_DAGGER);
 		wpnIo.setItemData(new IOItemData() {
+
+            @Override
+            protected float applyCriticalModifier() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
+
+            @Override
+            protected float calculateArmorDeflection() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
+
+            @Override
+            protected float getBackstabModifier() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
 
 		});
 	}
@@ -548,6 +629,21 @@ public class IOPCDataTest {
 					{ "MMN", "Max Mana", 1 }
 				};
 			}
+            @Override
+            public boolean calculateBackstab() {
+                // TODO Auto-generated method stub
+                return false;
+            }
+            @Override
+            public boolean calculateCriticalHit() {
+                // TODO Auto-generated method stub
+                return false;
+            }
+            @Override
+            public float getFullDamage() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
 		};
 		data.clearModAbilityScores();
 		assertNotNull(data);
@@ -607,6 +703,21 @@ public class IOPCDataTest {
 					{ "MMN", "Max Mana", 1 }
 				};
 			}
+            @Override
+            public boolean calculateBackstab() {
+                // TODO Auto-generated method stub
+                return false;
+            }
+            @Override
+            public boolean calculateCriticalHit() {
+                // TODO Auto-generated method stub
+                return false;
+            }
+            @Override
+            public float getFullDamage() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
 		};
 		data.clearModAbilityScores();
 		assertNotNull(data);

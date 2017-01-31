@@ -69,6 +69,24 @@ public final class InventoryDataTest {
 		id.setIo(invOwnerIO);
 		itemIO = interactive.getTestIO();
 		itemIO.setItemData(new IOItemData() {
+
+            @Override
+            protected float applyCriticalModifier() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
+
+            @Override
+            protected float calculateArmorDeflection() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
+
+            @Override
+            protected float getBackstabModifier() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
 			
 		});
 		itemIO.setScript(new Scriptable() {		
@@ -147,6 +165,24 @@ public final class InventoryDataTest {
 		io2.addIOFlag(IoGlobals.IO_02_ITEM);
 		
 		io2.setItemData(new IOItemData() {
+
+            @Override
+            protected float applyCriticalModifier() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
+
+            @Override
+            protected float calculateArmorDeflection() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
+
+            @Override
+            protected float getBackstabModifier() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
 			
 		});
 		io2.setScript(new Scriptable() {		
@@ -194,6 +230,24 @@ public final class InventoryDataTest {
 		iio.addIOFlag(IoGlobals.IO_02_ITEM);
 		id.ARX_INVENTORY_IdentifyIO(pio, iio);
 		iio.setItemData(new IOItemData() {
+
+            @Override
+            protected float applyCriticalModifier() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
+
+            @Override
+            protected float calculateArmorDeflection() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
+
+            @Override
+            protected float getBackstabModifier() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
 			
 		});
 		id.ARX_INVENTORY_IdentifyIO(pio, iio);
@@ -230,6 +284,24 @@ public final class InventoryDataTest {
 		});
 		iio1.addIOFlag(IoGlobals.IO_02_ITEM);
 		iio1.setItemData(new IOItemData() {
+
+            @Override
+            protected float applyCriticalModifier() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
+
+            @Override
+            protected float calculateArmorDeflection() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
+
+            @Override
+            protected float getBackstabModifier() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
 			
 		});
 		iio1.getItemData().setStackSize(3);
@@ -276,6 +348,24 @@ public final class InventoryDataTest {
 		id.SendInventoryObjectCommand("Arrows", ScriptConsts.SM_24_COMBINE);
 		assertEquals("not yet", combineMsg);
 		iio1.setItemData(new IOItemData() {
+
+            @Override
+            protected float applyCriticalModifier() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
+
+            @Override
+            protected float calculateArmorDeflection() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
+
+            @Override
+            protected float getBackstabModifier() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
 			
 		});
 		iio1.getItemData().setItemName("Arrows");

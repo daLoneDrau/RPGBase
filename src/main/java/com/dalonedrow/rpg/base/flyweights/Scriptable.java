@@ -304,7 +304,7 @@ public class Scriptable<IO extends BaseInteractiveObject> {
             PooledStringBuilder sb =
                     StringBuilderPool.getInstance().getStringBuilder();
             try {
-                sb.append("Local floating-point variable ");
+                sb.append("Local long integer variable ");
                 sb.append(name);
                 sb.append(" was never set.");
             } catch (PooledException e) {

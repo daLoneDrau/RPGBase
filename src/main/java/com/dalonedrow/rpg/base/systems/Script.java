@@ -1139,6 +1139,9 @@ public abstract class Script<IO extends BaseInteractiveObject,
         case ScriptConsts.SM_045_OUCH:
             script.onOuch();
             break;
+        case ScriptConsts.SM_57_AGGRESSION:
+            script.onAggression();
+            break;
         case ScriptConsts.SM_69_IDENTIFY:
             script.onIdentify();
             break;

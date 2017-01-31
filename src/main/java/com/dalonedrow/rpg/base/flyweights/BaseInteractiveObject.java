@@ -93,6 +93,7 @@ public abstract class BaseInteractiveObject<ITEM extends IOItemData,
         animations = new int[0];
         animationNames = new String[0];
         spellcastData = new IOSpellCastData();
+        target = new SimpleVector3();
     }
     /**
      * Adds an animation by a given name to the interactive object.

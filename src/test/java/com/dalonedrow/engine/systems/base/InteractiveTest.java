@@ -99,10 +99,46 @@ public final class InteractiveTest {
 		assertFalse(instance.isSameObject(io0, io1));
 		io0.setOverscript(null);
 		io0.setItemData(new IOItemData() {
+
+            @Override
+            protected float applyCriticalModifier() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
+
+            @Override
+            protected float calculateArmorDeflection() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
+
+            @Override
+            protected float getBackstabModifier() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
 			
 		});
 		io0.getItemData().setItemName("coke");
 		io1.setItemData(new IOItemData() {
+
+            @Override
+            protected float applyCriticalModifier() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
+
+            @Override
+            protected float calculateArmorDeflection() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
+
+            @Override
+            protected float getBackstabModifier() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
 			
 		});
 		io1.getItemData().setItemName("pepsi");

@@ -230,6 +230,24 @@ public final class ScriptTest {
                 // TODO Auto-generated method stub
                 
             }
+
+            @Override
+            public boolean calculateBackstab() {
+                // TODO Auto-generated method stub
+                return false;
+            }
+
+            @Override
+            public boolean calculateCriticalHit() {
+                // TODO Auto-generated method stub
+                return false;
+            }
+
+            @Override
+            public float getFullDamage() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
 		});
 		Script.getInstance().stackSendMsgToAllNPCIO(
 				ScriptConsts.SM_017_DIE, null);
@@ -704,6 +722,24 @@ public final class ScriptTest {
                     boolean isSpellDamage) throws RPGException {
                 // TODO Auto-generated method stub
                 
+            }
+
+            @Override
+            public boolean calculateBackstab() {
+                // TODO Auto-generated method stub
+                return false;
+            }
+
+            @Override
+            public boolean calculateCriticalHit() {
+                // TODO Auto-generated method stub
+                return false;
+            }
+
+            @Override
+            public float getFullDamage() {
+                // TODO Auto-generated method stub
+                return 0;
             }
 		});
 		assertEquals(1, Script.getInstance().sendScriptEvent(

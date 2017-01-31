@@ -29,6 +29,24 @@ public class IOItemDataTest {
 		new TestScriptInstance();
         data = new IOItemData() {
 
+            @Override
+            protected float applyCriticalModifier() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
+
+            @Override
+            protected float calculateArmorDeflection() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
+
+            @Override
+            protected float getBackstabModifier() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
+
         };
 		watcher0 = new Watcher() {
 			@Override
@@ -52,6 +70,24 @@ public class IOItemDataTest {
 	@Test
 	public void canEquip() throws PooledException, RPGException {
 		IOItemData dagger = new IOItemData() {
+
+            @Override
+            protected float applyCriticalModifier() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
+
+            @Override
+            protected float calculateArmorDeflection() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
+
+            @Override
+            protected float getBackstabModifier() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
 
 		};
 		TestInteractiveInstance interactive = new TestInteractiveInstance();
@@ -85,6 +121,24 @@ public class IOItemDataTest {
 		// equip 1H in weapon slot
 		IOItemData oneH = new IOItemData() {
 
+            @Override
+            protected float applyCriticalModifier() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
+
+            @Override
+            protected float calculateArmorDeflection() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
+
+            @Override
+            protected float getBackstabModifier() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
+
 		};
 		oneH.setIo(interactive.getTestIO());
 		oneH.getIo().setScript(new Scriptable());
@@ -99,6 +153,24 @@ public class IOItemDataTest {
 		// equip shield
 		IOItemData shield = new IOItemData() {
 
+            @Override
+            protected float applyCriticalModifier() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
+
+            @Override
+            protected float calculateArmorDeflection() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
+
+            @Override
+            protected float getBackstabModifier() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
+
 		};
 		shield.setIo(interactive.getTestIO());
 		shield.getIo().setScript(new Scriptable());
@@ -110,6 +182,24 @@ public class IOItemDataTest {
 				EquipmentGlobals.EQUIP_SLOT_WEAPON));
 		// equip 2H, shield gets removed.
 		IOItemData twoH = new IOItemData() {
+
+            @Override
+            protected float applyCriticalModifier() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
+
+            @Override
+            protected float calculateArmorDeflection() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
+
+            @Override
+            protected float getBackstabModifier() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
 
 		};
 		twoH.setIo(interactive.getTestIO());
@@ -130,6 +220,24 @@ public class IOItemDataTest {
 		// equip bow, shield gets removed.
 		IOItemData bow = new IOItemData() {
 
+            @Override
+            protected float applyCriticalModifier() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
+
+            @Override
+            protected float calculateArmorDeflection() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
+
+            @Override
+            protected float getBackstabModifier() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
+
 		};
 		bow.setIo(interactive.getTestIO());
 		bow.getIo().setScript(new Scriptable());
@@ -149,6 +257,24 @@ public class IOItemDataTest {
 		// equip ring 0 on right
 		IOItemData ring0 = new IOItemData() {
 
+            @Override
+            protected float applyCriticalModifier() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
+
+            @Override
+            protected float calculateArmorDeflection() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
+
+            @Override
+            protected float getBackstabModifier() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
+
 		};
 		ring0.setIo(interactive.getTestIO());
 		ring0.getIo().setScript(new Scriptable());
@@ -160,6 +286,24 @@ public class IOItemDataTest {
 		// equip ring 1 on left
 		IOItemData ring1 = new IOItemData() {
 
+            @Override
+            protected float applyCriticalModifier() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
+
+            @Override
+            protected float calculateArmorDeflection() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
+
+            @Override
+            protected float getBackstabModifier() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
+
 		};
 		ring1.setIo(interactive.getTestIO());
 		ring1.getIo().setScript(new Scriptable());
@@ -170,6 +314,24 @@ public class IOItemDataTest {
 				EquipmentGlobals.EQUIP_SLOT_RING_LEFT));
 		// cannot equip ring of same type
 		IOItemData ring2 = new IOItemData() {
+
+            @Override
+            protected float applyCriticalModifier() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
+
+            @Override
+            protected float calculateArmorDeflection() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
+
+            @Override
+            protected float getBackstabModifier() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
 
 		};
 		ring2.setIo(interactive.getTestIO());
@@ -204,6 +366,24 @@ public class IOItemDataTest {
 		// equipping new armor
 		IOItemData armor0 = new IOItemData() {
 
+            @Override
+            protected float applyCriticalModifier() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
+
+            @Override
+            protected float calculateArmorDeflection() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
+
+            @Override
+            protected float getBackstabModifier() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
+
 		};
 		armor0.setIo(interactive.getTestIO());
 		armor0.getIo().setScript(new Scriptable());
@@ -213,6 +393,24 @@ public class IOItemDataTest {
 				EquipmentGlobals.EQUIP_SLOT_TORSO));
 		// equipping new armor
 		IOItemData armor1 = new IOItemData() {
+
+            @Override
+            protected float applyCriticalModifier() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
+
+            @Override
+            protected float calculateArmorDeflection() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
+
+            @Override
+            protected float getBackstabModifier() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
 
 		};
 		armor1.setIo(interactive.getTestIO());
@@ -224,6 +422,24 @@ public class IOItemDataTest {
 		// equipping new armor
 		IOItemData leg0 = new IOItemData() {
 
+            @Override
+            protected float applyCriticalModifier() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
+
+            @Override
+            protected float calculateArmorDeflection() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
+
+            @Override
+            protected float getBackstabModifier() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
+
 		};
 		leg0.setIo(interactive.getTestIO());
 		leg0.getIo().setScript(new Scriptable());
@@ -234,6 +450,24 @@ public class IOItemDataTest {
 		// equipping new armor
 		IOItemData leg1 = new IOItemData() {
 
+            @Override
+            protected float applyCriticalModifier() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
+
+            @Override
+            protected float calculateArmorDeflection() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
+
+            @Override
+            protected float getBackstabModifier() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
+
 		};
 		leg1.setIo(interactive.getTestIO());
 		leg1.getIo().setScript(new Scriptable());
@@ -243,6 +477,24 @@ public class IOItemDataTest {
 				EquipmentGlobals.EQUIP_SLOT_LEGGINGS));
 		// equipping new helm
 		IOItemData helm0 = new IOItemData() {
+
+            @Override
+            protected float applyCriticalModifier() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
+
+            @Override
+            protected float calculateArmorDeflection() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
+
+            @Override
+            protected float getBackstabModifier() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
 
 		};
 		helm0.setIo(interactive.getTestIO());

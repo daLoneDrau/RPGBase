@@ -22,6 +22,8 @@ import com.dalonedrow.utils.Watcher;
 @SuppressWarnings({ "rawtypes", "unchecked" })
 public abstract class IOCharacter<IO extends BaseInteractiveObject>
         implements Watchable {
+    public abstract boolean calculateBackstab();
+    public abstract boolean calculateCriticalHit();
     /** the set of attributes defining the PC. */
     private Map<String, Attribute> attributes;
     /**
@@ -142,6 +144,7 @@ public abstract class IOCharacter<IO extends BaseInteractiveObject>
         }
         return toadd * trueval * MathGlobals.DIV100;
     }
+    public abstract void ARX_EQUIPMENT_RecreatePlayerMesh();
     /**
      * Releases an equipped IO.
      * @param id the IO's reference id
@@ -324,6 +327,7 @@ public abstract class IOCharacter<IO extends BaseInteractiveObject>
     public final float getFullAttributeScore(final String attr) {
         return attributes.get(attr).getFull();
     }
+    public abstract float getFullDamage();
     /**
      * Gets the IO associated with this {@link IOCharacter}.
      * @return {@link IO}
@@ -433,5 +437,4 @@ public abstract class IOCharacter<IO extends BaseInteractiveObject>
         }
         equippedItems[slot] = id;
     }
-    public abstract void ARX_EQUIPMENT_RecreatePlayerMesh();
 }

@@ -104,6 +104,11 @@ public abstract class IoNpcData<IO extends BaseInteractiveObject>
         super();
         name = new char[0];
         stacked = new BehaviourData[MAX_STACKED_BEHAVIOR];
+        for (int i = 0; i < MAX_STACKED_BEHAVIOR; i++) {
+            if (stacked[i] == null) {
+                stacked[i] = new BehaviourData();
+            }
+        }
         pathfinder = new IOPathfind();
     }
     /**
@@ -785,6 +790,9 @@ public abstract class IoNpcData<IO extends BaseInteractiveObject>
     public void resetBehavior() {
         behavior = Behaviour.BEHAVIOUR_NONE.getFlag();
         for (int i = 0; i < MAX_STACKED_BEHAVIOR; i++) {
+            if (stacked[i] == null) {
+                stacked[i] = new BehaviourData();
+            }
             stacked[i].setExists(false);
         }
     }

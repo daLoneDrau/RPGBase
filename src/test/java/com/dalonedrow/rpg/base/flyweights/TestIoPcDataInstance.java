@@ -70,4 +70,19 @@ public class TestIoPcDataInstance extends IoPcData {
 			{ "MMN", "Max Mana", 1 }
 		};
 	}
+    @Override
+    public boolean calculateBackstab() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+    @Override
+    public boolean calculateCriticalHit() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+    @Override
+    public float getFullDamage() {
+        // TODO Auto-generated method stub
+        return 0;
+    }
 }
