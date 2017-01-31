@@ -179,6 +179,7 @@ extends IOCharacter implements Combatant {
 	public final float ARX_DAMAGES_DamagePlayer(final float dmg,
 	        final long type,
 	        final int source) throws RPGException {
+	    System.out.println("ARX_DAMAGES_DamagePlayer("+dmg);
 		float damagesdone = 0.f;
 		computeFullStats();
 		if (!io.hasIOFlag(IoGlobals.PLAYERFLAGS_INVULNERABILITY)

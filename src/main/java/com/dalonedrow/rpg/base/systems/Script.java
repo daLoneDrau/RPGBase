@@ -40,9 +40,9 @@ import com.dalonedrow.utils.ArrayUtilities;
 public abstract class Script<IO extends BaseInteractiveObject,
         TIMER extends ScriptTimer<IO>, SCRIPTABLE extends Scriptable<IO>,
         STACKED extends StackedEvent<IO>> {
-    private static final long ANIM_TALK_ANGRY = 0;
-    private static final long ANIM_TALK_HAPPY = 0;
-    private static final long ANIM_TALK_NEUTRAL = 0;
+    private static final int ANIM_TALK_ANGRY = 0;
+    private static final int ANIM_TALK_HAPPY = 0;
+    private static final int ANIM_TALK_NEUTRAL = 0;
     /** the one and only instance of the <tt>Script</tt> class. */
     private static Script instance;
     /** the maximum number of system parameters. */
@@ -1784,12 +1784,17 @@ public abstract class Script<IO extends BaseInteractiveObject,
         maxTimerScript = val;
     }
     protected abstract void setScriptTimer(int index, TIMER timer);
+    /**
+     * Processes and IO's speech.
+     * @param io the IO
+     * @param params the {@link SpeechParameters}
+     */
     public final void speak(final IO io, final SpeechParameters params) {
         // speech variables
         // ARX_CINEMATIC_SPEECH acs;
         // acs.type = ARX_CINE_SPEECH_NONE;
         long voixoff = 0;
-        long mood = ANIM_TALK_NEUTRAL;
+        int mood = ANIM_TALK_NEUTRAL;
         if (params.isKillAllSpeech()) {
             // ARX_SPEECH_Reset();
         } else {
@@ -1962,6 +1967,8 @@ public abstract class Script<IO extends BaseInteractiveObject,
                 } else {
                     // speechnum = ARX_SPEECH_AddSpeech(io, temp1,
                     // PARAM_LOCALISED, mood, voixoff);
+                    speechnum = Speech.getInstance().ARX_SPEECH_AddSpeech(io,
+                            mood, params.getSpeechName(), voixoff);
                 }
 
                 if (speechnum >= 0) {

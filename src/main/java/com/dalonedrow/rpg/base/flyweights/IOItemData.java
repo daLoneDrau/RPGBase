@@ -71,13 +71,13 @@ public abstract class IOItemData<IO extends BaseInteractiveObject> {
             final IO io_target, float dmgModifier) throws RPGException {
         float damages = 0;
         // send event to target. someone attacked you!
-        System.out.println("send aggression");
         Script.getInstance().setEventSender(io_source);
         Script.getInstance().sendIOScriptEvent(io_target,
                 ScriptConstants.SM_57_AGGRESSION, null, null);
         if (io_source != null
                 && io_target != null) {
-            if (!io_target.hasIOFlag(IoGlobals.IO_03_NPC)
+            if (!io_target.hasIOFlag(IoGlobals.IO_01_PC)
+                    && !io_target.hasIOFlag(IoGlobals.IO_03_NPC)
             /* && io_target.hasIOFlag(IoGlobals.fix) */) {
                 if (io_source.hasIOFlag(IoGlobals.IO_01_PC)) {
                     // player fixing the target object
@@ -126,8 +126,8 @@ public abstract class IOItemData<IO extends BaseInteractiveObject> {
                         backstab = this.getBackstabModifier();
                     }
                 } else {
-                    if (io_target.hasIOFlag(IoGlobals.IO_03_NPC)) {
-                        int wpnId = io_source.getPCData().getEquippedItem(
+                    if (io_source.hasIOFlag(IoGlobals.IO_03_NPC)) {
+                        int wpnId = io_source.getNPCData().getEquippedItem(
                                 EquipmentGlobals.EQUIP_SLOT_WEAPON);
                         if (Interactive.getInstance().hasIO(wpnId)) {
                             IO io = (IO) Interactive.getInstance().getIO(wpnId);
@@ -187,8 +187,14 @@ public abstract class IOItemData<IO extends BaseInteractiveObject> {
                 }
                 if (io_target.hasIOFlag(IoGlobals.IO_03_NPC)
                         || io_target.hasIOFlag(IoGlobals.IO_01_PC)) {
-                    int armrId = io_source.getPCData().getEquippedItem(
-                            EquipmentGlobals.EQUIP_SLOT_TORSO);
+                    int armrId;
+                    if (io_target.hasIOFlag(IoGlobals.IO_03_NPC)) {
+                        armrId = io_target.getNPCData().getEquippedItem(
+                                EquipmentGlobals.EQUIP_SLOT_TORSO);
+                    } else {
+                        armrId = io_target.getPCData().getEquippedItem(
+                                EquipmentGlobals.EQUIP_SLOT_TORSO);
+                    }
                     if (Interactive.getInstance().hasIO(armrId)) {
                         IO io = (IO) Interactive.getInstance().getIO(armrId);
                         if (io.getArmormaterial() != null
@@ -202,7 +208,7 @@ public abstract class IOItemData<IO extends BaseInteractiveObject> {
                 // dmgs -= dmgs * (absorb * DIV100);
 
                 // TODO - play sound based on the power of the hit
-
+                System.out.println("damages "+damages);
                 if (damages > 0.f) {
                     if (critical) {
                         damages = this.applyCriticalModifier();
@@ -210,6 +216,7 @@ public abstract class IOItemData<IO extends BaseInteractiveObject> {
                     }
 
                     if (io_target.hasIOFlag(IoGlobals.IO_01_PC)) {
+                        System.out.println("pc");
                         // TODO - push player when hit
                         // ARX_DAMAGES_SCREEN_SPLATS_Add(&ppos, dmgs);
                         io_target.getPCData().ARX_DAMAGES_DamagePlayer(damages,
