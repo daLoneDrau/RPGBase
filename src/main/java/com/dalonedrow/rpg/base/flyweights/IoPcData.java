@@ -204,7 +204,8 @@ extends IOCharacter implements Combatant {
 			}
 			Script.getInstance().sendIOScriptEvent(io,
 			        ScriptConsts.SM_045_OUCH,
-			        new Object[] { "OUCH", io.getDamageSum() },
+			        new Object[] { "OUCH", io.getDamageSum(),
+			                "SUMMONED_OUCH", 0f },
 			        null);
 			Script.getInstance().setEventSender(oes);
 			io.setDamageSum(0);
@@ -300,7 +301,7 @@ extends IOCharacter implements Combatant {
 									}
 									Script.getInstance().sendIOScriptEvent(ioo,
 									        0,
-									        new Object[] { "killer", killer },
+									        new Object[] { "tmp_int1", source },
 									        "TargetDeath");
 								}
 							}

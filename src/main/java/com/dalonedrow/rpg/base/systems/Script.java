@@ -1086,14 +1086,19 @@ public abstract class Script<IO extends BaseInteractiveObject,
             runMessage(script, msg, io);
         } else {
             try {
-                PooledStringBuilder sb =
-                        StringBuilderPool.getInstance().getStringBuilder();
-                sb.append("on");
-                sb.append(eventName.toUpperCase().charAt(0));
-                sb.append(eventName.substring(1));
-                Method method = script.getClass().getMethod(sb.toString());
-                sb.returnToPool();
-                sb = null;
+                Method method;
+                if (!eventName.startsWith("on")) {
+                    PooledStringBuilder sb =
+                            StringBuilderPool.getInstance().getStringBuilder();
+                    sb.append("on");
+                    sb.append(eventName.toUpperCase().charAt(0));
+                    sb.append(eventName.substring(1));
+                    method = script.getClass().getMethod(sb.toString());
+                    sb.returnToPool();
+                    sb = null;
+                } else {
+                    method = script.getClass().getMethod(eventName);
+                }
                 method.invoke(script, (Object[]) null);
             } catch (NoSuchMethodException | SecurityException
                     | IllegalAccessException | IllegalArgumentException

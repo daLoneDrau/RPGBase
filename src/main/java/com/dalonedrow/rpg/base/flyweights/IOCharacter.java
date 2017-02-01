@@ -437,4 +437,5 @@ public abstract class IOCharacter<IO extends BaseInteractiveObject>
         }
         equippedItems[slot] = id;
     }
+    public abstract float getMaxLife();
 }

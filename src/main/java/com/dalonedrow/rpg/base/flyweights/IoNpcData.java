@@ -430,7 +430,9 @@ public abstract class IoNpcData<IO extends BaseInteractiveObject>
      * @throws RPGException if an error occurs
      */
     public final void forceDeath(final IO killerIO) throws RPGException {
-        if (io.getMainevent().equalsIgnoreCase("DEAD")) {
+        if (io.getMainevent() == null
+                || (io.getMainevent() != null
+                && !io.getMainevent().equalsIgnoreCase("DEAD"))) {
             IO oldSender = (IO) Script.getInstance().getEventSender();
             Script.getInstance().setEventSender(killerIO);
 
@@ -470,13 +472,15 @@ public abstract class IoNpcData<IO extends BaseInteractiveObject>
             // Kill all Timers...
             Script.getInstance().timerClearByIO(io);
 
-            if (io.getMainevent().equalsIgnoreCase("DEAD")) {
+            if (io.getMainevent() == null
+                    || (io.getMainevent() != null
+                    && !io.getMainevent().equalsIgnoreCase("DEAD"))) {
                 Script.getInstance().notifyIOEvent(
                         io, ScriptConsts.SM_017_DIE, "");
             }
 
             if (Interactive.getInstance().hasIO(io)) {
-                Script.getInstance().setMainEvent(io, "DEAD");
+                io.setMainevent("DEAD");
 
                 // TODO - kill animations
                 // if (EEDistance3D(&io_dead->pos, &ACTIVECAM->pos) > 3200) {
@@ -502,6 +506,9 @@ public abstract class IoNpcData<IO extends BaseInteractiveObject>
                 }
                 int i = Interactive.getInstance().getMaxIORefId();
                 for (; i >= 0; i--) {
+                    if (!Interactive.getInstance().hasIO(i)) {
+                        continue;
+                    }
                     IO ioo = (IO) Interactive.getInstance().getIO(i);
                     if (ioo == null) {
                         continue;
@@ -518,7 +525,7 @@ public abstract class IoNpcData<IO extends BaseInteractiveObject>
                                 Script.getInstance().stackSendIOScriptEvent(ioo,
                                         0,
                                         new Object[] { "killer", killer },
-                                        "TARGET_DEATH");
+                                        "onTargetDeath");
                                 ioo.setTargetinfo(IoGlobals.TARGET_NONE);
                                 ioo.getNPCData().setReachedtarget(false);
                             }
@@ -547,10 +554,10 @@ public abstract class IoNpcData<IO extends BaseInteractiveObject>
                 adjustLife(-99999);
 
                 if (getWeapon() != null) {
-                    IO ioo = getWeapon();
-                    if (Interactive.getInstance().hasIO(ioo)) {
-                        ioo.setShow(IoGlobals.SHOW_FLAG_IN_SCENE);
-                        ioo.addIOFlag(IoGlobals.IO_07_NO_COLLISIONS);
+                    IO wpnIO = getWeapon();
+                    if (Interactive.getInstance().hasIO(wpnIO)) {
+                        wpnIO.setShow(IoGlobals.SHOW_FLAG_IN_SCENE);
+                        wpnIO.addIOFlag(IoGlobals.IO_07_NO_COLLISIONS);
                         // TODO - reset positioning and velocity
                         // ioo->pos.x =
                         // ioo->obj->vertexlist3[ioo->obj->origin].v.x;
@@ -564,8 +571,8 @@ public abstract class IoNpcData<IO extends BaseInteractiveObject>
                         // ioo->stopped = 0;
                     }
                 }
-                Script.getInstance().setEventSender(oldSender);
             }
+            Script.getInstance().setEventSender(oldSender);
         }
     }
     /**

@@ -208,7 +208,6 @@ public abstract class IOItemData<IO extends BaseInteractiveObject> {
                 // dmgs -= dmgs * (absorb * DIV100);
 
                 // TODO - play sound based on the power of the hit
-                System.out.println("damages "+damages);
                 if (damages > 0.f) {
                     if (critical) {
                         damages = this.applyCriticalModifier();
