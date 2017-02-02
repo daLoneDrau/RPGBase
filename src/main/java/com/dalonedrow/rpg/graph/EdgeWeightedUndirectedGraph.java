@@ -1,6 +1,7 @@
 package com.dalonedrow.rpg.graph;
 
 import java.io.InputStream;
+import java.util.Collection;
 
 import com.dalonedrow.rpg.base.flyweights.RPGException;
 import com.dalonedrow.utils.ArrayUtilities;
@@ -296,6 +297,12 @@ public class EdgeWeightedUndirectedGraph {
             edges = ArrayUtilities.getInstance().removeIndex(i, edges);
         }
         return removed;
+    }
+    public GraphEdge[] getEdges() {
+        return this.edges;
+    }
+    public GraphNode[] getVertexes() {
+        return this.vertices;
     }
 
 }

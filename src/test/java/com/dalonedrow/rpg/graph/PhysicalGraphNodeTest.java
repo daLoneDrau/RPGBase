@@ -22,5 +22,33 @@ public class PhysicalGraphNodeTest {
 		assertTrue(g.equals(pt));
 		assertFalse(g.equals(0, 0));
 		assertFalse(g.equals(new SimplePoint()));
+        
+        g = new PhysicalGraphNode("test", 2, pt);
+        assertTrue(g.getLocation().equals(2, 5));
+        assertTrue(g.equals(pt));
+        assertEquals("test", new String(g.getName()));
+        assertFalse(g.equals(0, 0));
+        assertFalse(g.equals(new SimplePoint()));
+        
+        g = new PhysicalGraphNode(new char[] { 't', 'e', 's', 't' }, 3, pt);
+        assertTrue(g.getLocation().equals(2, 5));
+        assertTrue(g.equals(pt));
+        assertEquals("test", new String(g.getName()));
+        assertFalse(g.equals(0, 0));
+        assertFalse(g.equals(new SimplePoint()));
+        
+        g = new PhysicalGraphNode("test", 4, 2, 5);
+        assertTrue(g.getLocation().equals(2, 5));
+        assertTrue(g.equals(pt));
+        assertEquals("test", new String(g.getName()));
+        assertFalse(g.equals(0, 0));
+        assertFalse(g.equals(new SimplePoint()));
+        
+        g = new PhysicalGraphNode(new char[] { 't', 'e', 's', 't' }, 5, 2, 5);
+        assertTrue(g.getLocation().equals(2, 5));
+        assertTrue(g.equals(pt));
+        assertEquals("test", new String(g.getName()));
+        assertFalse(g.equals(0, 0));
+        assertFalse(g.equals(new SimplePoint()));
 	}
 }

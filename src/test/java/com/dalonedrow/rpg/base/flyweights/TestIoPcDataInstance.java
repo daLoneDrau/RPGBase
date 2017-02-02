@@ -85,4 +85,9 @@ public class TestIoPcDataInstance extends IoPcData {
         // TODO Auto-generated method stub
         return 0;
     }
+    @Override
+    public float getMaxLife() {
+        // TODO Auto-generated method stub
+        return 0;
+    }
 }

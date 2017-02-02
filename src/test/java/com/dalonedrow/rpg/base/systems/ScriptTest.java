@@ -248,6 +248,12 @@ public final class ScriptTest {
                 // TODO Auto-generated method stub
                 return 0;
             }
+
+            @Override
+            public float getMaxLife() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
 		});
 		Script.getInstance().stackSendMsgToAllNPCIO(
 				ScriptConsts.SM_017_DIE, null);
@@ -738,6 +744,12 @@ public final class ScriptTest {
 
             @Override
             public float getFullDamage() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
+
+            @Override
+            public float getMaxLife() {
                 // TODO Auto-generated method stub
                 return 0;
             }

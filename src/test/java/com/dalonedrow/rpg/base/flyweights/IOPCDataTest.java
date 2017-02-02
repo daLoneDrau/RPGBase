@@ -161,6 +161,11 @@ public class IOPCDataTest {
                 // TODO Auto-generated method stub
                 return 0;
             }
+            @Override
+            public float getMaxLife() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
 		});
 	}
 	public void beforeCreatePCIO() throws RPGException {
@@ -237,6 +242,11 @@ public class IOPCDataTest {
             }
             @Override
             public float getFullDamage() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
+            @Override
+            public float getMaxLife() {
                 // TODO Auto-generated method stub
                 return 0;
             }
@@ -398,6 +408,11 @@ public class IOPCDataTest {
             }
             @Override
             public float getFullDamage() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
+            @Override
+            public float getMaxLife() {
                 // TODO Auto-generated method stub
                 return 0;
             }
@@ -644,6 +659,11 @@ public class IOPCDataTest {
                 // TODO Auto-generated method stub
                 return 0;
             }
+            @Override
+            public float getMaxLife() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
 		};
 		data.clearModAbilityScores();
 		assertNotNull(data);
@@ -715,6 +735,11 @@ public class IOPCDataTest {
             }
             @Override
             public float getFullDamage() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
+            @Override
+            public float getMaxLife() {
                 // TODO Auto-generated method stub
                 return 0;
             }

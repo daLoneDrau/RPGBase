@@ -45,6 +45,7 @@ public final class DijkstraUndirectedSearch {
 		while (!pq.isEmpty()) {
 			int v = pq.delMin();
 			WeightedGraphEdge[] adj = graph.getVertexAdjacencies(v);
+			System.out.println("relax adjacencies for "+v);
 			for (int i = adj.length - 1; i >= 0; i--) {
 				relax(adj[i], v);
 			}
@@ -74,6 +75,7 @@ public final class DijkstraUndirectedSearch {
 		}
 		for (int v = graph.getNumberOfVertices() - 1; v >= 0; v--) {
 			if (v == s) {
+			    System.out.println("skipping source");
 				continue;
 			}
 			if (edgeTo[v] == null && distTo[v] != Double.POSITIVE_INFINITY) {
@@ -103,19 +105,21 @@ public final class DijkstraUndirectedSearch {
 		
 		// check that all edges e = v->w on SPT satisfy distTo[w] == distTo[v] +
 		// e.weight()
-		for (int w = 0; w < graph.getNumberOfVertices(); w++) {
+		for (int w = 0, len = graph.getNumberOfVertices(); w < len; w++) {
 			if (edgeTo[w] == null) {
 				continue;
 			}
 			WeightedGraphEdge e = edgeTo[w];
 			int v = e.getFrom();
 			if (w != e.getTo()) {
+	            System.err.println("edgeTo["+w+"] is edge from "+ v + " to " + e.getTo());
 				return false;
 			}
 			if (distTo[v] + e.getCost() != distTo[w]) {
 				System.err.println("edge " + e + " on shortest path not tight");
 				return false;
 			}
+            System.out.println("edgeTo["+w+"] is edge from "+ v + " to " + w);
 		}
 		return true;
 	}
@@ -182,11 +186,12 @@ public final class DijkstraUndirectedSearch {
 		}
 		if (distTo[w] > distTo[v] + edge.getCost()) {
 			distTo[w] = distTo[v] + edge.getCost();
+			System.out.println("\tedgeTo["+w+"] is "+edge);
 			edgeTo[w] = edge;
 			if (pq.contains(w)) {
-			pq.decreaseKey(w, distTo[w]);
+			    pq.decreaseKey(w, distTo[w]);
 			} else {
-			pq.insert(w, distTo[w]);
+			    pq.insert(w, distTo[w]);
 			}
 		}
 	}
