@@ -64,5 +64,10 @@ public class TestProjectConstants extends ProjectConstants {
         // TODO Auto-generated method stub
         return 0;
     }
+    @Override
+    public boolean isGameOver() {
+        // TODO Auto-generated method stub
+        return false;
+    }
 
 }

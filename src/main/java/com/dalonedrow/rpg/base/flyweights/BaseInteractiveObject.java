@@ -3,6 +3,7 @@
  */
 package com.dalonedrow.rpg.base.flyweights;
 
+import com.dalonedrow.engine.sprite.base.SimplePoint;
 import com.dalonedrow.engine.sprite.base.SimpleVector2;
 import com.dalonedrow.engine.sprite.base.SimpleVector3;
 import com.dalonedrow.pooled.PooledException;
@@ -182,7 +183,6 @@ public abstract class BaseInteractiveObject<ITEM extends IOItemData,
             ioGroups[index] = group;
         }
     }
-
     /**
      * Adds a flag.
      * @param flag the flag
@@ -190,7 +190,6 @@ public abstract class BaseInteractiveObject<ITEM extends IOItemData,
     public void addIOFlag(final long flag) {
         ioFlags |= flag;
     }
-
     /**
      * Adds an active spell on the object.
      * @param spellId the spell's id
@@ -253,12 +252,10 @@ public abstract class BaseInteractiveObject<ITEM extends IOItemData,
     public void clearIOFlags() {
         ioFlags = 0;
     }
-
     /** Clears all type flags that were set. */
     public void clearTypeFlags() {
         typeFlags = 0;
     }
-
     /**
      * {@inheritDoc}
      */
@@ -546,7 +543,6 @@ public abstract class BaseInteractiveObject<ITEM extends IOItemData,
         // TODO Auto-generated method stub
         return super.hashCode();
     }
-
     /**
      * Determines if the {@link BaseInteractiveObject} has a specific flag.
      * @param flag the flag
@@ -556,7 +552,6 @@ public abstract class BaseInteractiveObject<ITEM extends IOItemData,
     public final boolean hasIOFlag(final long flag) {
         return (ioFlags & flag) == flag;
     }
-
     /**
      * Determines if the {@link BaseInteractiveObject} has a specific type flag.
      * @param flag the flag
@@ -634,7 +629,6 @@ public abstract class BaseInteractiveObject<ITEM extends IOItemData,
             dest = null;
         }
     }
-
     /**
      * Removes a flag.
      * @param flag the flag
@@ -642,7 +636,6 @@ public abstract class BaseInteractiveObject<ITEM extends IOItemData,
     public final void removeIOFlag(final long flag) {
         ioFlags &= ~flag;
     }
-
     /**
      * Removes an active spell.
      * @param spellId the spell's id
@@ -801,7 +794,6 @@ public abstract class BaseInteractiveObject<ITEM extends IOItemData,
     public void setPoisonLevel(int poisonLevel) {
         this.poisonLevel = poisonLevel;
     }
-
     /**
      * Sets the position.
      * @param val the position to set
@@ -809,7 +801,14 @@ public abstract class BaseInteractiveObject<ITEM extends IOItemData,
     public void setPosition(final SimpleVector2 val) {
         this.position = val;
     }
-
+    /**
+     * Sets the position.
+     * @param val the position to set
+     * @throws RPGException 
+     */
+    public void setPosition(final SimplePoint val) throws RPGException {
+        this.position = new SimpleVector2(val);
+    }
     /**
      * Sets the script
      * @param script the script to set

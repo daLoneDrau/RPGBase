@@ -44,15 +44,22 @@ public final class SimpleVector2 {
 	public SimpleVector2(final int x1, final int y1) {
 		set(x1, y1);
 	}
-
-	/**
-	 * Creates a new instance of SimpleVector2.java.
-	 * @param v the <code>SimpleVector2</code> to copy
-	 * @throws RPGException if the supplied vector is null
-	 */
-	public SimpleVector2(final SimpleVector2 v) throws RPGException {
-		set(v);
-	}
+    /**
+     * Creates a new instance of SimpleVector2.java.
+     * @param v the <code>SimpleVector2</code> to copy
+     * @throws RPGException if the supplied vector is null
+     */
+    public SimpleVector2(final SimplePoint pt) throws RPGException {
+        set(pt);
+    }
+    /**
+     * Creates a new instance of SimpleVector2.java.
+     * @param v the <code>SimpleVector2</code> to copy
+     * @throws RPGException if the supplied vector is null
+     */
+    public SimpleVector2(final SimpleVector2 v) throws RPGException {
+        set(v);
+    }
 
 	/**
 	 * Creates a new instance of {@link SimpleVector2}.
@@ -299,22 +306,38 @@ public final class SimpleVector2 {
 		x = x1;
 		y = y1;
 	}
-	/**
-	 * Sets the <code>SimpleVector2</code> position to match another
-	 * <code>SimpleVector2</code>.
-	 * @param vector the <code>SimpleVector2</code> whose position is being
-	 *            matched
-	 * @throws RPGException
-	 */
-	public void set(final SimpleVector2 vector) throws RPGException {
-		if (vector == null) {
-			RPGException ex = new RPGException(ErrorMessage.BAD_PARAMETERS,
-					"Cannot increment SimpleVector2 with null");
-			throw ex;
-		}
-		x = vector.x;
-		y = vector.y;
-	}
+    /**
+     * Sets the <code>SimpleVector2</code> position to match another
+     * <code>SimpleVector2</code>.
+     * @param vector the <code>SimpleVector2</code> whose position is being
+     *            matched
+     * @throws RPGException
+     */
+    public void set(final SimpleVector2 vector) throws RPGException {
+        if (vector == null) {
+            RPGException ex = new RPGException(ErrorMessage.BAD_PARAMETERS,
+                    "Cannot increment SimpleVector2 with null");
+            throw ex;
+        }
+        x = vector.x;
+        y = vector.y;
+    }
+    /**
+     * Sets the <code>SimpleVector2</code> position to match another
+     * <code>SimpleVector2</code>.
+     * @param vector the <code>SimpleVector2</code> whose position is being
+     *            matched
+     * @throws RPGException
+     */
+    public void set(final SimplePoint point) throws RPGException {
+        if (point == null) {
+            RPGException ex = new RPGException(ErrorMessage.BAD_PARAMETERS,
+                    "Cannot set SimpleVector2 with null");
+            throw ex;
+        }
+        x = point.getX();
+        y = point.getY();
+    }
 	/**
 	 * Sets the position along the x-axis.
 	 * @param v the double to set

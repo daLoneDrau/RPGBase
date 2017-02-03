@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import javax.swing.text.View;
 
+import com.dalonedrow.rpg.base.consoleui.ConsoleView;
 import com.dalonedrow.rpg.base.flyweights.RPGException;
 
 public abstract class ConsoleInterface {
@@ -19,6 +20,10 @@ public abstract class ConsoleInterface {
     public static final void setInstance(final ConsoleInterface i) {
         instance = i;
     }
+    /** the current view. */
+    private ConsoleView   currentView;
+    /** flag indicating debugging is on. */
+    private boolean       debug;
     /** the system scanner. */
     private final Scanner scanIn = new Scanner(System.in);
     /**

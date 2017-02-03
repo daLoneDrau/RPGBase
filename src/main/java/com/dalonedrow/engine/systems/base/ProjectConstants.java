@@ -66,4 +66,5 @@ public abstract class ProjectConstants<IO extends BaseInteractiveObject> {
     }
     /** Updates the game. */
     public abstract void update();
+    public abstract boolean isGameOver();
 }

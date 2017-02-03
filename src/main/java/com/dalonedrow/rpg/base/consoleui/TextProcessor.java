@@ -46,9 +46,8 @@ public abstract class TextProcessor {
     public static TextProcessor getInstance() {
         return TextProcessor.instance;
     }
-    public static void setInstance(final TextProcessor i) {
+    protected static void setInstance(final TextProcessor i) {
         TextProcessor.instance = i;
-        ;
     }
     /** flag to display debugging. */
     private boolean debug = false;
@@ -56,7 +55,7 @@ public abstract class TextProcessor {
     private final int defaultDlgWidth = 50;
     private String[] stringArr;
     /** Hidden constructor. */
-    private TextProcessor() {
+    protected TextProcessor() {
         super();
     }
     /**
