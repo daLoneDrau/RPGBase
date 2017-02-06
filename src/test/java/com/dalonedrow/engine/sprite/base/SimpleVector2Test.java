@@ -193,6 +193,6 @@ public class SimpleVector2Test {
 	}
 	@Test(expected = RPGException.class)
 	public void willNotSetFromNull() throws RPGException {
-		v2.set(null);
+		v2.set((SimpleVector2) null);
 	}
 }
