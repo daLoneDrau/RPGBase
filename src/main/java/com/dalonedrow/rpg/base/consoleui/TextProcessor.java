@@ -266,6 +266,21 @@ public abstract class TextProcessor {
         sb = null;
         return s;
     }
+    public String getSelectionsAsColumns(final String[] list,
+            final String separator, final int width) throws RPGException {
+        int maxw = 0;
+        for (int i = list.length - 1; i >= 0; i--) {
+            maxw = Math.max(maxw, list[i].length());
+        }
+        // find the length of the columns
+        int maxLen = maxw + separator.length();
+        int numCols = (width - maxw) / maxLen;
+        System.out.println("width is "+width);
+        System.out.println("max word width is "+maxw);
+        System.out.println("max len "+maxLen);
+        System.out.println("numCols "+numCols);
+        return this.getSelectionsAsColumns(numCols, list, separator);
+    }
     /**
      * Gets a list of {@link String}s and sorts them as columns.
      * @param numberOfColumns the number of columns

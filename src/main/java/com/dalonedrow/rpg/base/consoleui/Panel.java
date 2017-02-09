@@ -77,6 +77,13 @@ public abstract class Panel {
         title = ttl;
     }
     /**
+     * Gets the panel's width.
+     * @return {@link int}
+     */
+    public final int getWidth() {
+        return width;
+    }
+    /**
      * Creates a new instance of {@link Panel}.
      * @param w the number of characters in the panel, including borders and
      *            padding
@@ -125,8 +132,8 @@ public abstract class Panel {
     public String getTitle() {
         return new String(title);
     }
-    protected abstract String getTitledTableMarkup();
-    protected abstract String getUnTitledTableMarkup();
+    protected abstract String getTitledTableMarkup() throws RPGException;
+    protected abstract String getUnTitledTableMarkup() throws RPGException;
     /**
      * Joins two panels.
      * @param other the second panel
@@ -178,7 +185,9 @@ public abstract class Panel {
             }
             if (maxWidth > ProjectConstants.getInstance().getConsoleWidth()) {
                 throw new RPGException(ErrorMessage.INTERNAL_BAD_ARGUMENT,
-                        "Joined columns are too wide for screen");
+                        "Joined columns (" + maxWidth + ") are too wide for "
+                                + "screen "
+                                + ProjectConstants.getInstance().getConsoleWidth());
             }
             break;
         case Panel.TOP:
