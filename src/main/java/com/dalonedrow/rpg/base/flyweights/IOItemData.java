@@ -44,6 +44,7 @@ public abstract class IOItemData<IO extends BaseInteractiveObject> {
     private char stealvalue;
     /** the item's weight. */
     private float weight;
+    private char[] title;
     /**
      * Creates a new instance of {@link IOItemData}.
      * @throws RPGException
@@ -778,5 +779,11 @@ public abstract class IOItemData<IO extends BaseInteractiveObject> {
                 equipIO = null;
             }
         }
+    }
+    public String getTitle() {
+        return new String(title);
+    }
+    public void setTitle(String val) {
+        title = val.toCharArray();
     }
 }
