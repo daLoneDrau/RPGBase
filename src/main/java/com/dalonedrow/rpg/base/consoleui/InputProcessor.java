@@ -39,7 +39,6 @@ public final class InputProcessor {
     public void acceptInput() {
         if (obj != null) {
             String s = ConsoleInterface.getInstance().getScanIn().nextLine();
-            System.out.println(s);
             if (args == null) {
                 InputEvent.getInstance().addAction(
                         obj, // object

@@ -16,7 +16,7 @@ public abstract class ConsoleView {
     /** the error dialog width. */
     private static final int ERR_DLG_WIDTH = 50;
     public abstract void addErrorMessage(final String msg);
-    public abstract void addMessage(final String text);
+    public abstract void addMessage(final String text) throws RPGException;
     public abstract String getErrorMessage();
     public abstract String getMessage();
     /**
