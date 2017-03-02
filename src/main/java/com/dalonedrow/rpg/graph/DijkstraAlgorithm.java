@@ -36,7 +36,11 @@ public class DijkstraAlgorithm {
             findMinimalDistances(node);
         }
     }
-    private void findMinimalDistances(GraphNode node) {
+    /**
+     * Finds the minimal distances between a node and its neighbors.
+     * @param node the node
+     */
+    private void findMinimalDistances(final GraphNode node) {
         List<GraphNode> adjacentNodes = getNeighbors(node);
         for (GraphNode target : adjacentNodes) {
             if (getShortestDistance(target) > getShortestDistance(node)
@@ -51,8 +55,10 @@ public class DijkstraAlgorithm {
     }
     private double getDistance(GraphNode node, GraphNode target) {
         for (GraphEdge edge : edges) {
-            if (edge.getFrom() == node.getIndex()
-                    && edge.getTo() == target.getIndex()) {
+            if ((edge.getFrom() == node.getIndex()
+                    && edge.getTo() == target.getIndex())
+                    || (edge.getTo() == node.getIndex()
+                            && edge.getFrom() == target.getIndex())) {
                 return ((WeightedGraphEdge) edge).getCost();
             }
         }
@@ -72,16 +78,30 @@ public class DijkstraAlgorithm {
         }
         return minimum;
     }
-    private List<GraphNode> getNeighbors(GraphNode node) {
+    /**
+     * Gets all neighbors to a vertex.
+     * @param node the vertex
+     * @return {@link List}<{@link GraphNode}>
+     */
+    private List<GraphNode> getNeighbors(final GraphNode node) {
         List<GraphNode> neighbors = new ArrayList<GraphNode>();
         for (GraphEdge edge : edges) {
+            // check each edge BI-DIRECTIONALLY
             if (edge.getFrom() == node.getIndex()
                     && !isSettled(getNodeByIndex(edge.getTo()))) {
                 neighbors.add(getNodeByIndex(edge.getTo()));
+            } else if (edge.getTo() == node.getIndex()
+                    && !isSettled(getNodeByIndex(edge.getFrom()))) {
+                neighbors.add(getNodeByIndex(edge.getFrom()));
             }
         }
         return neighbors;
     }
+    /**
+     * Gets a node by its index.
+     * @param index the node index
+     * @return {@link GraphNode}
+     */
     private GraphNode getNodeByIndex(final int index) {
         GraphNode node = null;
         for (int i = nodes.size() - 1; i >= 0; i--) {
@@ -91,7 +111,7 @@ public class DijkstraAlgorithm {
         }
         return node;
     }
-    public LinkedList<GraphNode> getPath(GraphNode target) {
+    public LinkedList<GraphNode> getPath(final GraphNode target) {
         LinkedList<GraphNode> path = new LinkedList<GraphNode>();
         GraphNode step = target;
         // check if a path exists
@@ -107,7 +127,13 @@ public class DijkstraAlgorithm {
         Collections.reverse(path);
         return path;
     }
-    private double getShortestDistance(GraphNode destination) {
+    /**
+     * Gets the shortest distance to a node.  If no distance has been set,
+     * Integer.MAX_VALUE is returned.
+     * @param destination the destination {@link GraphNode}
+     * @return {@link double}
+     */
+    private double getShortestDistance(final GraphNode destination) {
         Double d = distance.get(destination);
         if (d == null) {
             return Integer.MAX_VALUE;
@@ -115,7 +141,12 @@ public class DijkstraAlgorithm {
             return d;
         }
     }
-    private boolean isSettled(GraphNode vertex) {
+    /**
+     * Determines if a node has been settled yet.
+     * @param vertex the node
+     * @return <tt>true</tt> if the node was settled; <tt>false</tt> otherwise
+     */
+    private boolean isSettled(final GraphNode vertex) {
         return settledNodes.contains(vertex);
     }
 }

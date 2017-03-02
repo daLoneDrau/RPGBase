@@ -111,6 +111,7 @@ public abstract class Interactive<IO extends BaseInteractiveObject> {
     }
     public final void ARX_INTERACTIVE_DestroyIO(IO io)
             throws RPGException {
+        System.out.println("ARX_INTERACTIVE_DestroyIO("+io.getRefId());
         if (io != null
                 && io.getShow() != IoGlobals.SHOW_FLAG_DESTROYED) {
             ARX_INTERACTIVE_ForceIOLeaveZone(io, 0);
@@ -395,6 +396,7 @@ public abstract class Interactive<IO extends BaseInteractiveObject> {
      * @param io the IO
      */
     public final void releaseIO(final IO io) {
+        System.out.print("release io("+io.getRefId());
         if (io != null) {
             if (io.getInventory() != null) {
                 InventoryData inventory = io.getInventory();
@@ -421,14 +423,18 @@ public abstract class Interactive<IO extends BaseInteractiveObject> {
             for (int i = 0; i < objs.length; i++) {
                 if (objs[i] != null
                         && id == objs[i].getRefId()) {
+                    System.out.print("found id "+io.getRefId());
                     index = i;
                     break;
                 }
             }
             if (index > -1) {
+                System.out.println("setting object at index "
+            +index+"("+objs[index].getRefId()+") to null");
                 objs[index] = null;
             }
             objs = null;
+            objs = getIOs();
         }
     }
     /**

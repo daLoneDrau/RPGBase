@@ -660,7 +660,7 @@ public abstract class TextProcessor {
             if (targetIO.hasIOFlag(IoGlobals.IO_03_NPC)) {
                 tokenized =
                         tokenized.replaceAll("<tioName>", new String(targetIO
-                                .getNPCData().getName()));
+                                .getNPCData().getTitle()));
             } else if (targetIO.hasIOFlag(IoGlobals.IO_02_ITEM)) {
                 tokenized =
                         tokenized.replaceAll("<tioName>", new String(targetIO
@@ -673,7 +673,7 @@ public abstract class TextProcessor {
             try {
                 String name = "";
                 if (targetIO.hasIOFlag(IoGlobals.IO_03_NPC)) {
-                    name = new String(targetIO.getNPCData().getName());
+                    name = new String(targetIO.getNPCData().getTitle());
                 } else if (targetIO.hasIOFlag(IoGlobals.IO_02_ITEM)) {
                     name = new String(targetIO.getItemData().getItemName());
                 }
