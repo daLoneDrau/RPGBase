@@ -1,6 +1,7 @@
 package com.dalonedrow.rpg.base.systems;
 
 import com.dalonedrow.rpg.base.flyweights.BaseInteractiveObject;
+import com.dalonedrow.rpg.base.flyweights.RPGException;
 
 public abstract class Speech<IO extends BaseInteractiveObject> {
     /** the one and only instance of the <tt>Speech</tt> class. */
@@ -20,5 +21,5 @@ public abstract class Speech<IO extends BaseInteractiveObject> {
         Speech.instance = i;
     }
     public abstract int ARX_SPEECH_AddSpeech(final IO io, final int mood,
-            final String speech, long voixoff);
+            final String speech, long voixoff) throws RPGException;
 }

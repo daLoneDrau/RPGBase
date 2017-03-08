@@ -275,10 +275,6 @@ public abstract class TextProcessor {
         // find the length of the columns
         int maxLen = maxw + separator.length();
         int numCols = (width - maxw) / maxLen;
-        System.out.println("width is "+width);
-        System.out.println("max word width is "+maxw);
-        System.out.println("max len "+maxLen);
-        System.out.println("numCols "+numCols);
         return this.getSelectionsAsColumns(numCols, list, separator);
     }
     /**

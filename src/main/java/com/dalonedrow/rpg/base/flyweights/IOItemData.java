@@ -74,7 +74,7 @@ public abstract class IOItemData<IO extends BaseInteractiveObject> {
         // send event to target. someone attacked you!
         Script.getInstance().setEventSender(io_source);
         Script.getInstance().sendIOScriptEvent(io_target,
-                ScriptConstants.SM_57_AGGRESSION, null, null);
+                ScriptConstants.SM_057_AGGRESSION, null, null);
         if (io_source != null
                 && io_target != null) {
             if (!io_target.hasIOFlag(IoGlobals.IO_01_PC)
@@ -115,14 +115,14 @@ public abstract class IOItemData<IO extends BaseInteractiveObject> {
                     attack = io_source.getPCData().getFullDamage();
                     if (io_source.getPCData().calculateCriticalHit()
                             && Script.getInstance().sendIOScriptEvent(
-                                    io_source, ScriptConstants.SM_54_CRITICAL,
+                                    io_source, ScriptConstants.SM_054_CRITICAL,
                                     null, null) != ScriptConstants.REFUSE) {
                         critical = true;
                     }
                     damages = attack * dmgModifier;
                     if (io_source.getPCData().calculateBackstab()
                             && Script.getInstance().sendIOScriptEvent(
-                                    io_source, ScriptConstants.SM_56_BACKSTAB,
+                                    io_source, ScriptConstants.SM_056_BACKSTAB,
                                     null, null) != ScriptConstants.REFUSE) {
                         backstab = this.getBackstabModifier();
                     }
@@ -148,7 +148,7 @@ public abstract class IOItemData<IO extends BaseInteractiveObject> {
                         if (io_source.getNPCData().calculateCriticalHit()
                                 && Script.getInstance().sendIOScriptEvent(
                                         io_source,
-                                        ScriptConstants.SM_54_CRITICAL,
+                                        ScriptConstants.SM_054_CRITICAL,
                                         null, null) != ScriptConstants.REFUSE) {
                             critical = true;
                         }
@@ -156,7 +156,7 @@ public abstract class IOItemData<IO extends BaseInteractiveObject> {
                         if (io_source.getNPCData().calculateBackstab()
                                 && Script.getInstance().sendIOScriptEvent(
                                         io_source,
-                                        ScriptConstants.SM_56_BACKSTAB,
+                                        ScriptConstants.SM_056_BACKSTAB,
                                         null, null) != ScriptConstants.REFUSE) {
                             backstab = this.getBackstabModifier();
                         }
@@ -216,7 +216,6 @@ public abstract class IOItemData<IO extends BaseInteractiveObject> {
                     }
 
                     if (io_target.hasIOFlag(IoGlobals.IO_01_PC)) {
-                        System.out.println("pc");
                         // TODO - push player when hit
                         // ARX_DAMAGES_SCREEN_SPLATS_Add(&ppos, dmgs);
                         io_target.getPCData().ARX_DAMAGES_DamagePlayer(damages,

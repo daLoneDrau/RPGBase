@@ -432,7 +432,7 @@ public abstract class IoNpcData<IO extends BaseInteractiveObject>
     public final void forceDeath(final IO killerIO) throws RPGException {
         if (io.getMainevent() == null
                 || (io.getMainevent() != null
-                && !io.getMainevent().equalsIgnoreCase("DEAD"))) {
+                        && !io.getMainevent().equalsIgnoreCase("DEAD"))) {
             IO oldSender = (IO) Script.getInstance().getEventSender();
             Script.getInstance().setEventSender(killerIO);
 
@@ -474,7 +474,7 @@ public abstract class IoNpcData<IO extends BaseInteractiveObject>
 
             if (io.getMainevent() == null
                     || (io.getMainevent() != null
-                    && !io.getMainevent().equalsIgnoreCase("DEAD"))) {
+                            && !io.getMainevent().equalsIgnoreCase("DEAD"))) {
                 Script.getInstance().notifyIOEvent(
                         io, ScriptConsts.SM_017_DIE, "");
             }

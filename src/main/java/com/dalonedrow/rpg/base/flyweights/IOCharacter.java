@@ -22,8 +22,6 @@ import com.dalonedrow.utils.Watcher;
 @SuppressWarnings({ "rawtypes", "unchecked" })
 public abstract class IOCharacter<IO extends BaseInteractiveObject>
         implements Watchable {
-    public abstract boolean calculateBackstab();
-    public abstract boolean calculateCriticalHit();
     /** the set of attributes defining the PC. */
     private Map<String, Attribute> attributes;
     /**
@@ -187,6 +185,8 @@ public abstract class IOCharacter<IO extends BaseInteractiveObject>
         }
         computeFullStats();
     }
+    public abstract boolean calculateBackstab();
+    public abstract boolean calculateCriticalHit();
     /**
      * Clears the attribute modifier for a specific attribute.
      * @param attr the attribute name
@@ -333,6 +333,7 @@ public abstract class IOCharacter<IO extends BaseInteractiveObject>
      * @return {@link IO}
      */
     public abstract IO getIo();
+    public abstract float getMaxLife();
     /**
      * Initializes the items the {@link IOCharacter} has equipped.
      * @param total the total number of equipment slots
@@ -437,5 +438,4 @@ public abstract class IOCharacter<IO extends BaseInteractiveObject>
         }
         equippedItems[slot] = id;
     }
-    public abstract float getMaxLife();
 }

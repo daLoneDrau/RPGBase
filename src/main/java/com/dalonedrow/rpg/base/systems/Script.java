@@ -14,10 +14,10 @@ import com.dalonedrow.pooled.PooledException;
 import com.dalonedrow.pooled.PooledStringBuilder;
 import com.dalonedrow.pooled.StringBuilderPool;
 import com.dalonedrow.rpg.base.constants.IoGlobals;
-import com.dalonedrow.rpg.base.constants.ScriptConsts;
 import com.dalonedrow.rpg.base.flyweights.BaseInteractiveObject;
 import com.dalonedrow.rpg.base.flyweights.ErrorMessage;
 import com.dalonedrow.rpg.base.flyweights.RPGException;
+import com.dalonedrow.rpg.base.flyweights.ScriptConstants;
 import com.dalonedrow.rpg.base.flyweights.ScriptTimer;
 import com.dalonedrow.rpg.base.flyweights.ScriptTimerAction;
 import com.dalonedrow.rpg.base.flyweights.ScriptTimerInitializationParameters;
@@ -110,7 +110,7 @@ public abstract class Script<IO extends BaseInteractiveObject,
                             sendIOScriptEvent(io, 0, null, io.getMainevent());
                         } else {
                             sendIOScriptEvent(
-                                    io, ScriptConsts.SM_008_MAIN, null, null);
+                                    io, ScriptConstants.SM_008_MAIN, null, null);
                         }
                     }
                 }
@@ -168,65 +168,65 @@ public abstract class Script<IO extends BaseInteractiveObject,
         boolean disallowed = false;
         // check to see if message is for an event that was disabled
         switch (msg) {
-        case ScriptConsts.SM_55_COLLIDE_NPC:
-            if (script.hasAllowedEvent(ScriptConsts.DISABLE_COLLIDE_NPC)) {
+        case ScriptConstants.SM_055_COLLIDE_NPC:
+            if (script.hasAllowedEvent(ScriptConstants.DISABLE_COLLIDE_NPC)) {
                 disallowed = true;
             }
             break;
-        case ScriptConsts.SM_10_CHAT:
-            if (script.hasAllowedEvent(ScriptConsts.DISABLE_CHAT)) {
+        case ScriptConstants.SM_010_CHAT:
+            if (script.hasAllowedEvent(ScriptConstants.DISABLE_CHAT)) {
                 disallowed = true;
             }
             break;
-        case ScriptConsts.SM_016_HIT:
-            if (script.hasAllowedEvent(ScriptConsts.DISABLE_HIT)) {
+        case ScriptConstants.SM_016_HIT:
+            if (script.hasAllowedEvent(ScriptConstants.DISABLE_HIT)) {
                 disallowed = true;
             }
             break;
-        case ScriptConsts.SM_28_INVENTORY2_OPEN:
+        case ScriptConstants.SM_028_INVENTORY2_OPEN:
             if (script.hasAllowedEvent(
-                    ScriptConsts.DISABLE_INVENTORY2_OPEN)) {
+                    ScriptConstants.DISABLE_INVENTORY2_OPEN)) {
                 disallowed = true;
             }
             break;
-        case ScriptConsts.SM_46_HEAR:
-            if (script.hasAllowedEvent(ScriptConsts.DISABLE_HEAR)) {
+        case ScriptConstants.SM_046_HEAR:
+            if (script.hasAllowedEvent(ScriptConstants.DISABLE_HEAR)) {
                 disallowed = true;
             }
             break;
-        case ScriptConsts.SM_23_UNDETECTPLAYER:
-        case ScriptConsts.SM_22_DETECTPLAYER:
-            if (script.hasAllowedEvent(ScriptConsts.DISABLE_DETECT)) {
+        case ScriptConstants.SM_023_UNDETECTPLAYER:
+        case ScriptConstants.SM_022_DETECTPLAYER:
+            if (script.hasAllowedEvent(ScriptConstants.DISABLE_DETECT)) {
                 disallowed = true;
             }
             break;
-        case ScriptConsts.SM_57_AGGRESSION:
+        case ScriptConstants.SM_057_AGGRESSION:
             if (script.hasAllowedEvent(
-                    ScriptConsts.DISABLE_AGGRESSION)) {
+                    ScriptConstants.DISABLE_AGGRESSION)) {
                 disallowed = true;
             }
             break;
-        case ScriptConsts.SM_008_MAIN:
-            if (script.hasAllowedEvent(ScriptConsts.DISABLE_MAIN)) {
+        case ScriptConstants.SM_008_MAIN:
+            if (script.hasAllowedEvent(ScriptConstants.DISABLE_MAIN)) {
                 disallowed = true;
             }
             break;
-        case ScriptConsts.SM_73_CURSORMODE:
+        case ScriptConstants.SM_073_CURSORMODE:
             if (script.hasAllowedEvent(
-                    ScriptConsts.DISABLE_CURSORMODE)) {
+                    ScriptConstants.DISABLE_CURSORMODE)) {
                 disallowed = true;
             }
             break;
-        case ScriptConsts.SM_74_EXPLORATIONMODE:
+        case ScriptConstants.SM_074_EXPLORATIONMODE:
             if (script.hasAllowedEvent(
-                    ScriptConsts.DISABLE_EXPLORATIONMODE)) {
+                    ScriptConstants.DISABLE_EXPLORATIONMODE)) {
                 disallowed = true;
             }
             break;
-        case ScriptConsts.SM_61_KEY_PRESSED:
+        case ScriptConstants.SM_061_KEY_PRESSED:
             // float dwCurrTime = ARX_TIME_Get();
             // if ((dwCurrTime - g_TimeStartCinemascope) < 3000) {
-            // return ScriptConsts.REFUSE;
+            // return ScriptConstants.REFUSE;
             // }
             break;
         default:
@@ -235,7 +235,7 @@ public abstract class Script<IO extends BaseInteractiveObject,
         return disallowed;
     }
     public final void eventStackClear() {
-        for (int i = 0; i < ScriptConsts.MAX_EVENT_STACK; i++) {
+        for (int i = 0; i < ScriptConstants.MAX_EVENT_STACK; i++) {
             if (getStackedEvent(i).exists()) {
                 getStackedEvent(i).setParams(null);
                 getStackedEvent(i).setEventname(null);
@@ -248,7 +248,7 @@ public abstract class Script<IO extends BaseInteractiveObject,
         clearAdditionalEventStacks();
     }
     public final void eventStackClearForIo(final IO io) {
-        for (int i = 0; i < ScriptConsts.MAX_EVENT_STACK; i++) {
+        for (int i = 0; i < ScriptConstants.MAX_EVENT_STACK; i++) {
             if (getStackedEvent(i).exists()
                     && io.equals(getStackedEvent(i).getIo())) {
                 getStackedEvent(i).setParams(null);
@@ -263,7 +263,7 @@ public abstract class Script<IO extends BaseInteractiveObject,
     }
     public final void eventStackExecute() throws RPGException {
         int count = 0;
-        for (int i = 0; i < ScriptConsts.MAX_EVENT_STACK; i++) {
+        for (int i = 0; i < ScriptConstants.MAX_EVENT_STACK; i++) {
             if (getStackedEvent(i).exists()) {
                 int ioid = getStackedEvent(i).getIo().getRefId();
                 if (Interactive.getInstance().hasIO(ioid)) {
@@ -327,9 +327,9 @@ public abstract class Script<IO extends BaseInteractiveObject,
         if (gvars != null) {
             for (int i = gvars.length - 1; i >= 0; i--) {
                 if (gvars[i] != null
-                        && (gvars[i].getType() == ScriptConsts.TYPE_G_00_TEXT
+                        && (gvars[i].getType() == ScriptConstants.TYPE_G_00_TEXT
                                 || gvars[i]
-                                        .getType() == ScriptConsts.TYPE_L_08_TEXT)
+                                        .getType() == ScriptConstants.TYPE_L_08_TEXT)
                         && gvars[i].getText() != null) {
                     gvars[i].set(null);
                 }
@@ -350,9 +350,9 @@ public abstract class Script<IO extends BaseInteractiveObject,
             for (; i >= 0; i--) {
                 if (io.getScript().getLocalVariable(i) != null
                         && (io.getScript().getLocalVariable(i)
-                                .getType() == ScriptConsts.TYPE_G_00_TEXT
+                                .getType() == ScriptConstants.TYPE_G_00_TEXT
                                 || io.getScript().getLocalVariable(i)
-                                        .getType() == ScriptConsts.TYPE_L_08_TEXT)
+                                        .getType() == ScriptConstants.TYPE_L_08_TEXT)
                         && io.getScript().getLocalVariable(i)
                                 .getText() != null) {
                     io.getScript().getLocalVariable(i).set(null);
@@ -383,7 +383,7 @@ public abstract class Script<IO extends BaseInteractiveObject,
         for (int i = 0; i < gvars.length; i++) {
             if (gvars[i] != null
                     && gvars[i].getName().equals(name)
-                    && gvars[i].getType() == ScriptConsts.TYPE_G_03_FLOAT_ARR) {
+                    && gvars[i].getType() == ScriptConstants.TYPE_G_03_FLOAT_ARR) {
                 index = i;
                 break;
             }
@@ -421,7 +421,7 @@ public abstract class Script<IO extends BaseInteractiveObject,
         for (int i = 0; i < gvars.length; i++) {
             if (gvars[i] != null
                     && gvars[i].getName().equals(name)
-                    && gvars[i].getType() == ScriptConsts.TYPE_G_02_FLOAT) {
+                    && gvars[i].getType() == ScriptConstants.TYPE_G_02_FLOAT) {
                 index = i;
                 break;
             }
@@ -459,7 +459,7 @@ public abstract class Script<IO extends BaseInteractiveObject,
         for (int i = 0; i < gvars.length; i++) {
             if (gvars[i] != null
                     && gvars[i].getName().equals(name)
-                    && gvars[i].getType() == ScriptConsts.TYPE_G_05_INT_ARR) {
+                    && gvars[i].getType() == ScriptConstants.TYPE_G_05_INT_ARR) {
                 index = i;
                 break;
             }
@@ -497,7 +497,7 @@ public abstract class Script<IO extends BaseInteractiveObject,
         for (int i = 0; i < gvars.length; i++) {
             if (gvars[i] != null
                     && gvars[i].getName().equals(name)
-                    && gvars[i].getType() == ScriptConsts.TYPE_G_04_INT) {
+                    && gvars[i].getType() == ScriptConstants.TYPE_G_04_INT) {
                 index = i;
                 break;
             }
@@ -535,7 +535,7 @@ public abstract class Script<IO extends BaseInteractiveObject,
         for (int i = 0; i < gvars.length; i++) {
             if (gvars[i] != null
                     && gvars[i].getName().equals(name)
-                    && gvars[i].getType() == ScriptConsts.TYPE_G_07_LONG_ARR) {
+                    && gvars[i].getType() == ScriptConstants.TYPE_G_07_LONG_ARR) {
                 index = i;
                 break;
             }
@@ -573,7 +573,7 @@ public abstract class Script<IO extends BaseInteractiveObject,
         for (int i = 0; i < gvars.length; i++) {
             if (gvars[i] != null
                     && gvars[i].getName().equals(name)
-                    && gvars[i].getType() == ScriptConsts.TYPE_G_06_LONG) {
+                    && gvars[i].getType() == ScriptConstants.TYPE_G_06_LONG) {
                 index = i;
                 break;
             }
@@ -611,7 +611,7 @@ public abstract class Script<IO extends BaseInteractiveObject,
         for (int i = 0; i < gvars.length; i++) {
             if (gvars[i] != null
                     && gvars[i].getName().equals(name)
-                    && gvars[i].getType() == ScriptConsts.TYPE_G_01_TEXT_ARR) {
+                    && gvars[i].getType() == ScriptConstants.TYPE_G_01_TEXT_ARR) {
                 index = i;
                 break;
             }
@@ -649,7 +649,7 @@ public abstract class Script<IO extends BaseInteractiveObject,
         for (int i = 0; i < gvars.length; i++) {
             if (gvars[i] != null
                     && gvars[i].getName().equals(name)
-                    && gvars[i].getType() == ScriptConsts.TYPE_G_00_TEXT) {
+                    && gvars[i].getType() == ScriptConstants.TYPE_G_00_TEXT) {
                 index = i;
                 break;
             }
@@ -860,10 +860,10 @@ public abstract class Script<IO extends BaseInteractiveObject,
      */
     public final int notifyIOEvent(final IO io, final int msg,
             final String params) throws RPGException {
-        int acceptance = ScriptConsts.REFUSE;
+        int acceptance = ScriptConstants.REFUSE;
         if (sendIOScriptEvent(io, msg, null, null) != acceptance) {
             switch (msg) {
-            case ScriptConsts.SM_017_DIE:
+            case ScriptConstants.SM_017_DIE:
                 if (io != null && Interactive.getInstance().hasIO(io)) {
                     // TODO - set death color
                     // io->infracolor.b = 1.f;
@@ -874,7 +874,7 @@ public abstract class Script<IO extends BaseInteractiveObject,
             default:
                 break;
             }
-            acceptance = ScriptConsts.ACCEPT;
+            acceptance = ScriptConstants.ACCEPT;
         }
         return acceptance;
     }
@@ -1018,7 +1018,7 @@ public abstract class Script<IO extends BaseInteractiveObject,
 
                 if (initialize) {
                     sendScriptEvent((SCRIPTABLE) objIO.getScript(),
-                            ScriptConsts.SM_001_INIT,
+                            ScriptConstants.SM_001_INIT,
                             new Object[0],
                             objIO,
                             null);
@@ -1037,7 +1037,7 @@ public abstract class Script<IO extends BaseInteractiveObject,
 
                 if (initialize) {
                     sendScriptEvent((SCRIPTABLE) objIO.getOverscript(),
-                            ScriptConsts.SM_001_INIT,
+                            ScriptConstants.SM_001_INIT,
                             new Object[0],
                             objIO,
                             null);
@@ -1050,7 +1050,7 @@ public abstract class Script<IO extends BaseInteractiveObject,
                 if (objIO != null
                         && objIO.getScript() != null) {
                     sendScriptEvent((SCRIPTABLE) objIO.getScript(),
-                            ScriptConsts.SM_033_INITEND,
+                            ScriptConstants.SM_033_INITEND,
                             new Object[0],
                             objIO,
                             null);
@@ -1059,7 +1059,7 @@ public abstract class Script<IO extends BaseInteractiveObject,
                 if (objIO != null
                         && objIO.getOverscript() != null) {
                     sendScriptEvent((SCRIPTABLE) objIO.getOverscript(),
-                            ScriptConsts.SM_033_INITEND,
+                            ScriptConstants.SM_033_INITEND,
                             new Object[0],
                             objIO,
                             null);
@@ -1076,11 +1076,11 @@ public abstract class Script<IO extends BaseInteractiveObject,
             throws RPGException {
         int msg = 0;
         if (eventName.equalsIgnoreCase("INIT")) {
-            msg = ScriptConsts.SM_001_INIT;
+            msg = ScriptConstants.SM_001_INIT;
         } else if (eventName.equalsIgnoreCase("HIT")) {
-            msg = ScriptConsts.SM_016_HIT;
+            msg = ScriptConstants.SM_016_HIT;
         } else if (eventName.equalsIgnoreCase("INIT_END")) {
-            msg = ScriptConsts.SM_033_INITEND;
+            msg = ScriptConstants.SM_033_INITEND;
         }
         if (msg > 0) {
             runMessage(script, msg, io);
@@ -1111,43 +1111,46 @@ public abstract class Script<IO extends BaseInteractiveObject,
     protected void runMessage(SCRIPTABLE script, int msg, IO io)
             throws RPGException {
         switch (msg) {
-        case ScriptConsts.SM_001_INIT:
+        case ScriptConstants.SM_001_INIT:
             script.onInit();
             break;
-        case ScriptConsts.SM_002_INVENTORYIN:
+        case ScriptConstants.SM_002_INVENTORYIN:
             script.onInventoryIn();
             break;
-        case ScriptConsts.SM_004_INVENTORYUSE:
+        case ScriptConstants.SM_004_INVENTORYUSE:
             script.onInventoryUse();
             break;
-        case ScriptConsts.SM_007_EQUIPOUT:
+        case ScriptConstants.SM_007_EQUIPOUT:
             script.onUnequip();
             break;
-        case ScriptConsts.SM_016_HIT:
+        case ScriptConstants.SM_016_HIT:
             script.onHit();
             break;
-        case ScriptConsts.SM_017_DIE:
+        case ScriptConstants.SM_017_DIE:
             script.onDie();
             break;
-        case ScriptConsts.SM_24_COMBINE:
+        case ScriptConstants.SM_024_COMBINE:
             script.onCombine();
             break;
-        case ScriptConsts.SM_033_INITEND:
+        case ScriptConstants.SM_033_INITEND:
             script.onInitEnd();
             break;
-        case ScriptConsts.SM_41_LOAD:
+        case ScriptConstants.SM_041_LOAD:
             script.onLoad();
             break;
-        case ScriptConsts.SM_43_RELOAD:
+        case ScriptConstants.SM_043_RELOAD:
             script.onReload();
             break;
-        case ScriptConsts.SM_045_OUCH:
+        case ScriptConstants.SM_045_OUCH:
             script.onOuch();
             break;
-        case ScriptConsts.SM_57_AGGRESSION:
+        case ScriptConstants.SM_046_HEAR:
+            script.onHear();
+            break;
+        case ScriptConstants.SM_057_AGGRESSION:
             script.onAggression();
             break;
-        case ScriptConsts.SM_69_IDENTIFY:
+        case ScriptConstants.SM_069_IDENTIFY:
             script.onIdentify();
             break;
         default:
@@ -1309,7 +1312,7 @@ public abstract class Script<IO extends BaseInteractiveObject,
         if (hio.getScript() != null) {
             GLOB = 0;
             sendScriptEvent((SCRIPTABLE) hio.getScript(),
-                    ScriptConsts.SM_001_INIT,
+                    ScriptConstants.SM_001_INIT,
                     null,
                     hio,
                     null);
@@ -1321,7 +1324,7 @@ public abstract class Script<IO extends BaseInteractiveObject,
             if (hio.getOverscript() != null) {
                 GLOB = 0;
                 sendScriptEvent((SCRIPTABLE) hio.getOverscript(),
-                        ScriptConsts.SM_001_INIT,
+                        ScriptConstants.SM_001_INIT,
                         null,
                         hio,
                         null);
@@ -1334,7 +1337,7 @@ public abstract class Script<IO extends BaseInteractiveObject,
             if (hio.getScript() != null) {
                 GLOB = 0;
                 sendScriptEvent((SCRIPTABLE) hio.getScript(),
-                        ScriptConsts.SM_033_INITEND,
+                        ScriptConstants.SM_033_INITEND,
                         null,
                         hio,
                         null);
@@ -1347,7 +1350,7 @@ public abstract class Script<IO extends BaseInteractiveObject,
             if (hio.getOverscript() != null) {
                 GLOB = 0;
                 sendScriptEvent((SCRIPTABLE) hio.getOverscript(),
-                        ScriptConsts.SM_033_INITEND,
+                        ScriptConstants.SM_033_INITEND,
                         null,
                         hio,
                         null);
@@ -1355,7 +1358,7 @@ public abstract class Script<IO extends BaseInteractiveObject,
             hio = null;
         }
         eventSender = oldEventSender;
-        return ScriptConsts.ACCEPT;
+        return ScriptConstants.ACCEPT;
     }
     /**
      * Sends a script event to an interactive object. The returned value is a
@@ -1378,8 +1381,8 @@ public abstract class Script<IO extends BaseInteractiveObject,
 
         if (Interactive.getInstance().hasIO(num)) {
             IO originalEventSender = eventSender;
-            if (msg == ScriptConsts.SM_001_INIT
-                    || msg == ScriptConsts.SM_033_INITEND) {
+            if (msg == ScriptConstants.SM_001_INIT
+                    || msg == ScriptConstants.SM_033_INITEND) {
                 IO hio = (IO) Interactive.getInstance().getIO(num);
                 sendIOScriptEventReverse(hio, msg, params, eventname);
                 eventSender = originalEventSender;
@@ -1409,7 +1412,7 @@ public abstract class Script<IO extends BaseInteractiveObject,
                         params,
                         hio,
                         eventname);
-                if (s != ScriptConsts.REFUSE) {
+                if (s != ScriptConstants.REFUSE) {
                     eventSender = originalEventSender;
                     GLOB = 0;
 
@@ -1424,7 +1427,7 @@ public abstract class Script<IO extends BaseInteractiveObject,
                         eventSender = originalEventSender;
                         return ret;
                     } else {
-                        return ScriptConsts.REFUSE;
+                        return ScriptConstants.REFUSE;
                     }
                 }
                 hio = null;
@@ -1433,7 +1436,7 @@ public abstract class Script<IO extends BaseInteractiveObject,
         }
 
         // Refused further processing.
-        return ScriptConsts.REFUSE;
+        return ScriptConstants.REFUSE;
     }
     private int sendIOScriptEventReverse(final IO io, final int msg,
             final Object[] params, final String eventname) throws RPGException {
@@ -1471,7 +1474,7 @@ public abstract class Script<IO extends BaseInteractiveObject,
                         params,
                         hio,
                         eventname);
-                if (s != ScriptConsts.REFUSE) {
+                if (s != ScriptConstants.REFUSE) {
                     GLOB = 0;
                     if (Interactive.getInstance().hasIO(io.getRefId())) {
                         return sendScriptEvent(
@@ -1481,7 +1484,7 @@ public abstract class Script<IO extends BaseInteractiveObject,
                                 io,
                                 eventname);
                     } else {
-                        return ScriptConsts.REFUSE;
+                        return ScriptConstants.REFUSE;
                     }
                 }
             }
@@ -1489,7 +1492,7 @@ public abstract class Script<IO extends BaseInteractiveObject,
             GLOB = 0;
         }
         // Refused further processing.
-        return ScriptConsts.REFUSE;
+        return ScriptConstants.REFUSE;
     }
     /**
      * Sends a scripted event to all IOs.
@@ -1500,14 +1503,14 @@ public abstract class Script<IO extends BaseInteractiveObject,
      */
     public final int sendMsgToAllIO(final int msg, final Object[] dat)
             throws RPGException {
-        int ret = ScriptConsts.ACCEPT;
+        int ret = ScriptConstants.ACCEPT;
         int i = Interactive.getInstance().getMaxIORefId();
         for (; i >= 0; i--) {
             if (Interactive.getInstance().hasIO(i)) {
                 IO io = (IO) Interactive.getInstance().getIO(i);
                 if (sendIOScriptEvent(io, msg, dat,
-                        null) == ScriptConsts.REFUSE) {
-                    ret = ScriptConsts.REFUSE;
+                        null) == ScriptConstants.REFUSE) {
+                    ret = ScriptConstants.REFUSE;
                 }
             }
         }
@@ -1527,7 +1530,7 @@ public abstract class Script<IO extends BaseInteractiveObject,
     public final int sendScriptEvent(final SCRIPTABLE localScript,
             final int msg, final Object[] params, final IO io,
             final String eventName) throws RPGException {
-        int retVal = ScriptConsts.ACCEPT;
+        int retVal = ScriptConstants.ACCEPT;
         boolean keepGoing = true;
         if (localScript == null) {
             throw new RPGException(
@@ -1535,43 +1538,42 @@ public abstract class Script<IO extends BaseInteractiveObject,
         }
         if (io != null) {
             if (io.hasGameFlag(IoGlobals.GFLAG_MEGAHIDE)
-                    && msg != ScriptConsts.SM_43_RELOAD) {
-                return ScriptConsts.ACCEPT;
+                    && msg != ScriptConstants.SM_043_RELOAD) {
+                return ScriptConstants.ACCEPT;
             }
 
             if (io.getShow() == IoGlobals.SHOW_FLAG_DESTROYED) {
                 // destroyed
-                return ScriptConsts.ACCEPT;
+                return ScriptConstants.ACCEPT;
             }
             eventTotalCount++;
             io.setStatCount(io.getStatCount() + 1);
 
             if (io.hasIOFlag(IoGlobals.IO_06_FREEZESCRIPT)) {
-                if (msg == ScriptConsts.SM_41_LOAD) {
-                    return ScriptConsts.ACCEPT;
+                if (msg == ScriptConstants.SM_041_LOAD) {
+                    return ScriptConstants.ACCEPT;
                 }
-                return ScriptConsts.REFUSE;
+                return ScriptConstants.REFUSE;
             }
 
             if (io.hasIOFlag(IoGlobals.IO_03_NPC)
                     && !io.hasIOFlag(IoGlobals.IO_09_DWELLING)) {
                 if (io.getNPCData().getBaseLife() <= 0.f
-                        && msg != ScriptConsts.SM_001_INIT
-                        && msg != ScriptConsts.SM_12_DEAD
-                        && msg != ScriptConsts.SM_017_DIE
-                        && msg != ScriptConsts.SM_255_EXECUTELINE
-                        && msg != ScriptConsts.SM_43_RELOAD
-                        && msg != ScriptConsts.SM_255_EXECUTELINE
-                        && msg != ScriptConsts.SM_28_INVENTORY2_OPEN
-                        && msg != ScriptConsts.SM_29_INVENTORY2_CLOSE) {
-                    return ScriptConsts.ACCEPT;
+                        && msg != ScriptConstants.SM_001_INIT
+                        && msg != ScriptConstants.SM_012_DEAD
+                        && msg != ScriptConstants.SM_017_DIE
+                        && msg != ScriptConstants.SM_255_EXECUTELINE
+                        && msg != ScriptConstants.SM_043_RELOAD
+                        && msg != ScriptConstants.SM_255_EXECUTELINE
+                        && msg != ScriptConstants.SM_028_INVENTORY2_OPEN
+                        && msg != ScriptConstants.SM_029_INVENTORY2_CLOSE) {
+                    return ScriptConstants.ACCEPT;
                 }
             }
-
             // change weapon if one breaks
             /*
              * if (((io->ioflags & IO_FIX) || (io->ioflags & IO_ITEM)) && (msg
-             * == ScriptConsts.SM_BREAK)) { ManageCasseDArme(io); }
+             * == ScriptConstants.SM_BREAK)) { ManageCasseDArme(io); }
              */
         }
         // use master script if available
@@ -1592,11 +1594,11 @@ public abstract class Script<IO extends BaseInteractiveObject,
             runEvent(script, eventName, io);
         } else {
             if (eventIsDisallowed(msg, script)) {
-                return ScriptConsts.REFUSE;
+                return ScriptConstants.REFUSE;
             }
             runMessage(script, msg, io);
         }
-        int ret = ScriptConsts.ACCEPT;
+        int ret = ScriptConstants.ACCEPT;
         return ret;
     }
     /**
@@ -1611,74 +1613,74 @@ public abstract class Script<IO extends BaseInteractiveObject,
         if (event.equalsIgnoreCase("COLLIDE_NPC")) {
             if (isOn) {
                 io.getScript().removeDisallowedEvent(
-                        ScriptConsts.DISABLE_COLLIDE_NPC);
+                        ScriptConstants.DISABLE_COLLIDE_NPC);
             } else {
                 io.getScript().assignDisallowedEvent(
-                        ScriptConsts.DISABLE_COLLIDE_NPC);
+                        ScriptConstants.DISABLE_COLLIDE_NPC);
             }
         } else if (event.equalsIgnoreCase("CHAT")) {
             if (isOn) {
-                io.getScript().removeDisallowedEvent(ScriptConsts.DISABLE_CHAT);
+                io.getScript().removeDisallowedEvent(ScriptConstants.DISABLE_CHAT);
             } else {
-                io.getScript().assignDisallowedEvent(ScriptConsts.DISABLE_CHAT);
+                io.getScript().assignDisallowedEvent(ScriptConstants.DISABLE_CHAT);
             }
         } else if (event.equalsIgnoreCase("HIT")) {
             if (isOn) {
-                io.getScript().removeDisallowedEvent(ScriptConsts.DISABLE_HIT);
+                io.getScript().removeDisallowedEvent(ScriptConstants.DISABLE_HIT);
             } else {
-                io.getScript().assignDisallowedEvent(ScriptConsts.DISABLE_HIT);
+                io.getScript().assignDisallowedEvent(ScriptConstants.DISABLE_HIT);
             }
         } else if (event.equalsIgnoreCase("INVENTORY2_OPEN")) {
             if (isOn) {
                 io.getScript().removeDisallowedEvent(
-                        ScriptConsts.DISABLE_INVENTORY2_OPEN);
+                        ScriptConstants.DISABLE_INVENTORY2_OPEN);
             } else {
                 io.getScript().assignDisallowedEvent(
-                        ScriptConsts.DISABLE_INVENTORY2_OPEN);
+                        ScriptConstants.DISABLE_INVENTORY2_OPEN);
             }
         } else if (event.equalsIgnoreCase("DETECTPLAYER")) {
             if (isOn) {
                 io.getScript()
-                        .removeDisallowedEvent(ScriptConsts.DISABLE_DETECT);
+                        .removeDisallowedEvent(ScriptConstants.DISABLE_DETECT);
             } else {
                 io.getScript()
-                        .assignDisallowedEvent(ScriptConsts.DISABLE_DETECT);
+                        .assignDisallowedEvent(ScriptConstants.DISABLE_DETECT);
             }
         } else if (event.equalsIgnoreCase("HEAR")) {
             if (isOn) {
-                io.getScript().removeDisallowedEvent(ScriptConsts.DISABLE_HEAR);
+                io.getScript().removeDisallowedEvent(ScriptConstants.DISABLE_HEAR);
             } else {
-                io.getScript().assignDisallowedEvent(ScriptConsts.DISABLE_HEAR);
+                io.getScript().assignDisallowedEvent(ScriptConstants.DISABLE_HEAR);
             }
         } else if (event.equalsIgnoreCase("AGGRESSION")) {
             if (isOn) {
                 io.getScript()
-                        .removeDisallowedEvent(ScriptConsts.DISABLE_AGGRESSION);
+                        .removeDisallowedEvent(ScriptConstants.DISABLE_AGGRESSION);
             } else {
                 io.getScript()
-                        .assignDisallowedEvent(ScriptConsts.DISABLE_AGGRESSION);
+                        .assignDisallowedEvent(ScriptConstants.DISABLE_AGGRESSION);
             }
         } else if (event.equalsIgnoreCase("MAIN")) {
             if (isOn) {
-                io.getScript().removeDisallowedEvent(ScriptConsts.DISABLE_MAIN);
+                io.getScript().removeDisallowedEvent(ScriptConstants.DISABLE_MAIN);
             } else {
-                io.getScript().assignDisallowedEvent(ScriptConsts.DISABLE_MAIN);
+                io.getScript().assignDisallowedEvent(ScriptConstants.DISABLE_MAIN);
             }
         } else if (event.equalsIgnoreCase("CURSORMODE")) {
             if (isOn) {
                 io.getScript()
-                        .removeDisallowedEvent(ScriptConsts.DISABLE_CURSORMODE);
+                        .removeDisallowedEvent(ScriptConstants.DISABLE_CURSORMODE);
             } else {
                 io.getScript()
-                        .assignDisallowedEvent(ScriptConsts.DISABLE_CURSORMODE);
+                        .assignDisallowedEvent(ScriptConstants.DISABLE_CURSORMODE);
             }
         } else if (event.equalsIgnoreCase("EXPLORATIONMODE")) {
             if (isOn) {
                 io.getScript().removeDisallowedEvent(
-                        ScriptConsts.DISABLE_EXPLORATIONMODE);
+                        ScriptConstants.DISABLE_EXPLORATIONMODE);
             } else {
                 io.getScript().assignDisallowedEvent(
-                        ScriptConsts.DISABLE_EXPLORATIONMODE);
+                        ScriptConstants.DISABLE_EXPLORATIONMODE);
             }
         }
     }
@@ -1717,33 +1719,33 @@ public abstract class Script<IO extends BaseInteractiveObject,
             ScriptVariable var = null;
             if (value instanceof String
                     || value instanceof char[]) {
-                var = new ScriptVariable(name, ScriptConsts.TYPE_G_00_TEXT,
+                var = new ScriptVariable(name, ScriptConstants.TYPE_G_00_TEXT,
                         value);
             } else if (value instanceof String[]
                     || value instanceof char[][]) {
                 var = new ScriptVariable(name,
-                        ScriptConsts.TYPE_G_01_TEXT_ARR, value);
+                        ScriptConstants.TYPE_G_01_TEXT_ARR, value);
             } else if (value instanceof Float) {
-                var = new ScriptVariable(name, ScriptConsts.TYPE_G_02_FLOAT,
+                var = new ScriptVariable(name, ScriptConstants.TYPE_G_02_FLOAT,
                         value);
             } else if (value instanceof Double) {
-                var = new ScriptVariable(name, ScriptConsts.TYPE_G_02_FLOAT,
+                var = new ScriptVariable(name, ScriptConstants.TYPE_G_02_FLOAT,
                         value);
             } else if (value instanceof float[]) {
                 var = new ScriptVariable(name,
-                        ScriptConsts.TYPE_G_03_FLOAT_ARR, value);
+                        ScriptConstants.TYPE_G_03_FLOAT_ARR, value);
             } else if (value instanceof Integer) {
-                var = new ScriptVariable(name, ScriptConsts.TYPE_G_04_INT,
+                var = new ScriptVariable(name, ScriptConstants.TYPE_G_04_INT,
                         value);
             } else if (value instanceof int[]) {
                 var = new ScriptVariable(name,
-                        ScriptConsts.TYPE_G_05_INT_ARR, value);
+                        ScriptConstants.TYPE_G_05_INT_ARR, value);
             } else if (value instanceof Long) {
-                var = new ScriptVariable(name, ScriptConsts.TYPE_G_06_LONG,
+                var = new ScriptVariable(name, ScriptConstants.TYPE_G_06_LONG,
                         value);
             } else if (value instanceof long[]) {
                 var = new ScriptVariable(name,
-                        ScriptConsts.TYPE_G_07_LONG_ARR, value);
+                        ScriptConstants.TYPE_G_07_LONG_ARR, value);
             } else {
                 PooledStringBuilder sb =
                         StringBuilderPool.getInstance().getStringBuilder();
@@ -1793,8 +1795,9 @@ public abstract class Script<IO extends BaseInteractiveObject,
      * Processes and IO's speech.
      * @param io the IO
      * @param params the {@link SpeechParameters}
+     * @throws RPGException 
      */
-    public final void speak(final IO io, final SpeechParameters params) {
+    public final void speak(final IO io, final SpeechParameters params) throws RPGException {
         // speech variables
         // ARX_CINEMATIC_SPEECH acs;
         // acs.type = ARX_CINE_SPEECH_NONE;
@@ -2027,7 +2030,7 @@ public abstract class Script<IO extends BaseInteractiveObject,
      */
     public final void stackSendIOScriptEvent(final IO io,
             final int msg, final Object[] params, final String eventname) {
-        for (int i = 0; i < ScriptConsts.MAX_EVENT_STACK; i++) {
+        for (int i = 0; i < ScriptConstants.MAX_EVENT_STACK; i++) {
             if (!getStackedEvent(i).exists()) {
                 if (params != null
                         && params.length > 0) {
@@ -2207,7 +2210,6 @@ public abstract class Script<IO extends BaseInteractiveObject,
                 TIMER timer = getScriptTimers()[i];
                 if (timer.exists()) {
                     long currentTime = Time.getInstance().getGameTime();
-                    System.out.println(currentTime);
                     if (timer.isTurnBased()) {
                         currentTime = Time.getInstance().getGameRound();
                     }
@@ -2222,15 +2224,10 @@ public abstract class Script<IO extends BaseInteractiveObject,
                             continue;
                         }
                     }
-                    System.out.println((timer.getLastTimeCheck()
-                            + timer.getCycleLength()));
                     if (timer.getLastTimeCheck()
                             + timer.getCycleLength() < currentTime) {
                         SCRIPTABLE script = (SCRIPTABLE) timer.getScript();
                         IO io = timer.getIo();
-                        System.out.println("script::" + script);
-                        System.out.println("io::" + io);
-                        System.out.println(Interactive.getInstance().hasIO(io));
                         if (script != null) {
                             if (timer.getName().equalsIgnoreCase("_R_A_T_")) {
                                 // if (Manage_Specific_RAT_Timer(st))
@@ -2247,8 +2244,6 @@ public abstract class Script<IO extends BaseInteractiveObject,
                             timer.setLastTimeCheck(timer.getLastTimeCheck()
                                     + timer.getCycleLength());
                         }
-                        System.out.println(script);
-                        System.out.println(Interactive.getInstance().hasIO(io));
                         if (script != null
                                 && Interactive.getInstance().hasIO(io)) {
                             timer.getAction().process();
