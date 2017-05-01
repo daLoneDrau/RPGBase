@@ -38,7 +38,7 @@ import com.dalonedrow.utils.ArrayUtilities;
  */
 @SuppressWarnings({ "rawtypes", "unchecked" })
 public abstract class Script<IO extends BaseInteractiveObject,
-        TIMER extends ScriptTimer<IO>, SCRIPTABLE extends Scriptable<IO>,
+        TIMER extends ScriptTimer<IO, SCRIPTABLE>, SCRIPTABLE extends Scriptable<IO>,
         STACKED extends StackedEvent<IO>> {
     private static final int ANIM_TALK_ANGRY = 0;
     private static final int ANIM_TALK_HAPPY = 0;

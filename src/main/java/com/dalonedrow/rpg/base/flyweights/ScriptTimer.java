@@ -9,7 +9,8 @@ package com.dalonedrow.rpg.base.flyweights;
  * @param <IO> the interactive object class associated with the timer
  */
 @SuppressWarnings({ "rawtypes", "unchecked" })
-public class ScriptTimer<IO extends BaseInteractiveObject> {
+public class ScriptTimer<IO extends BaseInteractiveObject,
+SCRIPT extends Scriptable<IO>> {
 	/** the action taken when the script timer completes. */
 	private ScriptTimerAction	action;
 	/** the flag indicating whether the timer exists. */
@@ -25,27 +26,13 @@ public class ScriptTimer<IO extends BaseInteractiveObject> {
 	/** the timer's name. */
 	private String				name;
 	/** the script associated with the timer. */
-	private Scriptable<IO>		script;
+	private SCRIPT		script;
 	/** the amount of time passed since the timer was started. */
 	private long				tim;
 	/** the number of times the timer repeats. */
 	private long				times;
 	/** if true, the timer is turn-based, otherwise it is millisecond based. */
 	private boolean turnBased;
-	/**
-	 * Determines whether the timer is turn-based, or millisecond based.
-	 * @return {@link boolean}
-	 */
-	public boolean isTurnBased() {
-		return turnBased;
-	}
-	/**
-	 * Sets whether the timer is turn-based, or millisecond based.
-	 * @param isTurnBased the new value to set
-	 */
-	public void setTurnBased(final boolean flag) {
-		this.turnBased = flag;
-	}
 	/**
 	 * Adds a flag set on the timer..
 	 * @param flag the flag
@@ -128,6 +115,13 @@ public class ScriptTimer<IO extends BaseInteractiveObject> {
 	public final boolean hasFlag(final long flag) {
 		return (flags & flag) == flag;
 	}
+    /**
+     * Determines whether the timer is turn-based, or millisecond based.
+     * @return {@link boolean}
+     */
+    public boolean isTurnBased() {
+        return turnBased;
+    }
 	/**
 	 * Removes a flag.
 	 * @param flag the flag
@@ -140,7 +134,7 @@ public class ScriptTimer<IO extends BaseInteractiveObject> {
 	 * @param params the parameters used to set the timer.
 	 */
 	public final void set(final ScriptTimerInitializationParameters params) {
-		script = params.getScript();
+		script = (SCRIPT) params.getScript();
 		exists = true;
 		io = (IO) params.getIo();
 		msecs = params.getMilliseconds();
@@ -161,6 +155,13 @@ public class ScriptTimer<IO extends BaseInteractiveObject> {
 	public final void setAction(final ScriptTimerAction sta) {
 		action = sta;
 	}
+    /**
+     * Sets the timer's length in milliseconds.
+     * @param val the value to set
+     */
+    public final void setCycleLength(final long val) {
+        msecs = val;
+    }
 	/**
 	 * Sets the flag indicating whether the timer exists.
 	 * @param flag the flag to set
@@ -183,13 +184,6 @@ public class ScriptTimer<IO extends BaseInteractiveObject> {
 		longinfo = val;
 	}
 	/**
-	 * Sets the timer's length in milliseconds.
-	 * @param val the value to set
-	 */
-	public final void setCycleLength(final long val) {
-		msecs = val;
-	}
-	/**
 	 * Sets the timer's name.
 	 * @param val the value to set
 	 */
@@ -200,7 +194,7 @@ public class ScriptTimer<IO extends BaseInteractiveObject> {
 	 * Sets the script associated with the timer.
 	 * @param val the {@link Scriptable}<{@link IO}> to set
 	 */
-	public final void setScript(final Scriptable<IO> val) {
+	public final void setScript(final SCRIPT val) {
 		script = val;
 	}
 	/**
@@ -217,4 +211,11 @@ public class ScriptTimer<IO extends BaseInteractiveObject> {
 	public final void setRepeatTimes(final long val) {
 		times = val;
 	}
+    /**
+     * Sets whether the timer is turn-based, or millisecond based.
+     * @param isTurnBased the new value to set
+     */
+    public void setTurnBased(final boolean flag) {
+        this.turnBased = flag;
+    }
 }

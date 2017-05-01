@@ -9,7 +9,7 @@ import java.lang.reflect.Method;
  */
 @SuppressWarnings("rawtypes")
 public final class ScriptTimerInitializationParameters
-<IO extends BaseInteractiveObject> {
+<IO extends BaseInteractiveObject, SCRIPT extends Scriptable<IO>> {
 	/**
 	 * the argument list supplied to the {@link Method} being invoked when the
 	 * timer completes. can be null.
@@ -30,7 +30,7 @@ public final class ScriptTimerInitializationParameters
 	/** the number of times the timer repeats. */
 	private int				repeatTimes;
 	/** the {@link Scriptable} associated with the timer. */
-	private Scriptable<IO>	script;
+	private SCRIPT	script;
 	/** the time when the timer starts. */
 	private long			startTime;
 	/** Clears all parameters. */
@@ -108,7 +108,7 @@ public final class ScriptTimerInitializationParameters
 	 * Gets the {@link Scriptable} associated with the timer.
 	 * @return {@link Scriptable<IO>}
 	 */
-	public Scriptable<IO> getScript() {
+	public SCRIPT getScript() {
 		return script;
 	}
 	/**
@@ -180,7 +180,7 @@ public final class ScriptTimerInitializationParameters
 	 * Sets the {@link Scriptable} associated with the timer.
 	 * @param val the new value to set
 	 */
-	public void setScript(final Scriptable<IO> val) {
+	public void setScript(final SCRIPT val) {
 		script = val;
 	}
 	/**
