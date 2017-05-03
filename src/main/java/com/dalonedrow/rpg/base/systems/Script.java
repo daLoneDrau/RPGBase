@@ -2076,7 +2076,7 @@ public abstract class Script<IO extends BaseInteractiveObject,
      * @param params the parameters
      */
     public final void startTimer(
-            final ScriptTimerInitializationParameters<IO> params) {
+            final ScriptTimerInitializationParameters<IO, SCRIPTABLE> params) {
         int timerNum = timerGetFree();
         ScriptTimer timer = getScriptTimer(timerNum);
         timer.setScript(params.getScript());
