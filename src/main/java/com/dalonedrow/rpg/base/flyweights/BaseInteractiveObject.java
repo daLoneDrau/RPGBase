@@ -581,6 +581,7 @@ public abstract class BaseInteractiveObject<ITEM extends IOItemData,
     /** Removes all active spells. */
     public final void removeAllSpells() {
         spellsOn = new int[0];
+        this.numberOfSpellsOn = 0;
     }
     /**
      * Removes a behavior flag.
